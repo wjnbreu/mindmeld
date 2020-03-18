@@ -594,6 +594,9 @@ class NaturalLanguageProcessor(Processor):
             processed_query.confidence = scores
         return processed_query
 
+
+    # def tranverse_helper(self, type, pattern, ):
+
     def extract_allowed_intents(self, allowed_intents):
         """This function validates a user inputted list of allowed_intents against the NLP
         hierarchy and construct a hierarchy dictionary as follows: ``{domain: {intent: {}}`` if
@@ -616,8 +619,10 @@ class NaturalLanguageProcessor(Processor):
                 domain, intent = nlp_class_splits
             elif len(nlp_class_splits) == 3:
                 domain, intent, entity = nlp_class_splits
-            else:
+            elif len(nlp_class_splits) == 4:
                 domain, intent, entity, role = nlp_class_splits
+            else:
+                raise MindMeldError("The allowed intent param %s is deformed" % allowed_intent)
 
             if domain not in self.domains.keys():
                 raise AllowedNlpClassesKeyError(
@@ -625,19 +630,19 @@ class NaturalLanguageProcessor(Processor):
                 )
 
             if intent != "*":
-                if intent not in self.domains[domain].intents.keys():
+                if intent not in self.domains[domain].intents:
                     raise AllowedNlpClassesKeyError(
                         "Intent: {} is not in the NLP component hierarchy".format(intent)
                     )
 
                 if entity != "*":
-                    if entity not in self.domains[domain].intents[intent].keys():
+                    if entity not in self.domains[domain].intents[intent].entities:
                         raise AllowedNlpClassesKeyError(
                             "Entity: {} is not in the NLP component hierarchy".format(entity)
                         )
 
                     if role != "*":
-                        if role not in self.domains[domain].intents[intent].entities[entity].keys():
+                        if role not in self.domains[domain].intents[intent].entities[entity].role_classifier.roles:
                             raise AllowedNlpClassesKeyError(
                                 "Role: {} is not in the NLP component hierarchy".format(role)
                             )
@@ -667,7 +672,7 @@ class NaturalLanguageProcessor(Processor):
             else:
                 nlp_components[domain][intent] = {}
                 if entity == "*":
-                    entities_for_intent = self.domains[domain].intents[entity].entities
+                    entities_for_intent = self.domains[domain].intents[intent].entities
                     for specific_entity in self.domains[domain].intents[intent].entities:
                         nlp_components[domain][intent][specific_entity] = {}
                         roles_for_entity = entities_for_intent[specific_entity].role_classifier.roles
@@ -678,7 +683,7 @@ class NaturalLanguageProcessor(Processor):
                             if role in roles_for_entity:
                                 nlp_components[domain][intent][specific_entity][role] = {}
                 else:
-                    if entity in self.domains[domain].intents[intent].keys():
+                    if entity in self.domains[domain].intents[intent].entities:
                         nlp_components[domain][intent][entity] = {}
 
         return nlp_components
