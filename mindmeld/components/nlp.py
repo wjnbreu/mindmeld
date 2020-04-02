@@ -340,6 +340,11 @@ class Processor(ABC):
     def _validate_locale(self, locale=None):
         """This function makes sure the locale is consistent with the app's language code"""
         locale = locale or self.locale
+
+        # if the developer or app doesnt specify the locale, we just use the default locale
+        if not locale:
+            return
+
         if locale.split("_")[0].lower() != self.language.lower():
             raise MindMeldError(
                 "Locale %s is inconsistent with app language code %s. "
@@ -1335,6 +1340,9 @@ class IntentProcessor(Processor):
         allowed_nlp_classes=None, verbose=False
     ):
         entity = processed_entities[idx]
+        if type(entity) == tuple:
+            entity = entity[0]
+
         # Run the role classification
         if not allowed_nlp_classes:
             entity, role_confidence = self.entities[entity.entity.type].process_entity(
@@ -1355,6 +1363,8 @@ class IntentProcessor(Processor):
                 pass
 
         # Run the entity resolution
+        if type(entity) == tuple:
+            entity = entity[0]
         entity = self.entities[entity.entity.type].resolve_entity(
             entity, aligned_entities[idx]
         )
@@ -1606,7 +1616,11 @@ class EntityProcessor(Processor):
         """
         self._check_ready()
         if aligned_entity_spans:
-            entity_list = [e.entity for e in aligned_entity_spans]
+            entity_list = []
+            for entity in aligned_entity_spans:
+                if type(entity) == tuple:
+                    entity = entity[0]
+                entity_list.append(entity.entity)
         else:
             entity_list = [entity.entity]
         entity.entity.value = self.entity_resolver.predict(entity_list)
