@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.app &mdash; The Conversational AI Playbook 4.3.0 documentation</title>
+  <title>mindmeld.app &mdash; The Conversational AI Playbook 4.3.1rc1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.0',
+              VERSION:'4.3.1rc1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.0
+                4.3.1rc1
               </div>
             
           
@@ -441,6 +441,7 @@
         <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="k">if</span> <span class="n">action</span> <span class="k">else</span> <span class="n">actions</span>
         <span class="n">action_seq</span> <span class="o">=</span> <span class="n">CustomActionSequence</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="n">merge</span><span class="p">)</span>
         <span class="n">state_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;custom_actions_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">actions</span><span class="p">))</span>
+        <span class="n">async_mode</span> <span class="o">=</span> <span class="n">async_mode</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_mode</span>
         <span class="k">if</span> <span class="n">async_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_dialogue_rule</span><span class="p">(</span><span class="n">state_name</span><span class="p">,</span> <span class="n">action_seq</span><span class="o">.</span><span class="n">invoke_async</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
