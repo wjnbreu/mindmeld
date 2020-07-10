@@ -853,9 +853,8 @@ Otherwise, <code class="docutils literal notranslate"><span class="pre">get_stor
 </ul>
 </li>
 </ul>
-<ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">FormEntity</span></code> is a class that allows creation of entity objects for slot filling and comprises of the following attributes:</p>
 <ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">FormEntity</span></code> is a class that allows creation of entity objects for slot filling and comprises of the following attributes:<ul>
 <li><code class="docutils literal notranslate"><span class="pre">entity</span></code> (str, required): Entity name.</li>
 <li><code class="docutils literal notranslate"><span class="pre">role</span></code> (str, optional): The role of the entity.</li>
 <li><code class="docutils literal notranslate"><span class="pre">responses</span></code> (list or str, optional): Message for prompting the user for missing entities.</li>
@@ -866,9 +865,6 @@ Otherwise, <code class="docutils literal notranslate"><span class="pre">get_stor
 <li><code class="docutils literal notranslate"><span class="pre">custom_eval</span></code> (func, optional): Custom validation function (should return bool:
 validated or not). For this function, the developer is provided with the current turn's <code class="docutils literal notranslate"><span class="pre">request</span></code> object.</li>
 </ul>
-<blockquote>
-<div><p>&lt;br /&gt;</p>
-</div></blockquote>
 </li>
 </ul>
 <p>Once the slot filling is complete, the filled in entities can be access through <code class="docutils literal notranslate"><span class="pre">request.entities</span></code> in the same manner as any other handler.</p>

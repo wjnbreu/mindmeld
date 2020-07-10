@@ -480,7 +480,7 @@ to get back to banking tasks</td>
 <p>This code is a simpler example of how to incorporate a third party API, the <code class="docutils literal notranslate"><span class="pre">_get</span></code> and <code class="docutils literal notranslate"><span class="pre">_put</span></code> methods are used here to mimic an API calls to get information and push an update.</p>
 <p>Here we will illustrate a simple version of the <code class="docutils literal notranslate"><span class="pre">pay_creditcard</span></code> handler, which is more complex than the prior handler and uses custom and system entities:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app.handle</span><span class="p">(</span><span class="n">intent</span><span class="o">=</span><span class="s1">&#39;pay_creditcard&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">setup_autopay</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">responder</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">pay_creditcard</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">responder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    When the user expresses an intent to make a credit card payment, check to see if</span>
 <span class="sd">    they have specified a numerical amount or a generic amount like minimum</span>
