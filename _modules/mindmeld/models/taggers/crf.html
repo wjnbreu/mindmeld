@@ -255,9 +255,9 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn_crfsuite</span> <span class="k">import</span> <span class="n">CRF</span>
+<span class="kn">from</span> <span class="nn">sklearn_crfsuite</span> <span class="kn">import</span> <span class="n">CRF</span>
 
-<span class="kn">from</span> <span class="nn">.taggers</span> <span class="k">import</span> <span class="n">Tagger</span><span class="p">,</span> <span class="n">extract_sequence_features</span>
+<span class="kn">from</span> <span class="nn">.taggers</span> <span class="kn">import</span> <span class="n">Tagger</span><span class="p">,</span> <span class="n">extract_sequence_features</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -402,7 +402,7 @@
 <span class="sd">        _size_std (float): size of each bin in standard deviation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_std</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size_std</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_std</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size_std</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_std</span> <span class="o">=</span> <span class="n">num_std</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_size_std</span> <span class="o">=</span> <span class="n">size_std</span>
 
@@ -449,7 +449,7 @@
 <span class="sd">    Class to convert features with numerical values to categorical values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="FeatureBinner.fit"><a class="viewcode-back" href="../../../../apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.FeatureBinner.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">):</span>

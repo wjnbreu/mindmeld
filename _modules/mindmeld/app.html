@@ -256,16 +256,16 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">.app_manager</span> <span class="k">import</span> <span class="n">ApplicationManager</span>
-<span class="kn">from</span> <span class="nn">.cli</span> <span class="k">import</span> <span class="n">app_cli</span>
-<span class="kn">from</span> <span class="nn">.components._config</span> <span class="k">import</span> <span class="n">get_custom_action_config</span>
-<span class="kn">from</span> <span class="nn">.components.custom_action</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.app_manager</span> <span class="kn">import</span> <span class="n">ApplicationManager</span>
+<span class="kn">from</span> <span class="nn">.cli</span> <span class="kn">import</span> <span class="n">app_cli</span>
+<span class="kn">from</span> <span class="nn">.components._config</span> <span class="kn">import</span> <span class="n">get_custom_action_config</span>
+<span class="kn">from</span> <span class="nn">.components.custom_action</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CustomActionException</span><span class="p">,</span>
     <span class="n">CustomActionSequence</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.components.dialogue</span> <span class="k">import</span> <span class="n">DialogueFlow</span><span class="p">,</span> <span class="n">DialogueResponder</span><span class="p">,</span> <span class="n">AutoEntityFilling</span>
-<span class="kn">from</span> <span class="nn">.components.request</span> <span class="k">import</span> <span class="n">Request</span>
-<span class="kn">from</span> <span class="nn">.server</span> <span class="k">import</span> <span class="n">MindMeldServer</span>
+<span class="kn">from</span> <span class="nn">.components.dialogue</span> <span class="kn">import</span> <span class="n">DialogueFlow</span><span class="p">,</span> <span class="n">DialogueResponder</span><span class="p">,</span> <span class="n">AutoEntityFilling</span>
+<span class="kn">from</span> <span class="nn">.components.request</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">.server</span> <span class="kn">import</span> <span class="n">MindMeldServer</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -285,7 +285,7 @@
 <span class="sd">            async_mode (bool): ``True`` if the application is async, ``False`` otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">import_name</span><span class="p">,</span>
         <span class="n">request_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

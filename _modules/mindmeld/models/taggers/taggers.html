@@ -255,16 +255,16 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">...core</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TEXT_FORM_NORMALIZED</span><span class="p">,</span>
     <span class="n">TEXT_FORM_RAW</span><span class="p">,</span>
     <span class="n">QueryEntity</span><span class="p">,</span>
     <span class="n">Span</span><span class="p">,</span>
     <span class="n">_sort_by_lowest_time_grain</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">...markup</span> <span class="k">import</span> <span class="n">MarkupError</span>
-<span class="kn">from</span> <span class="nn">...system_entity_recognizer</span> <span class="k">import</span> <span class="n">SystemEntityResolutionError</span>
-<span class="kn">from</span> <span class="nn">..helpers</span> <span class="k">import</span> <span class="n">ENABLE_STEMMING</span><span class="p">,</span> <span class="n">get_feature_extractor</span>
+<span class="kn">from</span> <span class="nn">...markup</span> <span class="kn">import</span> <span class="n">MarkupError</span>
+<span class="kn">from</span> <span class="nn">...system_entity_recognizer</span> <span class="kn">import</span> <span class="n">SystemEntityResolutionError</span>
+<span class="kn">from</span> <span class="nn">..helpers</span> <span class="kn">import</span> <span class="n">ENABLE_STEMMING</span><span class="p">,</span> <span class="n">get_feature_extractor</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -287,7 +287,7 @@
 <span class="sd">    the sklearn estimator interface so that GridSearchCV can be used on our sequence models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;To be consistent with the sklearn interface, __init__ and set_params should have the same</span>
 <span class="sd">        effect. We do all parameter setting and validation in set_params which is called from here.</span>
 
@@ -661,7 +661,7 @@
 <span class="sd">        fn (int): False negative count. When an entity was not predicted where one should have been</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes the object with all counts set to 0&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">le</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">be</span> <span class="o">=</span> <span class="mi">0</span>

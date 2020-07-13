@@ -254,16 +254,16 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
 
-<span class="kn">from</span> <span class="nn">nltk</span> <span class="k">import</span> <span class="n">FeatureChartParser</span>
-<span class="kn">from</span> <span class="nn">nltk.featstruct</span> <span class="k">import</span> <span class="n">Feature</span>
-<span class="kn">from</span> <span class="nn">nltk.grammar</span> <span class="k">import</span> <span class="n">FeatureGrammar</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">FeatureChartParser</span>
+<span class="kn">from</span> <span class="nn">nltk.featstruct</span> <span class="kn">import</span> <span class="n">Feature</span>
+<span class="kn">from</span> <span class="nn">nltk.grammar</span> <span class="kn">import</span> <span class="n">FeatureGrammar</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">Span</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">ParserTimeout</span>
-<span class="kn">from</span> <span class="nn">._config</span> <span class="k">import</span> <span class="n">get_parser_config</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Span</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">ParserTimeout</span>
+<span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="n">get_parser_config</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -294,7 +294,7 @@
 <span class="sd">        config (dict): The parser config.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

@@ -258,34 +258,34 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="k">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">Bunch</span><span class="p">,</span> <span class="n">ProcessedQuery</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Bunch</span><span class="p">,</span> <span class="n">ProcessedQuery</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">AllowedNlpClassesKeyError</span><span class="p">,</span>
     <span class="n">MindMeldImportError</span><span class="p">,</span>
     <span class="n">ProcessorError</span><span class="p">,</span>
     <span class="n">MindMeldError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..markup</span> <span class="k">import</span> <span class="n">TIME_FORMAT</span><span class="p">,</span> <span class="n">process_markup</span>
-<span class="kn">from</span> <span class="nn">..path</span> <span class="k">import</span> <span class="n">get_app</span>
-<span class="kn">from</span> <span class="nn">..query_factory</span> <span class="k">import</span> <span class="n">QueryFactory</span>
-<span class="kn">from</span> <span class="nn">..resource_loader</span> <span class="k">import</span> <span class="n">ResourceLoader</span>
-<span class="kn">from</span> <span class="nn">..system_entity_recognizer</span> <span class="k">import</span> <span class="n">SystemEntityRecognizer</span>
-<span class="kn">from</span> <span class="nn">._config</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..markup</span> <span class="kn">import</span> <span class="n">TIME_FORMAT</span><span class="p">,</span> <span class="n">process_markup</span>
+<span class="kn">from</span> <span class="nn">..path</span> <span class="kn">import</span> <span class="n">get_app</span>
+<span class="kn">from</span> <span class="nn">..query_factory</span> <span class="kn">import</span> <span class="n">QueryFactory</span>
+<span class="kn">from</span> <span class="nn">..resource_loader</span> <span class="kn">import</span> <span class="n">ResourceLoader</span>
+<span class="kn">from</span> <span class="nn">..system_entity_recognizer</span> <span class="kn">import</span> <span class="n">SystemEntityRecognizer</span>
+<span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_nlp_config</span><span class="p">,</span>
     <span class="n">get_language_config</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.domain_classifier</span> <span class="k">import</span> <span class="n">DomainClassifier</span>
-<span class="kn">from</span> <span class="nn">.entity_recognizer</span> <span class="k">import</span> <span class="n">EntityRecognizer</span>
-<span class="kn">from</span> <span class="nn">.entity_resolver</span> <span class="k">import</span> <span class="n">EntityResolver</span><span class="p">,</span> <span class="n">EntityResolverConnectionError</span>
-<span class="kn">from</span> <span class="nn">.intent_classifier</span> <span class="k">import</span> <span class="n">IntentClassifier</span>
-<span class="kn">from</span> <span class="nn">.parser</span> <span class="k">import</span> <span class="n">Parser</span>
-<span class="kn">from</span> <span class="nn">.role_classifier</span> <span class="k">import</span> <span class="n">RoleClassifier</span>
+<span class="kn">from</span> <span class="nn">.domain_classifier</span> <span class="kn">import</span> <span class="n">DomainClassifier</span>
+<span class="kn">from</span> <span class="nn">.entity_recognizer</span> <span class="kn">import</span> <span class="n">EntityRecognizer</span>
+<span class="kn">from</span> <span class="nn">.entity_resolver</span> <span class="kn">import</span> <span class="n">EntityResolver</span><span class="p">,</span> <span class="n">EntityResolverConnectionError</span>
+<span class="kn">from</span> <span class="nn">.intent_classifier</span> <span class="kn">import</span> <span class="n">IntentClassifier</span>
+<span class="kn">from</span> <span class="nn">.parser</span> <span class="kn">import</span> <span class="n">Parser</span>
+<span class="kn">from</span> <span class="nn">.role_classifier</span> <span class="kn">import</span> <span class="n">RoleClassifier</span>
 
 <span class="c1"># ignore sklearn DeprecationWarning, https://github.com/scikit-learn/scikit-learn/issues/10449</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
@@ -342,7 +342,7 @@
     <span class="n">instance_map</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="sd">&quot;&quot;&quot;The map of identity to instance.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a processor</span>
 
 <span class="sd">        Args:</span>
@@ -627,7 +627,7 @@
             <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&lt;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{!r}</span><span class="s2"> ready: </span><span class="si">{!r}</span><span class="s2">, dirty: </span><span class="si">{!r}</span><span class="s2">&gt;&quot;</span>
         <span class="k">return</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirty</span><span class="p">)</span></div>
 
@@ -640,7 +640,7 @@
 <span class="sd">        domain_classifier (DomainClassifier): The domain classifier for this application.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a natural language processor object</span>
 
 <span class="sd">        Args:</span>
@@ -997,7 +997,7 @@
         <span class="sd">&quot;&quot;&quot;The intents supported within this domain (dict).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a domain processor object</span>
 
 <span class="sd">        Args:</span>
@@ -1225,7 +1225,7 @@
 <span class="sd">        entity_recognizer (EntityRecognizer): The entity recognizer for this intent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes an intent processor object</span>
 
 <span class="sd">        Args:</span>
@@ -1592,7 +1592,7 @@
 <span class="sd">        role_classifier (RoleClassifier): The role classifier for this entity type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes an entity processor object</span>
 
 <span class="sd">        Args:</span>
