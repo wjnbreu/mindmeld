@@ -323,6 +323,12 @@ User Guide
 
    Application Manager
 
+ Managing Optional Dependency
+
+   Turning off Duckling
+
+   Turning off ElasticSearch for Entity Resolution
+
  Working with the Preprocessor
 
    Implement the preprocessor
@@ -507,7 +513,7 @@ User Guide
 
    Configure Custom Actions for your MindMeld application
 
-   A Simple Custom Action Server
+   A Sample Custom Action Server
 
    Using Custom Actions with MindMeld applications
 

@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.models.embedder_models &mdash; The Conversational AI Playbook 4.3.1rc1 documentation</title>
+  <title>mindmeld.models.embedder_models &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'4.3.1rc1',
+              VERSION:'4.3.1rc2',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc1
+                4.3.1rc2
               </div>
             
           
@@ -143,6 +143,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/architecture.html">Platform Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/optional_dependency.html">Managing Optional Dependency</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/preprocessor.html">Working with the Preprocessor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/nlp.html">Working with the Natural Language Processor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/domain_classifier.html">Working with the Domain Classifier</a></li>
@@ -271,7 +272,7 @@
 
     <span class="n">register_bert</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Must install the extra [bert] to use the built in embbedder.&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Must install the extra [bert] to use the built in embbedder.&quot;</span><span class="p">)</span>
     <span class="n">register_bert</span> <span class="o">=</span> <span class="kc">False</span>
 
 

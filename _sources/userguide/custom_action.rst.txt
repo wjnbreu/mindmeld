@@ -58,21 +58,26 @@ In your Dialogue Manager, you can access the application's custom action config 
 property ``app.custom_action_config``.
 
 
-A Simple Custom Action Server
+A Sample Custom Action Server
 -----------------------------
 
 To understand the behavior of Custom Actions, let's take a look at example of a Custom Action Server. We have added a
-sample server in the github directory under `examples/custom_action/example_server`. This server is adapted from the
-sample server that is auto-generated from our OpenAPI protocol.
+sample server for Python 3.6+ in the github directory under `examples/custom_action/example_server`. This server is adapted from the
+sample server that is auto-generated from our OpenAPI protocol using the `Swagger Online Editor <https://editor.swagger.io/>`_.
 
-To install the optional dependency for the sample server, you can run the following command in the terminal:
+To setup the sample server, you can run the following command in the terminal:
 
 .. code-block:: console
 
     pip install mindmeld[examples]
 
-    # to view the MindMeld API in the local browser:
+    # optionally, to view the MindMeld API in the local browser:
     pip install "connexion[swagger-ui]"
+
+
+    git clone git@github.com:cisco/mindmeld.git
+
+    cd mindmeld/examples/custom_action/example_server
 
     # to run the server
     python -m swagger_server
@@ -111,6 +116,28 @@ In this example, the server simply returns a reply directive for each action req
             directives.append(reply)
         responder = Responder(directives=directives, frame={})
         return responder
+
+To test the server, you can run the following code snippet:
+
+.. code-block:: python
+
+    from mindmeld.components.custom_action import CustomAction
+    action_config = {'url': 'http://localhost:8080/action'}
+
+    action = CustomAction(name='action_call_people', config=action_config)
+    from mindmeld.components.request import Request
+    from mindmeld.components.dialogue import DialogueResponder
+
+    # should get 400 since the request fields are missing
+    action.invoke(Request(), DialogueResponder())
+
+    # synchronous case
+    request = Request(text='some text', domain='some domain', intent='some intent')
+    responder = DialogueResponder()
+
+    # we should see a successful request and one reply directive
+    action.invoke(request, responder)
+    print('Directives:', responder.directives)
 
 You can explore the implementation of the Request and Responder data objects in our sample server to return different
 fields of MindMeld.
