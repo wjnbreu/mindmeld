@@ -190,7 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Platform Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optional_dependency.html">Managing Optional Dependency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_dependency.html">Managing Optional Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessor.html">Working with the Preprocessor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nlp.html">Working with the Natural Language Processor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="domain_classifier.html">Working with the Domain Classifier</a></li>
@@ -331,12 +331,16 @@
 <p>In the Docker setup, we use Docker only for running MindMeld dependencies, namely, Elasticsearch and the Numerical Parser service. The developer will then use their local machine to run the MindMeld project.</p>
 <div class="section" id="pull-and-run-docker-container">
 <h4>1. Pull and run Docker container<a class="headerlink" href="#pull-and-run-docker-container" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The following instruction references our docker container with Elasticsearch 7 which is a requirement for leveraging semantic embedding. <code class="docutils literal notranslate"><span class="pre">mindmeldworkbench/dep:latest</span></code> is still available with an older version of Elasticsearch.</p>
+</div>
 <ol class="arabic simple">
 <li>First, <a class="reference external" href="https://www.docker.com/community-edition#/download">install Docker</a>, and run it.</li>
 <li>Then, open a terminal (shell) and run these commands:</li>
 </ol>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker pull mindmeldworkbench/dep:es_7
-docker run -ti -d -p <span class="m">0</span>.0.0.0:9200:9200 -p <span class="m">0</span>.0.0.0:7151:7151 -p <span class="m">0</span>.0.0.0:9300:9300 mindmeldworkbench/dep
+docker run -ti -d -p <span class="m">0</span>.0.0.0:9200:9200 -p <span class="m">0</span>.0.0.0:7151:7151 -p <span class="m">0</span>.0.0.0:9300:9300 mindmeldworkbench/dep:es_7
 </pre></div>
 </div>
 </div>

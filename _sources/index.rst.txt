@@ -323,7 +323,7 @@ User Guide
 
    Application Manager
 
- Managing Optional Dependency
+ Managing Optional Dependencies
 
    Turning off Duckling
 
