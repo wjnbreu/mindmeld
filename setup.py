@@ -10,13 +10,13 @@ with open("README.md") as readme_file:
 requirements = [
     "aiohttp>=3.6.2",
     "attrs>=18.2",  # attrs has a stable API and does not use semver
-    "Click~=7.1",
+    "Click~=6.0",
     "click-log==0.1.8",
     "distro~=1.3",
     "elasticsearch>=5.0",
     "Flask~=1.0",
     "Flask-Cors~=3.0",
-    "future~=0.16.0",
+    "future~=0.17.1",
     "pycountry",  # uses calendar versioning
     "nltk~=3.2",
     "numpy~=1.15",
