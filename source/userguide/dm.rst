@@ -317,7 +317,7 @@ For example, in this snippet, once the user enters the ``close_door`` state, the
         else:
             responder.params.target_dialogue_state = 'close_door'
             prompt = "Of course, which door?"
-            responder.prompt(prompt)
+            responder.reply(prompt)
 
 Passing ``targeted_only=True`` to :py:meth:`app.handle` will make the handler reachable only if it is specified by setting ``target_dialogue_state`` in the params object. When ``targeted_only`` is ``True``, ``domain``, ``intent``, ``handle_entity``, and ``has_entities`` must not be passed.
 
@@ -369,7 +369,7 @@ Using this construct allows the dialogue handler to cover (1) the single-query c
         else:
             responder.params.allowed_intents = ['smart_home.close_door', 'greeting.*']
             prompt = "Of course, which door?"
-            responder.prompt(prompt)
+            responder.reply(prompt)
 
 
 This example comes from the Home Assistant blueprint. It is simplistic in that if the conversation departs from the "happy path," only one domain (`greeting`) is supported. A production application would need a longer list of allowed domains and intents.
@@ -406,9 +406,9 @@ You can pass the entities, along with their popularity information as a ``dynami
    @app.handle(intent='place_order')
    def place_order(request, responder):
        restaurant_list = ['Extreme Pizza', 'Buca Di Beppo', 'Firetrail Pizza']
-       responder.dynamic_resource['gazetteers'] = {'restaurant': dict((restaurant, 1.0) for restaurant in restaurant_list)}
+       responder.params.dynamic_resource['gazetteers'] = {'restaurant': dict((restaurant, 1.0) for restaurant in restaurant_list)}
        prompt = "I found pizza at " + ', '.join(restaurant_list) + '. Where would you like to order from?'
-       responder.prompt(prompt)
+       responder.reply(prompt)
 
 In the above code block, if the user's next query is ``How about Firetrail``, the language processor has a very high likelihood of detecting ``Firetrail`` as a ``restaurant`` entity type. You can test how a dynamic gazetteer affects the behavior of your NLP models by passing it to :meth:`NaturalLanguageProcessor.process` method.
 
