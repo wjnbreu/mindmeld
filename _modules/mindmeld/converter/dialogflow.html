@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.converter.dialogflow &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.converter.dialogflow &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -369,7 +370,7 @@
     <span class="c1"># =========================</span>
 
     <span class="k">def</span> <span class="nf">_create_entities_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Creates directories + files for all languages/files.</span>
+        <span class="sd">&quot;&quot;&quot;Creates directories + files for all languages/files.</span>
 <span class="sd">        Currently does not use meta data in entityName.json files (the keys in var entities).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">languages</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -546,13 +547,13 @@
         <span class="n">target_train</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_file_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Gets the names of the entities from Dialogflow as a dictionary.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the names of the entities from Dialogflow as a dictionary.</span>
 <span class="sd">        levels (str): either &quot;entities&quot; or &quot;intents&quot;</span>
 
 <span class="sd">        ex. if we had the following files in our entities directory:</span>
 <span class="sd">            [&quot;test.json&quot;, &quot;test_entries_en.json&quot;, &quot;test_entries_de.json&quot;]</span>
 <span class="sd">        it returns:</span>
-<span class="sd">            {&#39;test&#39;: {&#39;en&#39;: &#39;test_entries_en&#39;, &#39;de&#39;: &#39;test_entries_de&#39;}} &quot;&quot;&quot;</span>
+<span class="sd">            {&#39;test&#39;: {&#39;en&#39;: &#39;test_entries_en&#39;, &#39;de&#39;: &#39;test_entries_de&#39;}}&quot;&quot;&quot;</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dialogflow_project_directory</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
         <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
@@ -600,7 +601,7 @@
         <span class="k">return</span> <span class="n">name</span></div>
 
 <div class="viewcode-block" id="DialogflowConverter.clean_check"><a class="viewcode-back" href="../../../apidoc/mindmeld.converter.dialogflow.html#mindmeld.converter.DialogflowConverter.clean_check">[docs]</a>    <span class="k">def</span> <span class="nf">clean_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Takes in a list of strings and a name.</span>
+        <span class="sd">&quot;&quot;&quot;Takes in a list of strings and a name.</span>
 <span class="sd">        Returns name cleaned if the cleaned name is not found in lst.&quot;&quot;&quot;</span>
         <span class="n">cleaned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -703,7 +704,9 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">code_gen</span><span class="o">.</span><span class="n">generate_function</span><span class="p">(</span>
-                    <span class="n">handle</span><span class="o">=</span><span class="n">handle</span><span class="p">,</span> <span class="n">function_name</span><span class="o">=</span><span class="n">function_name</span><span class="p">,</span> <span class="n">replies</span><span class="o">=</span><span class="n">replies</span><span class="p">,</span>
+                    <span class="n">handle</span><span class="o">=</span><span class="n">handle</span><span class="p">,</span>
+                    <span class="n">function_name</span><span class="o">=</span><span class="n">function_name</span><span class="p">,</span>
+                    <span class="n">replies</span><span class="o">=</span><span class="n">replies</span><span class="p">,</span>
                 <span class="p">)</span></div>
 
     <span class="c1"># =========================</span>
@@ -711,7 +714,7 @@
     <span class="c1"># =========================</span>
 
 <div class="viewcode-block" id="DialogflowConverter.convert_project"><a class="viewcode-back" href="../../../apidoc/mindmeld.converter.dialogflow.html#mindmeld.converter.DialogflowConverter.convert_project">[docs]</a>    <span class="k">def</span> <span class="nf">convert_project</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Converts a Dialogflow project into a MindMeld project.</span>
+        <span class="sd">&quot;&quot;&quot;Converts a Dialogflow project into a MindMeld project.</span>
 
 <span class="sd">        Dialogflow projects consist of entities and intents.</span>
 <span class="sd">            note on languages:</span>

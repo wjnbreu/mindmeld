@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>HR Assistant &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>HR Assistant &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -86,7 +86,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -177,6 +177,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -612,10 +613,10 @@ App: Daniel Davis is Single                             <span class="c1"># get_i
 <p>For example, here's the knowledge base entry in the <code class="docutils literal notranslate"><span class="pre">user_data</span></code> index for the employee &quot;Mia Brown&quot;:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;emp_name&quot;</span><span class="o">:</span> <span class="s2">&quot;Brown, Mia&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1103024456</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mf">1103024456</span><span class="p">,</span>
     <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;MA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dob&quot;</span><span class="o">:</span> <span class="s2">&quot;1985-11-24&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="o">:</span> <span class="mf">32</span><span class="p">,</span>
     <span class="s2">&quot;sex&quot;</span><span class="o">:</span> <span class="s2">&quot;Female&quot;</span><span class="p">,</span>
     <span class="s2">&quot;maritaldesc&quot;</span><span class="o">:</span> <span class="s2">&quot;Married&quot;</span><span class="p">,</span>
     <span class="s2">&quot;citizendesc&quot;</span><span class="o">:</span> <span class="s2">&quot;US Citizen&quot;</span><span class="p">,</span>

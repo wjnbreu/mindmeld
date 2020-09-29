@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.query_factory &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.query_factory &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -251,8 +252,8 @@
 <span class="c1"># limitations under the License.</span>
 
 <span class="sd">&quot;&quot;&quot;This module contains the query factory class.&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">TEXT_FORM_NORMALIZED</span><span class="p">,</span> <span class="n">TEXT_FORM_PROCESSED</span><span class="p">,</span> <span class="n">TEXT_FORM_RAW</span><span class="p">,</span> <span class="n">Query</span>
 <span class="kn">from</span> <span class="nn">.stemmers</span> <span class="kn">import</span> <span class="n">get_language_stemmer</span>
@@ -261,7 +262,10 @@
 <span class="kn">from</span> <span class="nn">.system_entity_recognizer</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">NoOpSystemEntityRecognizer</span><span class="p">,</span>
     <span class="n">SystemEntityRecognizer</span><span class="p">,</span>
+    <span class="n">DucklingRecognizer</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="QueryFactory"><a class="viewcode-back" href="../../apidoc/mindmeld.query_factory.html#mindmeld.query_factory.QueryFactory">[docs]</a><span class="k">class</span> <span class="nc">QueryFactory</span><span class="p">:</span>
@@ -275,6 +279,8 @@
 <span class="sd">        language (str): the language of the text</span>
 <span class="sd">        locale (str): the locale of the text</span>
 <span class="sd">        system_entity_recognizer (SystemEntityRecognizer): default to NoOpSystemEntityRecognizer</span>
+<span class="sd">        duckling (bool): if no system entity recognizer is provided,</span>
+<span class="sd">            initialize a new Duckling recognizer instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -285,15 +291,23 @@
         <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">system_entity_recognizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">duckling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stemmer</span> <span class="o">=</span> <span class="n">stemmer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">locale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">system_entity_recognizer</span> <span class="ow">or</span> <span class="n">NoOpSystemEntityRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
-        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">system_entity_recognizer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span> <span class="o">=</span> <span class="n">system_entity_recognizer</span>
+        <span class="k">elif</span> <span class="n">duckling</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span> <span class="o">=</span> <span class="n">DucklingRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;No System Entity Recognizer selected, set &#39;duckling=True&#39; for DucklingRecognizer&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span> <span class="o">=</span> <span class="n">NoOpSystemEntityRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
 
 <div class="viewcode-block" id="QueryFactory.create_query"><a class="viewcode-back" href="../../apidoc/mindmeld.query_factory.html#mindmeld.query_factory.QueryFactory.create_query">[docs]</a>    <span class="k">def</span> <span class="nf">create_query</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">time_zone</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span>
@@ -381,6 +395,7 @@
         <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">stemmer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">system_entity_recognizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">duckling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates a query factory for the application.</span>
 
@@ -394,18 +409,25 @@
 <span class="sd">            stemmer (Stemmer, optional): The stemmer to use for stemming</span>
 <span class="sd">            system_entity_recognizer (SystemEntityRecognizer): If not passed, we use either the one</span>
 <span class="sd">                from the application&#39;s configuration or NoOpSystemEntityRecognizer.</span>
+<span class="sd">            duckling (bool, optional): if no system entity recognizer is provided, </span>
+<span class="sd">                 initialize a new Duckling recognizer instance.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            QueryFactory: A QueryFactory object that is used to create Query objects.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">language</span><span class="p">,</span> <span class="n">locale</span> <span class="o">=</span> <span class="n">get_language_config</span><span class="p">(</span><span class="n">app_path</span><span class="p">)</span>
-        <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span> <span class="ow">or</span> <span class="n">Tokenizer</span><span class="o">.</span><span class="n">create_tokenizer</span><span class="p">()</span>
+        <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span> <span class="ow">or</span> <span class="n">Tokenizer</span><span class="o">.</span><span class="n">create_tokenizer</span><span class="p">(</span><span class="n">app_path</span><span class="p">)</span>
         <span class="n">stemmer</span> <span class="o">=</span> <span class="n">stemmer</span> <span class="ow">or</span> <span class="n">get_language_stemmer</span><span class="p">(</span><span class="n">language_code</span><span class="o">=</span><span class="n">language</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">system_entity_recognizer</span><span class="p">:</span>
             <span class="n">sys_entity_recognizer</span> <span class="o">=</span> <span class="n">system_entity_recognizer</span>
         <span class="k">elif</span> <span class="n">app_path</span><span class="p">:</span>
             <span class="n">sys_entity_recognizer</span> <span class="o">=</span> <span class="n">SystemEntityRecognizer</span><span class="o">.</span><span class="n">load_from_app_path</span><span class="p">(</span><span class="n">app_path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">duckling</span><span class="p">:</span>
+            <span class="n">sys_entity_recognizer</span> <span class="o">=</span> <span class="n">DucklingRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;No System Entity Recognizer selected, set &#39;duckling=True&#39; for DucklingRecognizer&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">sys_entity_recognizer</span> <span class="o">=</span> <span class="n">NoOpSystemEntityRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">QueryFactory</span><span class="p">(</span>
             <span class="n">tokenizer</span><span class="p">,</span>

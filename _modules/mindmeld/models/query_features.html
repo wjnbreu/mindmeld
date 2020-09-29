@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.models.query_features &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.models.query_features &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -265,6 +266,7 @@
     <span class="n">SYS_TYPES_RSC</span><span class="p">,</span>
     <span class="n">WORD_FREQ_RSC</span><span class="p">,</span>
     <span class="n">WORD_NGRAM_FREQ_RSC</span><span class="p">,</span>
+    <span class="n">SENTIMENT_ANALYZER</span><span class="p">,</span>
     <span class="n">get_ngram</span><span class="p">,</span>
     <span class="n">mask_numerics</span><span class="p">,</span>
     <span class="n">register_query_feature</span><span class="p">,</span>
@@ -275,8 +277,7 @@
 <div class="viewcode-block" id="extract_in_gaz_span_features"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.extract_in_gaz_span_features">[docs]</a><span class="nd">@register_query_feature</span><span class="p">(</span><span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;in-gaz-span-seq&quot;</span><span class="p">)</span>
 <span class="nd">@requires</span><span class="p">(</span><span class="n">GAZETTEER_RSC</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">extract_in_gaz_span_features</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a feature extractor for properties of spans in gazetteers</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns a feature extractor for properties of spans in gazetteers&quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">kwargs</span>
 
     <span class="k">def</span> <span class="nf">_extractor</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">resources</span><span class="p">):</span>
@@ -447,8 +448,7 @@
 <div class="viewcode-block" id="extract_in_gaz_ngram_features"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.extract_in_gaz_ngram_features">[docs]</a><span class="nd">@register_query_feature</span><span class="p">(</span><span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;in-gaz-ngram-seq&quot;</span><span class="p">)</span>
 <span class="nd">@requires</span><span class="p">(</span><span class="n">GAZETTEER_RSC</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">extract_in_gaz_ngram_features</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a feature extractor for surrounding ngrams in gazetteers</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns a feature extractor for surrounding ngrams in gazetteers&quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">kwargs</span>
 
     <span class="k">def</span> <span class="nf">_extractor</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">resources</span><span class="p">):</span>
@@ -641,8 +641,10 @@
                         <span class="n">stemmed_n_gram</span> <span class="o">=</span> <span class="n">get_ngram</span><span class="p">(</span>
                             <span class="n">stemmed_tokens</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
                         <span class="p">)</span>
-                        <span class="n">stemmed_feat_name</span> <span class="o">=</span> <span class="s2">&quot;bag_of_words_stemmed|length:</span><span class="si">{}</span><span class="s2">|word_pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">length</span><span class="p">,</span> <span class="n">start</span>
+                        <span class="n">stemmed_feat_name</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="s2">&quot;bag_of_words_stemmed|length:</span><span class="si">{}</span><span class="s2">|word_pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">length</span><span class="p">,</span> <span class="n">start</span>
+                            <span class="p">)</span>
                         <span class="p">)</span>
                         <span class="k">if</span> <span class="p">(</span>
                             <span class="n">resources</span><span class="p">[</span><span class="n">WORD_NGRAM_FREQ_RSC</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stemmed_n_gram</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -685,8 +687,7 @@
 <div class="viewcode-block" id="enabled_stemming"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.enabled_stemming">[docs]</a><span class="nd">@register_query_feature</span><span class="p">(</span><span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;enable-stemming&quot;</span><span class="p">)</span>
 <span class="nd">@requires</span><span class="p">(</span><span class="n">ENABLE_STEMMING</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">enabled_stemming</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Feature extractor for enabling stemming of the query</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Feature extractor for enabling stemming of the query&quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">kwargs</span>
 
     <span class="k">def</span> <span class="nf">_extractor</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">resources</span><span class="p">):</span>
@@ -704,15 +705,15 @@
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a character n-gram feature extractor.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            ngram_lengths_to_start_positions (dict):</span>
-<span class="sd">            The window of tokens to be considered relative to the</span>
-<span class="sd">            current token while extracting char n-grams</span>
-<span class="sd">            thresholds (int): Cut off value to include word in n-gram vocab</span>
+<span class="sd">    Args:</span>
+<span class="sd">        ngram_lengths_to_start_positions (dict):</span>
+<span class="sd">        The window of tokens to be considered relative to the</span>
+<span class="sd">        current token while extracting char n-grams</span>
+<span class="sd">        thresholds (int): Cut off value to include word in n-gram vocab</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            (function) The feature extractor.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (function) The feature extractor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">kwargs</span>
     <span class="n">threshold_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">thresholds</span><span class="p">)</span>
     <span class="n">char_thresholds</span> <span class="o">=</span> <span class="n">threshold_list</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
@@ -738,8 +739,10 @@
                         <span class="n">ngrams</span> <span class="o">=</span> <span class="p">[</span><span class="n">OUT_OF_BOUNDS_TOKEN</span><span class="p">]</span>
                     <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">c_gram</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ngrams</span><span class="p">):</span>
                         <span class="k">if</span> <span class="n">resources</span><span class="p">[</span><span class="n">CHAR_NGRAM_FREQ_RSC</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c_gram</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
-                            <span class="n">feat_name</span> <span class="o">=</span> <span class="s2">&quot;char_ngrams|length:</span><span class="si">{}</span><span class="s2">|word_pos:</span><span class="si">{}</span><span class="s2">|char_pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">length</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">j</span>
+                            <span class="n">feat_name</span> <span class="o">=</span> <span class="p">(</span>
+                                <span class="s2">&quot;char_ngrams|length:</span><span class="si">{}</span><span class="s2">|word_pos:</span><span class="si">{}</span><span class="s2">|char_pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">length</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">j</span>
+                                <span class="p">)</span>
                             <span class="p">)</span>
                             <span class="n">feat_seq</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">feat_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gram</span>
                 <span class="n">threshold_index</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -769,8 +772,10 @@
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">token_span</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">start_positions</span><span class="p">:</span>
                     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">feat_seq</span><span class="p">):</span>
-                        <span class="n">feat_name</span> <span class="o">=</span> <span class="s2">&quot;sys_candidate|type:</span><span class="si">{}</span><span class="s2">|granularity:</span><span class="si">{}</span><span class="s2">|pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">entity</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;grain&quot;</span><span class="p">),</span> <span class="n">j</span>
+                        <span class="n">feat_name</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="s2">&quot;sys_candidate|type:</span><span class="si">{}</span><span class="s2">|granularity:</span><span class="si">{}</span><span class="s2">|pos:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">entity</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;grain&quot;</span><span class="p">),</span> <span class="n">j</span>
+                            <span class="p">)</span>
                         <span class="p">)</span>
                         <span class="n">feat_seq</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">][</span><span class="n">feat_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                         <span class="n">feat_name</span> <span class="o">=</span> <span class="s2">&quot;sys_candidate|type:</span><span class="si">{}</span><span class="s2">|granularity:</span><span class="si">{}</span><span class="s2">|pos:</span><span class="si">{}</span><span class="s2">|log_len&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -802,14 +807,14 @@
 <span class="k">def</span> <span class="nf">extract_char_ngrams</span><span class="p">(</span><span class="n">lengths</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">thresholds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Extract character ngrams of specified lengths.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            lengths (list of int): The ngram length.</span>
-<span class="sd">            thresholds (list of int): frequency cut off value to include ngram in vocab</span>
+<span class="sd">    Args:</span>
+<span class="sd">        lengths (list of int): The ngram length.</span>
+<span class="sd">        thresholds (list of int): frequency cut off value to include ngram in vocab</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            (function) An feature extraction function that takes a query and</span>
-<span class="sd">                returns character ngrams of specified lengths.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (function) An feature extraction function that takes a query and</span>
+<span class="sd">            returns character ngrams of specified lengths.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">kwargs</span>
     <span class="n">threshold_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">thresholds</span><span class="p">)</span>
     <span class="n">char_thresholds</span> <span class="o">=</span> <span class="n">threshold_list</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">threshold_list</span><span class="p">))</span>
@@ -1226,6 +1231,33 @@
                 <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;exact|query:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stemmed_query_key</span><span class="p">):</span> <span class="n">scaling</span><span class="p">}</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;exact|query:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;&lt;OOV&gt;&quot;</span><span class="p">):</span> <span class="n">scaling</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">_extractor</span></div>
+
+
+<div class="viewcode-block" id="extract_sentiment"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.extract_sentiment">[docs]</a><span class="nd">@register_query_feature</span><span class="p">(</span><span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;sentiment&quot;</span><span class="p">)</span>
+<span class="nd">@requires</span><span class="p">(</span><span class="n">SENTIMENT_ANALYZER</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">extract_sentiment</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s2">&quot;composite&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generates sentiment intensity scores for each query</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (function) A feature extraction function that takes in a query and \</span>
+<span class="sd">            returns sentiment values across positive, negative and neutral</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">del</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="nf">_extractor</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">resources</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">sentiment_scores</span> <span class="o">=</span> <span class="n">resources</span><span class="p">[</span><span class="n">SENTIMENT_ANALYZER</span><span class="p">]</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">analyzer</span> <span class="o">==</span> <span class="s2">&quot;composite&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;sentiment|composite&quot;</span><span class="p">:</span> <span class="n">sentiment_scores</span><span class="p">[</span><span class="s2">&quot;compound&quot;</span><span class="p">]}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;sentiment|positive&quot;</span><span class="p">:</span> <span class="n">sentiment_scores</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;sentiment|negative&quot;</span><span class="p">:</span> <span class="n">sentiment_scores</span><span class="p">[</span><span class="s2">&quot;neg&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;sentiment|neutral&quot;</span><span class="p">:</span> <span class="n">sentiment_scores</span><span class="p">[</span><span class="s2">&quot;neu&quot;</span><span class="p">],</span>
+            <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">_extractor</span></div>
 

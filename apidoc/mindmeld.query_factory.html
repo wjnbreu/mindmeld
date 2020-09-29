@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.query_factory module &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.query_factory module &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -267,7 +268,7 @@
 <p>This module contains the query factory class.</p>
 <dl class="class">
 <dt id="mindmeld.query_factory.QueryFactory">
-<em class="property">class </em><code class="descclassname">mindmeld.query_factory.</code><code class="descname">QueryFactory</code><span class="sig-paren">(</span><em>tokenizer</em>, <em>preprocessor=None</em>, <em>stemmer=None</em>, <em>locale=None</em>, <em>language=None</em>, <em>system_entity_recognizer=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/query_factory.html#QueryFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.query_factory.QueryFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mindmeld.query_factory.</code><code class="descname">QueryFactory</code><span class="sig-paren">(</span><em>tokenizer</em>, <em>preprocessor=None</em>, <em>stemmer=None</em>, <em>locale=None</em>, <em>language=None</em>, <em>system_entity_recognizer=None</em>, <em>duckling=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/query_factory.html#QueryFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.query_factory.QueryFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An object which encapsulates the components required to create a Query object.</p>
 <dl class="attribute">
@@ -307,6 +308,13 @@ text</p>
 <dd><p><em>SystemEntityRecognizer</em> -- default to NoOpSystemEntityRecognizer</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="mindmeld.query_factory.QueryFactory.duckling">
+<code class="descname">duckling</code><a class="headerlink" href="#mindmeld.query_factory.QueryFactory.duckling" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- if no system entity recognizer is provided,
+initialize a new Duckling recognizer instance.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="mindmeld.query_factory.QueryFactory.create_query">
 <code class="descname">create_query</code><span class="sig-paren">(</span><em>text</em>, <em>time_zone=None</em>, <em>timestamp=None</em>, <em>locale=None</em>, <em>language=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/query_factory.html#QueryFactory.create_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.query_factory.QueryFactory.create_query" title="Permalink to this definition">¶</a></dt>
@@ -337,7 +345,7 @@ in seconds.</li>
 
 <dl class="staticmethod">
 <dt id="mindmeld.query_factory.QueryFactory.create_query_factory">
-<em class="property">static </em><code class="descname">create_query_factory</code><span class="sig-paren">(</span><em>app_path=None</em>, <em>tokenizer=None</em>, <em>preprocessor=None</em>, <em>stemmer=None</em>, <em>system_entity_recognizer=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/query_factory.html#QueryFactory.create_query_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.query_factory.QueryFactory.create_query_factory" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">create_query_factory</code><span class="sig-paren">(</span><em>app_path=None</em>, <em>tokenizer=None</em>, <em>preprocessor=None</em>, <em>stemmer=None</em>, <em>system_entity_recognizer=None</em>, <em>duckling=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/query_factory.html#QueryFactory.create_query_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.query_factory.QueryFactory.create_query_factory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a query factory for the application.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -353,6 +361,8 @@ created if none is provided</li>
 <li><strong>stemmer</strong> (<em>Stemmer</em><em>, </em><em>optional</em>) -- The stemmer to use for stemming</li>
 <li><strong>system_entity_recognizer</strong> (<em>SystemEntityRecognizer</em>) -- If not passed, we use either the one
 from the application's configuration or NoOpSystemEntityRecognizer.</li>
+<li><strong>duckling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) -- if no system entity recognizer is provided,
+initialize a new Duckling recognizer instance.</li>
 </ul>
 </td>
 </tr>

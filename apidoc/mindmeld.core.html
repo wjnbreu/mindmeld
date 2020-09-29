@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.core module &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.core module &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -313,7 +314,7 @@ intent.</p>
 <dl class="attribute">
 <dt id="mindmeld.core.Entity.value">
 <code class="descname">value</code><a class="headerlink" href="#mindmeld.core.Entity.value" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> -- The resolved value of the entity</p>
+<dd><p><em>dict</em> -- The resolved value of the entity</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -423,12 +424,17 @@ AutoEntityFilling (slot-filling).</p>
 <dl class="attribute">
 <dt id="mindmeld.core.FormEntity.custom_eval">
 <code class="descname">custom_eval</code><a class="headerlink" href="#mindmeld.core.FormEntity.custom_eval" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>func, optional</em> -- custom validation function (should return bool:</p>
+<dd><p><em>func, optional</em> -- custom validation function (should return either bool:</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">validated or not)</code></dt>
+<code class="descname">validated or not) or a custom resolved value for the entity. If custom resolved value</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">is returned, the slot response is considered to be valid.</code></dt>
 <dd></dd></dl>
 
 </dd></dl>

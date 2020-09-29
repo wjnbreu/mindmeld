@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.components.entity_resolver &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.components.entity_resolver &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -315,10 +316,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_es_host</span> <span class="o">=</span> <span class="n">es_host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_es_config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;client&quot;</span><span class="p">:</span> <span class="n">es_client</span><span class="p">,</span> <span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()}</span>
 
-        <span class="n">num_canonical_entities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_resource_loader</span><span class="o">.</span><span class="n">get_entity_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;entities&quot;</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entities</span> <span class="o">=</span> <span class="n">num_canonical_entities</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_system_entity</span><span class="p">:</span>
+            <span class="n">canonical_entities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">canonical_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource_loader</span><span class="o">.</span><span class="n">get_entity_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;entities&quot;</span><span class="p">,</span> <span class="p">[]</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entity_map</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">canonical_entities</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_es_index_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -438,7 +442,7 @@
 <span class="sd">            clean (bool): If ``True``, deletes and recreates the index from scratch instead of</span>
 <span class="sd">                          updating the existing index with synonyms in the mapping.json.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_system_entity</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entities</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entity_map</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_text_rel</span><span class="p">:</span>
@@ -548,8 +552,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="n">item_map</span><span class="p">,</span> <span class="s2">&quot;synonyms&quot;</span><span class="p">:</span> <span class="n">syn_map</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_fit_exact_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Fits a simple exact match entity resolution model when Elasticsearch is not available.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Fits a simple exact match entity resolution model when Elasticsearch is not available.&quot;&quot;&quot;</span>
         <span class="n">entity_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource_loader</span><span class="o">.</span><span class="n">get_entity_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_exact_match_mapping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_entity_map</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">entity_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalizer</span>
@@ -577,7 +580,7 @@
             <span class="c1"># system entities are already resolved</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">top_entity</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entities</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_canonical_entity_map</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_text_rel</span><span class="p">:</span>

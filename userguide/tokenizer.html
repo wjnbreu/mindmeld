@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.bot package &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
+  <title>Working with the Tokenizer &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -60,7 +60,9 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Internationalization support" href="internationalization.html" />
+    <link rel="prev" title="Working with Custom Actions" href="custom_action.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -140,26 +142,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../blueprints/banking.html">Banking Assistant</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/architecture.html">Platform Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/optional_dependency.html">Managing Optional Dependencies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/preprocessor.html">Working with the Preprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/nlp.html">Working with the Natural Language Processor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/domain_classifier.html">Working with the Domain Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/intent_classifier.html">Working with the Intent Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/entity_recognizer.html">Working with the Entity Recognizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/lstm.html">Using LSTM for Entity Recognition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/role_classifier.html">Working with the Role Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/entity_resolver.html">Working with the Entity Resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/parser.html">Working with the Language Parser</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Platform Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_dependency.html">Managing Optional Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessor.html">Working with the Preprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlp.html">Working with the Natural Language Processor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="domain_classifier.html">Working with the Domain Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intent_classifier.html">Working with the Intent Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entity_recognizer.html">Working with the Entity Recognizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm.html">Using LSTM for Entity Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="role_classifier.html">Working with the Role Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entity_resolver.html">Working with the Entity Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Working with the Language Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Working with the Tokenizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anatomy-of-the-tokenizer-configuration">Anatomy of the tokenizer configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -220,13 +225,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>mindmeld.bot package</li>
+      <li>Working with the Tokenizer</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/apidoc/mindmeld.bot.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/userguide/tokenizer.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -263,16 +268,26 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="module-mindmeld.bot">
-<span id="mindmeld-bot-package"></span><h1>mindmeld.bot package<a class="headerlink" href="#module-mindmeld.bot" title="Permalink to this headline">¶</a></h1>
-<p>This module contains the components of the MindMeld platform</p>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="mindmeld.bot.webex_bot_server.html">mindmeld.bot.webex_bot_server module</a></li>
-</ul>
+<div class="section" id="working-with-the-tokenizer">
+<h1>Working with the Tokenizer<a class="headerlink" href="#working-with-the-tokenizer" title="Permalink to this headline">¶</a></h1>
+<p>MindMeld provides the ability to customize and configure the default tokenizer for your application.</p>
+<p>The settings for tokenizer can be defined in your application configuration file, <code class="docutils literal notranslate"><span class="pre">config.py</span></code>. The configuration must be defined as a dictionary with the name <code class="xref py py-data docutils literal notranslate"><span class="pre">TOKENIZER_CONFIG</span></code> to override the tokenizer's default settings. If no custom configuration is defined, the default is used.</p>
+<div class="section" id="anatomy-of-the-tokenizer-configuration">
+<h2>Anatomy of the tokenizer configuration<a class="headerlink" href="#anatomy-of-the-tokenizer-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The configuration currently has one section: <strong>Allowed Patterns</strong>.</p>
+<p><strong>Allowed Patterns</strong> - Enables defining your custom regular expression patterns in the form of a list of different patterns or combinations. This list is combined and compiled internally by MindMeld and the resulting pattern is applied for filtering out the characters from the user input queries. For eg.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TOKENIZER_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="s2">&quot;allowed_patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;\w+&#39;</span><span class="p">],</span>
+ <span class="p">}</span>
+</pre></div>
 </div>
+<p>will allow the system to capture alphanumeric strings and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TOKENIZER_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="s2">&quot;allowed_patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;(\w+\.)$&#39;</span><span class="p">,</span> <span class="s1">&#39;(\w+\?)$&#39;</span><span class="p">],</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>allows the system to capture only tokens that end with either a question mark or a period.</p>
 </div>
 </div>
 
@@ -281,6 +296,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="internationalization.html" class="btn btn-neutral float-right" title="Internationalization support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="custom_action.html" class="btn btn-neutral float-left" title="Working with Custom Actions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

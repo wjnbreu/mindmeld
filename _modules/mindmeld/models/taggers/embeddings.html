@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.models.taggers.embeddings &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.models.taggers.embeddings &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -507,8 +508,7 @@
                 <span class="p">)</span>
 
 <div class="viewcode-block" id="WordSequenceEmbedding.save_embeddings"><a class="viewcode-back" href="../../../../apidoc/mindmeld.models.taggers.embeddings.html#mindmeld.models.taggers.embeddings.WordSequenceEmbedding.save_embeddings">[docs]</a>    <span class="k">def</span> <span class="nf">save_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save extracted embeddings to historic pickle file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Save extracted embeddings to historic pickle file.&quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">PREVIOUSLY_USED_WORD_EMBEDDINGS_FILE_PATH</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token_to_embedding_mapping</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
         <span class="n">output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
@@ -596,8 +596,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">token_to_embedding_mapping</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">historic_char_embeddings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CharacterSequenceEmbedding.save_embeddings"><a class="viewcode-back" href="../../../../apidoc/mindmeld.models.taggers.embeddings.html#mindmeld.models.taggers.embeddings.CharacterSequenceEmbedding.save_embeddings">[docs]</a>    <span class="k">def</span> <span class="nf">save_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save extracted embeddings to historic pickle file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Save extracted embeddings to historic pickle file.&quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">PREVIOUSLY_USED_CHAR_EMBEDDINGS_FILE_PATH</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token_to_embedding_mapping</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
         <span class="n">output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>

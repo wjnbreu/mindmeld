@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.resource_loader &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.resource_loader &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -261,6 +262,8 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">markup</span><span class="p">,</span> <span class="n">path</span>
 <span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_TRAIN_SET_REGEX</span>
@@ -275,6 +278,7 @@
     <span class="n">SYS_TYPES_RSC</span><span class="p">,</span>
     <span class="n">WORD_FREQ_RSC</span><span class="p">,</span>
     <span class="n">WORD_NGRAM_FREQ_RSC</span><span class="p">,</span>
+    <span class="n">SENTIMENT_ANALYZER</span><span class="p">,</span>
     <span class="n">mask_numerics</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.path</span> <span class="kn">import</span> <span class="n">MODEL_CACHE_PATH</span>
@@ -381,6 +385,19 @@
 <span class="sd">            tokenizer (Tokenizer): The resource loaders tokenizer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_factory</span><span class="o">.</span><span class="n">tokenizer</span></div>
+
+<div class="viewcode-block" id="ResourceLoader.get_sentiment_analyzer"><a class="viewcode-back" href="../../apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_sentiment_analyzer">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_sentiment_analyzer</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a sentiment analyzer and downloads the necessary data libraries required from nltk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;sentiment/vader_lexicon.zip&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading lexicon for sentiment analysis&quot;</span><span class="p">)</span>
+            <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;vader_lexicon&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ResourceLoader.get_gazetteers_hash"><a class="viewcode-back" href="../../apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_gazetteers_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_gazetteers_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -767,8 +784,8 @@
     <span class="k">def</span> <span class="nf">_build_char_ngram_freq_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=no-self-use</span>
         <span class="sd">&quot;&quot;&quot;Compiles n-gram character frequency dictionary of normalized query tokens</span>
 
-<span class="sd">           Args:</span>
-<span class="sd">               queries (list of Query): A list of all queries</span>
+<span class="sd">        Args:</span>
+<span class="sd">            queries (list of Query): A list of all queries</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">char_freq_dict</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">length</span><span class="p">,</span> <span class="n">threshold</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lengths&quot;</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;thresholds&quot;</span><span class="p">)):</span>
@@ -785,8 +802,8 @@
     <span class="k">def</span> <span class="nf">_build_word_ngram_freq_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pylint: disable=no-self-use</span>
         <span class="sd">&quot;&quot;&quot;Compiles n-gram frequency dictionary of normalized query tokens</span>
 
-<span class="sd">           Args:</span>
-<span class="sd">               queries (list of Query): A list of all queries</span>
+<span class="sd">        Args:</span>
+<span class="sd">            queries (list of Query): A list of all queries</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">enable_stemming</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENABLE_STEMMING_ARGS</span><span class="p">)</span>
         <span class="n">word_freq_dict</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
@@ -937,6 +954,7 @@
         <span class="n">QUERY_FREQ_RSC</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
         <span class="n">SYS_TYPES_RSC</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
         <span class="n">ENABLE_STEMMING</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+        <span class="n">SENTIMENT_ANALYZER</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
     <span class="p">}</span></div>
 
 

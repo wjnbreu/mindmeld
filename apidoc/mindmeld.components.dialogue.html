@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.components.dialogue module &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.components.dialogue module &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -273,17 +274,11 @@
 
 <dl class="class">
 <dt id="mindmeld.components.dialogue.AutoEntityFilling">
-<em class="property">class </em><code class="descclassname">mindmeld.components.dialogue.</code><code class="descname">AutoEntityFilling</code><span class="sig-paren">(</span><em>entrance_handler</em>, <em>form</em>, <em>app</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/dialogue.html#AutoEntityFilling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mindmeld.components.dialogue.</code><code class="descname">AutoEntityFilling</code><span class="sig-paren">(</span><em>handler</em>, <em>form</em>, <em>app</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/dialogue.html#AutoEntityFilling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>A special dialogue flow sublcass to implement Automatic Entitiy (Slot) Filling
+<p>A class to implement Automatic Entity (Slot) Filling
 (AEF) that allows developers to prompt users for completing the missing
 requirements for entity slots.</p>
-<dl class="attribute">
-<dt id="mindmeld.components.dialogue.AutoEntityFilling.app">
-<code class="descname">app</code><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling.app" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Application</em> -- The application that initializes this flow.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="mindmeld.components.dialogue.AutoEntityFilling.call_async">
 <code class="descname">call_async</code><span class="sig-paren">(</span><em>request</em>, <em>responder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/dialogue.html#AutoEntityFilling.call_async"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling.call_async" title="Permalink to this definition">¶</a></dt>
@@ -300,6 +295,18 @@ requirements for entity slots.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mindmeld.components.dialogue.AutoEntityFilling.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>request</em>, <em>responder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/dialogue.html#AutoEntityFilling.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling.invoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke slot-filling as a direct call without requiring a decorator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mindmeld.components.dialogue.AutoEntityFilling.invoke_async">
+<code class="descname">invoke_async</code><span class="sig-paren">(</span><em>request</em>, <em>responder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/dialogue.html#AutoEntityFilling.invoke_async"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.dialogue.AutoEntityFilling.invoke_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Async invoke slot-filling as a direct call without requiring a decorator.</p>
 </dd></dl>
 
 </dd></dl>

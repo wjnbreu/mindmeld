@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>Working with the Natural Language Processor &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>Working with the Natural Language Processor &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -86,7 +86,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -168,6 +168,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#optimize-the-nlp-models">Optimize the NLP models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#select-data-for-experiments">Select data for experiments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#save-models-for-future-use">Save models for future use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tracking-classifier-progress">Tracking classifier progress</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="domain_classifier.html">Working with the Domain Classifier</a></li>
@@ -181,6 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -980,6 +982,26 @@ children (dependents), etc.</td>
 </pre></div>
 </div>
 <p>Another option is to save just one specific NLP model, which is useful when you are actively experimenting with individual classifiers and want to checkpoint your work or save multiple model versions for comparison. This is done using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code> methods exposed by each classifier. Refer to the chapter for the appropriate classifier to learn more.</p>
+</div>
+<div class="section" id="tracking-classifier-progress">
+<h2>Tracking classifier progress<a class="headerlink" href="#tracking-classifier-progress" title="Permalink to this headline">¶</a></h2>
+<p>Training the NLU pipeline can be time-consuming depending on the number of models to be trained and the number of training examples for each of them. The following code snippet shows how you can do progress tracking while building your application. The progress bar will display the fraction of models that have been trained at any given time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mindmeld.components.nlp</span> <span class="kn">import</span> <span class="n">NaturalLanguageProcessor</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># Setting the logging level to ERROR prevents the tqdm progress bar from interleaving</span>
+<span class="c1"># with other logging messages that are written to stdout.</span>
+<span class="n">mindmeld</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="c1"># Make sure the total parameter starts at 0 since the classifiers will increment the total as</span>
+<span class="c1"># they get initialized</span>
+<span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;NLP progress&quot;</span><span class="p">)</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">NaturalLanguageProcessor</span><span class="p">(</span><span class="n">app_path</span><span class="o">=</span><span class="s1">&#39;banking_assistant&#39;</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 

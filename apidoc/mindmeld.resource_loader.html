@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.resource_loader module &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.resource_loader module &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -536,6 +537,12 @@ reloaded from disk</li>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="mindmeld.resource_loader.ResourceLoader.get_sentiment_analyzer">
+<em class="property">static </em><code class="descname">get_sentiment_analyzer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/resource_loader.html#ResourceLoader.get_sentiment_analyzer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.get_sentiment_analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a sentiment analyzer and downloads the necessary data libraries required from nltk</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="mindmeld.resource_loader.ResourceLoader.get_tokenizer">
 <code class="descname">get_tokenizer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/resource_loader.html#ResourceLoader.get_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.get_tokenizer" title="Permalink to this definition">¶</a></dt>
@@ -669,12 +676,12 @@ reloaded from disk</li>
 
 <dl class="attribute">
 <dt id="mindmeld.resource_loader.ResourceLoader.FEATURE_RSC_MAP">
-<code class="descname">FEATURE_RSC_MAP</code><em class="property"> = {'c_ngram_freq': &lt;function ResourceLoader._build_char_ngram_freq_dict at 0x14ccac8c8&gt;, 'gazetteers': &lt;function ResourceLoader.get_gazetteers at 0x14cc9bd90&gt;, 'q_freq': &lt;function ResourceLoader._build_query_freq_dict at 0x14ccac9d8&gt;, 'sys_types': &lt;function ResourceLoader._get_sys_entity_types at 0x14ccaca60&gt;, 'w_freq': &lt;function ResourceLoader._build_word_freq_dict at 0x14ccac840&gt;, 'w_ngram_freq': &lt;function ResourceLoader._build_word_ngram_freq_dict at 0x14ccac950&gt;}</em><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.FEATURE_RSC_MAP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">FEATURE_RSC_MAP</code><em class="property"> = {'c_ngram_freq': &lt;function ResourceLoader._build_char_ngram_freq_dict at 0x123c2fcb0&gt;, 'gazetteers': &lt;function ResourceLoader.get_gazetteers at 0x123c2b170&gt;, 'q_freq': &lt;function ResourceLoader._build_query_freq_dict at 0x123c2fdd0&gt;, 'sys_types': &lt;function ResourceLoader._get_sys_entity_types at 0x123c2fe60&gt;, 'w_freq': &lt;function ResourceLoader._build_word_freq_dict at 0x123c2fc20&gt;, 'w_ngram_freq': &lt;function ResourceLoader._build_word_ngram_freq_dict at 0x123c2fd40&gt;}</em><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.FEATURE_RSC_MAP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mindmeld.resource_loader.ResourceLoader.RSC_HASH_MAP">
-<code class="descname">RSC_HASH_MAP</code><em class="property"> = {'c_ngram_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccacea0&gt;, 'enable-stemming': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccad0d0&gt;, 'gazetteers': &lt;function ResourceLoader.get_gazetteers_hash at 0x14cc9bf28&gt;, 'q_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccacf28&gt;, 'sys_types': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccad048&gt;, 'w_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccacd90&gt;, 'w_ngram_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x14ccace18&gt;}</em><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.RSC_HASH_MAP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RSC_HASH_MAP</code><em class="property"> = {'c_ngram_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c31320&gt;, 'enable-stemming': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c314d0&gt;, 'gazetteers': &lt;function ResourceLoader.get_gazetteers_hash at 0x123c2f320&gt;, 'q_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c313b0&gt;, 'sys_types': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c31440&gt;, 'vader_classifier': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c31560&gt;, 'w_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c31200&gt;, 'w_ngram_freq': &lt;function ResourceLoader.&lt;lambda&gt; at 0x123c31290&gt;}</em><a class="headerlink" href="#mindmeld.resource_loader.ResourceLoader.RSC_HASH_MAP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

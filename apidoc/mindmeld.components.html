@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.components package &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.components package &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -827,7 +828,7 @@ dialogue state setting and reselect a handler, following a new target dialogue s
 
 <dl class="class">
 <dt id="mindmeld.components.NaturalLanguageProcessor">
-<em class="property">class </em><code class="descclassname">mindmeld.components.</code><code class="descname">NaturalLanguageProcessor</code><span class="sig-paren">(</span><em>app_path</em>, <em>resource_loader=None</em>, <em>config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/nlp.html#NaturalLanguageProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.NaturalLanguageProcessor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mindmeld.components.</code><code class="descname">NaturalLanguageProcessor</code><span class="sig-paren">(</span><em>app_path</em>, <em>resource_loader=None</em>, <em>config=None</em>, <em>progress_bar=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/nlp.html#NaturalLanguageProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.NaturalLanguageProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mindmeld.components.nlp.html#mindmeld.components.nlp.Processor" title="mindmeld.components.nlp.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">mindmeld.components.nlp.Processor</span></code></a></p>
 <p>The natural language processor is the MindMeld component responsible for understanding
 the user input using a hierarchy of natural language processing models.</p>

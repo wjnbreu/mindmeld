@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.models.taggers.taggers &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.models.taggers.taggers &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -687,7 +688,10 @@
 
 <span class="k">def</span> <span class="nf">_get_tag_label</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Splits a token into its tag and label.&quot;&quot;&quot;</span>
-    <span class="n">tag</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">tag</span><span class="p">,</span>
+        <span class="n">label</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tag</span><span class="p">,</span> <span class="n">label</span>
 
 
@@ -709,16 +713,14 @@
 
 
 <span class="k">def</span> <span class="nf">_is_boundary_error</span><span class="p">(</span><span class="n">pred_entity</span><span class="p">,</span> <span class="n">exp_entity</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns true if the predicted and expected entity form a boundary error</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns true if the predicted and expected entity form a boundary error&quot;&quot;&quot;</span>
     <span class="n">trimmed_pred_entity</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">pred_entity</span> <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">B_TAG</span><span class="p">]</span>
     <span class="n">trimmed_exp_entity</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">exp_entity</span> <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">B_TAG</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">trimmed_pred_entity</span> <span class="o">==</span> <span class="n">trimmed_exp_entity</span>
 
 
 <span class="k">def</span> <span class="nf">_new_tag</span><span class="p">(</span><span class="n">last_entity</span><span class="p">,</span> <span class="n">curr_tag</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns true if the current tag is different than the tag of the last entity</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Returns true if the current tag is different than the tag of the last entity&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_entity</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">curr_tag</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">elif</span> <span class="p">(</span>
@@ -755,8 +757,7 @@
 
 
 <div class="viewcode-block" id="get_boundary_counts"><a class="viewcode-back" href="../../../../apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.get_boundary_counts">[docs]</a><span class="k">def</span> <span class="nf">get_boundary_counts</span><span class="p">(</span><span class="n">expected_sequence</span><span class="p">,</span> <span class="n">predicted_sequence</span><span class="p">,</span> <span class="n">boundary_counts</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the boundary counts for the expected and predicted sequence of entities.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Gets the boundary counts for the expected and predicted sequence of entities.&quot;&quot;&quot;</span>
     <span class="c1"># Initialize values</span>
     <span class="n">in_coding_region</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">start</span> <span class="o">=</span> <span class="kc">True</span>

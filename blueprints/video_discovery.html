@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>Video Discovery &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>Video Discovery &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -86,7 +86,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -171,6 +171,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -585,15 +586,15 @@
     <span class="s1">&#39;genres&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Family&#39;</span><span class="p">,</span> <span class="s1">&#39;Animation&#39;</span><span class="p">,</span> <span class="s1">&#39;Adventure&#39;</span><span class="p">,</span> <span class="s1">&#39;Comedy&#39;</span><span class="p">],</span>
     <span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;movie_211672&#39;</span><span class="p">,</span>
     <span class="s1">&#39;countries&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;vote_count&#39;</span><span class="o">:</span> <span class="mi">3660</span><span class="p">,</span>
-    <span class="s1">&#39;runtime&#39;</span><span class="o">:</span> <span class="mi">91</span><span class="p">,</span>
+    <span class="s1">&#39;vote_count&#39;</span><span class="o">:</span> <span class="mf">3660</span><span class="p">,</span>
+    <span class="s1">&#39;runtime&#39;</span><span class="o">:</span> <span class="mf">91</span><span class="p">,</span>
     <span class="s1">&#39;title&#39;</span><span class="o">:</span> <span class="s1">&#39;Minions&#39;</span><span class="p">,</span>
     <span class="s1">&#39;overview&#39;</span><span class="o">:</span> <span class="s1">&#39;Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill, a super-villain who, alongside her inventor husband Herb, hatches a plot to take over the world.&#39;</span><span class="p">,</span>
     <span class="s1">&#39;doc_type&#39;</span><span class="o">:</span> <span class="s1">&#39;movie&#39;</span><span class="p">,</span>
     <span class="s1">&#39;release_date&#39;</span><span class="o">:</span> <span class="s1">&#39;2015-06-17&#39;</span><span class="p">,</span>
     <span class="s1">&#39;img_url&#39;</span><span class="o">:</span> <span class="s1">&#39;http://image.tmdb.org/t/p/w185//q0R4crx2SehcEEQEkYObktdeFy.jpg&#39;</span><span class="p">,</span>
     <span class="s1">&#39;vote_average&#39;</span><span class="o">:</span> <span class="mf">6.4</span><span class="p">,</span>
-    <span class="s1">&#39;release_year&#39;</span><span class="o">:</span> <span class="mi">2015</span><span class="p">,</span>
+    <span class="s1">&#39;release_year&#39;</span><span class="o">:</span> <span class="mf">2015</span><span class="p">,</span>
     <span class="s1">&#39;cast&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Sandra Bullock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jon Hamm&#39;</span><span class="p">,</span> <span class="s1">&#39;Michael Keaton&#39;</span><span class="p">,</span> <span class="s1">&#39;Allison Janney&#39;</span><span class="p">,</span> <span class="s1">&#39;Steve Coogan&#39;</span><span class="p">,</span> <span class="s1">&#39;Jennifer Saunders&#39;</span><span class="p">,</span> <span class="s1">&#39;Geoffrey Rush&#39;</span><span class="p">,</span> <span class="s1">&#39;Steve Carell&#39;</span><span class="p">,</span> <span class="s1">&#39;Pierre Coffin&#39;</span><span class="p">,</span>
              <span class="s1">&#39;Katy Mixon&#39;</span><span class="p">,</span> <span class="s1">&#39;Michael Beattie&#39;</span><span class="p">,</span> <span class="s1">&#39;Hiroyuki Sanada&#39;</span><span class="p">,</span> <span class="s1">&#39;Dave Rosenbaum&#39;</span><span class="p">,</span> <span class="s1">&#39;Alex Dowding&#39;</span><span class="p">,</span> <span class="s1">&#39;Paul Thornley&#39;</span><span class="p">,</span> <span class="s1">&#39;Kyle Balda&#39;</span><span class="p">,</span> <span class="s1">&#39;Ava Acres&#39;</span><span class="p">],</span>
     <span class="s1">&#39;directors&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Kyle Balda&#39;</span><span class="p">,</span> <span class="s1">&#39;Pierre Coffin&#39;</span><span class="p">],</span>
@@ -607,19 +608,19 @@
     <span class="s1">&#39;genres&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Comedy&#39;</span><span class="p">],</span>
     <span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;tv-show_1418&#39;</span><span class="p">,</span>
     <span class="s1">&#39;countries&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;vote_count&#39;</span><span class="o">:</span> <span class="mi">1698</span><span class="p">,</span>
+    <span class="s1">&#39;vote_count&#39;</span><span class="o">:</span> <span class="mf">1698</span><span class="p">,</span>
     <span class="s1">&#39;runtime&#39;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s1">&#39;title&#39;</span><span class="o">:</span> <span class="s1">&#39;The Big Bang Theory&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;number_of_seasons&#39;</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;number_of_seasons&#39;</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
     <span class="s1">&#39;overview&#39;</span><span class="o">:</span> <span class="s1">&#39;The Big Bang Theory is centered on five characters living in Pasadena, California: roommates Leonard Hofstadter and Sheldon Cooper; Penny, a waitress and aspiring actress who lives across the hall; and Leonard and Sheldon&#39;</span><span class="nx">s</span> <span class="nx">equally</span> <span class="nx">geeky</span> <span class="nx">and</span> <span class="nx">socially</span> <span class="nx">awkward</span> <span class="nx">friends</span> <span class="nx">and</span> <span class="nx">co</span><span class="o">-</span><span class="nx">workers</span><span class="p">,</span> <span class="nx">mechanical</span> <span class="nx">engineer</span> <span class="nx">Howard</span> <span class="nx">Wolowitz</span> <span class="nx">and</span> <span class="nx">astrophysicist</span> <span class="nx">Raj</span> <span class="nx">Koothrappali</span><span class="p">.</span> <span class="nx">The</span> <span class="nx">geekiness</span> <span class="nx">and</span> <span class="nx">intellect</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">four</span> <span class="nx">guys</span> <span class="nx">is</span> <span class="nx">contrasted</span> <span class="k">for</span> <span class="nx">comic</span> <span class="nx">effect</span> <span class="kd">with</span> <span class="nx">Penny</span><span class="s1">&#39;s social skills and common sense.&#39;</span><span class="p">,</span>
     <span class="s1">&#39;doc_type&#39;</span><span class="o">:</span> <span class="s1">&#39;tv-show&#39;</span><span class="p">,</span>
     <span class="s1">&#39;release_date&#39;</span><span class="o">:</span> <span class="s1">&#39;2007-09-24&#39;</span><span class="p">,</span>
     <span class="s1">&#39;img_url&#39;</span><span class="o">:</span> <span class="s1">&#39;http://image.tmdb.org/t/p/w185//wQoosZYg9FqPrmI4zeCLRdEbqAB.jpg&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;vote_average&#39;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
-    <span class="s1">&#39;release_year&#39;</span><span class="o">:</span> <span class="mi">2007</span><span class="p">,</span>
+    <span class="s1">&#39;vote_average&#39;</span><span class="o">:</span> <span class="mf">7</span><span class="p">,</span>
+    <span class="s1">&#39;release_year&#39;</span><span class="o">:</span> <span class="mf">2007</span><span class="p">,</span>
     <span class="s1">&#39;cast&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Johnny Galecki&#39;</span><span class="p">,</span> <span class="s1">&#39;Jim Parsons&#39;</span><span class="p">,</span> <span class="s1">&#39;Kaley Cuoco&#39;</span><span class="p">,</span> <span class="s1">&#39;Simon Helberg&#39;</span><span class="p">,</span> <span class="s1">&#39;Kunal Nayyar&#39;</span><span class="p">,</span> <span class="s1">&#39;Mayim Bialik&#39;</span><span class="p">,</span> <span class="s1">&#39;Melissa Rauch&#39;</span><span class="p">],</span>
     <span class="s1">&#39;directors&#39;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="s1">&#39;number_of_episodes&#39;</span><span class="o">:</span> <span class="mi">231</span><span class="p">,</span>
+    <span class="s1">&#39;number_of_episodes&#39;</span><span class="o">:</span> <span class="mf">231</span><span class="p">,</span>
     <span class="s1">&#39;popularity&#39;</span><span class="o">:</span> <span class="mf">3.2740931003620037</span>
 <span class="p">}</span>
 </pre></div>

@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.app_manager &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.app_manager &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -256,6 +257,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">.components</span> <span class="kn">import</span> <span class="n">DialogueManager</span><span class="p">,</span> <span class="n">NaturalLanguageProcessor</span><span class="p">,</span> <span class="n">QuestionAnswerer</span>
+<span class="kn">from</span> <span class="nn">.components._config</span> <span class="kn">import</span> <span class="n">get_max_history_len</span>
 <span class="kn">from</span> <span class="nn">.components.dialogue</span> <span class="kn">import</span> <span class="n">DialogueResponder</span>
 <span class="kn">from</span> <span class="nn">.components.request</span> <span class="kn">import</span> <span class="n">FrozenParams</span><span class="p">,</span> <span class="n">Params</span><span class="p">,</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">.resource_loader</span> <span class="kn">import</span> <span class="n">ResourceLoader</span>
@@ -343,6 +345,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">responder_class</span> <span class="o">=</span> <span class="n">responder_class</span> <span class="ow">or</span> <span class="n">DialogueResponder</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dialogue_manager</span> <span class="o">=</span> <span class="n">DialogueManager</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">responder_class</span><span class="p">,</span> <span class="n">async_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">async_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_history_len</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">get_max_history_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app_path</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_HISTORY_LEN</span>
         <span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -524,7 +529,7 @@
 
         <span class="c1"># limit length of history</span>
         <span class="n">new_history</span> <span class="o">=</span> <span class="p">(</span><span class="n">prev_request</span><span class="p">,)</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">history</span>
-        <span class="n">dm_response</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="n">new_history</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_HISTORY_LEN</span><span class="p">]</span>
+        <span class="n">dm_response</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="n">new_history</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_history_len</span><span class="p">]</span>
 
         <span class="c1"># validate outgoing params</span>
         <span class="n">dm_response</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">validate_param</span><span class="p">(</span><span class="s2">&quot;allowed_intents&quot;</span><span class="p">)</span>

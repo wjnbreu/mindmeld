@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.core &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.core &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -475,7 +476,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">locale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The locale representing the ISO 639-1/2 language code and</span>
-<span class="sd">            ISO3166 alpha 2 country code separated by an underscore character.&quot;&quot;&quot;</span>
+<span class="sd">        ISO3166 alpha 2 country code separated by an underscore character.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locale</span>
 
     <span class="nd">@property</span>
@@ -922,7 +923,7 @@
 <span class="sd">        text (str): The text contents that span the entity</span>
 <span class="sd">        type (str): The type of the entity</span>
 <span class="sd">        role (str): The role of the entity</span>
-<span class="sd">        value (str): The resolved value of the entity</span>
+<span class="sd">        value (dict): The resolved value of the entity</span>
 <span class="sd">        display_text (str): A human readable text representation of the entity for use in natural</span>
 <span class="sd">            language responses.</span>
 <span class="sd">        confidence (float): A confidence value from 0 to 1 about how confident the entity</span>
@@ -1000,8 +1001,9 @@
 <span class="sd">        default_eval(bool, optional): Use system validation (default: True)</span>
 <span class="sd">        hints(list, optional): Developer defined list of keywords to verify the</span>
 <span class="sd">        user input against</span>
-<span class="sd">        custom_eval(func, optional): custom validation function (should return bool:</span>
-<span class="sd">        validated or not)</span>
+<span class="sd">        custom_eval(func, optional): custom validation function (should return either bool:</span>
+<span class="sd">        validated or not) or a custom resolved value for the entity. If custom resolved value</span>
+<span class="sd">        is returned, the slot response is considered to be valid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

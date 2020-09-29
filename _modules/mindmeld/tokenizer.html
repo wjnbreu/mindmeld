@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.tokenizer &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.tokenizer &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -255,8 +256,11 @@
 <span class="kn">import</span> <span class="nn">codecs</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sre_constants</span>
 
 <span class="kn">from</span> <span class="nn">.path</span> <span class="kn">import</span> <span class="n">ASCII_FOLDING_DICT_PATH</span>
+<span class="kn">from</span> <span class="nn">.components._config</span> <span class="kn">import</span> <span class="n">get_tokenizer_config</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">CURRENCY_SYMBOLS</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -267,7 +271,7 @@
 
     <span class="n">_ASCII_CUTOFF</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u0080</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude_from_norm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude_from_norm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes the tokenizer.</span>
 
 <span class="sd">        Args:</span>
@@ -276,6 +280,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ascii_folding_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_ascii_folding_table</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exclude_from_norm</span> <span class="o">=</span> <span class="n">exclude_from_norm</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">get_tokenizer_config</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_from_norm</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_regex</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_init_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -284,65 +289,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># List of regex&#39;s for matching and tokenizing when keep_special_chars=False</span>
         <span class="n">regex_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># List of regex&#39;s for matching and tokenizing when keep_special_chars=True</span>
-        <span class="n">keep_special_regex_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">exception_chars</span> <span class="o">=</span> <span class="s2">&quot;\@\[\]\|\{\}&#39;&quot;</span>  <span class="c1"># noqa: W605</span>
-
-        <span class="c1"># This is more of a tactical fix at this moment. Will probably need a more generic way</span>
-        <span class="c1"># to handle all currency symbols.</span>
-        <span class="n">currency_symbols</span> <span class="o">=</span> <span class="s2">&quot;$¥&quot;</span>
-        <span class="n">to_exclude</span> <span class="o">=</span> <span class="n">currency_symbols</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_from_norm</span><span class="p">)</span>
 
         <span class="n">letter_pattern_str</span> <span class="o">=</span> <span class="s2">&quot;[^\W\d_]+&quot;</span>  <span class="c1"># noqa: W605</span>
 
-        <span class="c1"># Make keep special regex list</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;start&gt;^[^\w\d&amp;&quot;</span> <span class="o">+</span> <span class="n">to_exclude</span> <span class="o">+</span> <span class="n">exception_chars</span> <span class="o">+</span> <span class="s2">&quot;]+&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;end&gt;[^\w\d&amp;&quot;</span> <span class="o">+</span> <span class="n">to_exclude</span> <span class="o">+</span> <span class="n">exception_chars</span> <span class="o">+</span> <span class="s2">&quot;]+$&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;pattern1&gt;(?P&lt;pattern1_replace&gt;&quot;</span>
-            <span class="o">+</span> <span class="n">letter_pattern_str</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&amp;&quot;</span>
-            <span class="o">+</span> <span class="n">exception_chars</span>
-            <span class="o">+</span> <span class="s2">&quot;]+(?=[\d]+)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;pattern2&gt;(?P&lt;pattern2_replace&gt;[\d]+)[^\w\d\s&amp;&quot;</span>
-            <span class="o">+</span> <span class="n">exception_chars</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="s2">&quot;]+&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;u(?=&quot;</span>
-            <span class="o">+</span> <span class="n">letter_pattern_str</span>
-            <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;pattern3&gt;(?P&lt;pattern3_replace&gt;&quot;</span>
-            <span class="o">+</span> <span class="n">letter_pattern_str</span>
-            <span class="o">+</span> <span class="s2">&quot;)&quot;</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&amp;&quot;</span>
-            <span class="o">+</span> <span class="n">exception_chars</span>
-            <span class="o">+</span> <span class="s2">&quot;]+&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;(?=&quot;</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="n">letter_pattern_str</span>
-            <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;escape1&gt;(?P&lt;escape1_replace&gt;[\w\d]+)&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&quot;</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="n">exception_chars</span>
-            <span class="o">+</span> <span class="s2">&quot;]+&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;(?=\|)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;escape2&gt;(?P&lt;escape2_replace&gt;[\]\}]+)&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&quot;</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="n">exception_chars</span>
-            <span class="o">+</span> <span class="s2">&quot;]+(?=s)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
+        <span class="n">to_exclude</span> <span class="o">=</span> <span class="n">CURRENCY_SYMBOLS</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_from_norm</span><span class="p">)</span>
 
         <span class="c1"># Make regex list</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;start&gt;^[^\w\d&amp;&quot;</span> <span class="o">+</span> <span class="n">to_exclude</span> <span class="o">+</span> <span class="s2">&quot;]+&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
@@ -351,13 +301,13 @@
             <span class="s2">&quot;?P&lt;pattern1&gt;(?P&lt;pattern1_replace&gt;&quot;</span>
             <span class="o">+</span> <span class="n">letter_pattern_str</span>
             <span class="o">+</span> <span class="s2">&quot;)&quot;</span>  <span class="c1"># noqa: W605</span>
-            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&amp;]+(?=[\d]+)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
+            <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&amp;]+(?=[\d]+)&quot;</span>  <span class="c1"># noqa: W605</span>
+        <span class="p">)</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;?P&lt;pattern2&gt;(?P&lt;pattern2_replace&gt;[\d]+)[^\w\d\s&amp;]+(?=&quot;</span>
-            <span class="o">+</span> <span class="n">letter_pattern_str</span>  <span class="c1"># noqa: W605</span>
+            <span class="s2">&quot;?P&lt;pattern2&gt;(?P&lt;pattern2_replace&gt;[\d]+)[^\w\d\s&amp;]+(?=&quot;</span>  <span class="c1"># noqa: W605</span>
+            <span class="o">+</span> <span class="n">letter_pattern_str</span>
             <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
+        <span class="p">)</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="s2">&quot;?P&lt;pattern3&gt;(?P&lt;pattern3_replace&gt;&quot;</span>
             <span class="o">+</span> <span class="n">letter_pattern_str</span>
@@ -365,36 +315,22 @@
             <span class="o">+</span> <span class="s2">&quot;[^\w\d\s&amp;]+(?=&quot;</span>  <span class="c1"># noqa: W605</span>
             <span class="o">+</span> <span class="n">letter_pattern_str</span>
             <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-        <span class="p">)</span>  <span class="c1"># noqa: W605</span>
+        <span class="p">)</span>
 
-        <span class="c1"># commonalities between lists</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;underscore&gt;_&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;underscore&gt;_&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;begspace&gt;^\s+&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;begspace&gt;^\s+&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;trailspace&gt;\s+$&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;trailspace&gt;\s+$&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;spaceplus&gt;\s+&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;spaceplus&gt;\s+&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;bar&gt; &#39;|&#39; &quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-        <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;bar&gt; &#39;|&#39; &quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;apos_s&gt;(?&lt;=[^</span><span class="se">\\</span><span class="s2">s])&#39;[sS]&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
+        <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;apos_space&gt; &#39;|&#39; &quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;apos_s&gt;(?&lt;=[^</span><span class="se">\\</span><span class="s2">s])&#39;[sS]&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
-
         <span class="c1"># handle the apostrophes used at the end of a possessive form, e.g. dennis&#39;</span>
-        <span class="n">keep_special_regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;apos_poss&gt;(?&lt;=[^</span><span class="se">\\</span><span class="s2">s])&#39;$&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
         <span class="n">regex_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;?P&lt;apos_poss&gt;(?&lt;=[^</span><span class="se">\\</span><span class="s2">s])&#39;$&quot;</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
 
         <span class="c1"># Replace lookup based on regex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">replace_lookup</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;apos_s&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot; &#39;s&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
             <span class="s2">&quot;apos_poss&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-            <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;apos_space&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
             <span class="s2">&quot;begspace&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
             <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
             <span class="s2">&quot;escape1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;escape1_replace&quot;</span><span class="p">),</span>
@@ -409,10 +345,21 @@
             <span class="s2">&quot;apostrophe&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
         <span class="p">}</span>
 
-        <span class="c1"># Create a regular expression  from the dictionary keys</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keep_special_compiled</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-            <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="s2">&quot;)|(&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keep_special_regex_list</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span>
-        <span class="p">)</span>
+        <span class="c1"># Create compiled regex expressions</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keep_special_compiled</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+                <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span>
+                <span class="o">%</span> <span class="p">(</span>
+                    <span class="s2">&quot;)|(&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;allowed_patterns&quot;</span><span class="p">]),</span>
+                <span class="p">),</span>
+                <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">sre_constants</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Custom regex compilation failed for the following patterns: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;)|(&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;allowed_patterns&quot;</span><span class="p">])</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">compiled</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="s2">&quot;)|(&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">regex_list</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
 
     <span class="c1"># Needed for train-roles where queries are deep copied (and thus tokenizer).</span>
@@ -471,7 +418,13 @@
 <span class="sd">            str: The text with replacement specified by self.replace_lookup</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># For each match, look-up corresponding value in dictionary</span>
-        <span class="k">return</span> <span class="n">compiled</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_one_xlat</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">compiled</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_one_xlat</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># In case of custom/app-specific tokenizer configuration</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using custom tokenizer configuration.&quot;</span><span class="p">)</span>
+            <span class="n">re_str</span> <span class="o">=</span> <span class="n">compiled</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">re_str</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Tokenizer.normalize"><a class="viewcode-back" href="../../apidoc/mindmeld.tokenizer.html#mindmeld.tokenizer.Tokenizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">keep_special_chars</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -553,7 +506,6 @@
 
             <span class="n">raw_token</span><span class="p">[</span><span class="s2">&quot;norm_token_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_token_start</span>
             <span class="n">raw_token</span><span class="p">[</span><span class="s2">&quot;norm_token_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_token_count</span>
-
         <span class="k">return</span> <span class="n">norm_tokens</span></div>
 
 <div class="viewcode-block" id="Tokenizer.tokenize_raw"><a class="viewcode-back" href="../../apidoc/mindmeld.tokenizer.html#mindmeld.tokenizer.Tokenizer.tokenize_raw">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -727,12 +679,16 @@
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Tokenizer.create_tokenizer"><a class="viewcode-back" href="../../apidoc/mindmeld.tokenizer.html#mindmeld.tokenizer.Tokenizer.create_tokenizer">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">create_tokenizer</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">create_tokenizer</span><span class="p">(</span><span class="n">app_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates the tokenizer for the app</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app_path (str, optional): MindMeld Application Path</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tokenizer: a tokenizer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Tokenizer</span><span class="p">()</span></div></div>
+        <span class="k">return</span> <span class="n">Tokenizer</span><span class="p">(</span><span class="n">app_path</span><span class="o">=</span><span class="n">app_path</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

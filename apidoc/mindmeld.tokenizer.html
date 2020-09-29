@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.tokenizer module &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.tokenizer module &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -267,16 +268,26 @@
 <p>This module contains the tokenizer.</p>
 <dl class="class">
 <dt id="mindmeld.tokenizer.Tokenizer">
-<em class="property">class </em><code class="descclassname">mindmeld.tokenizer.</code><code class="descname">Tokenizer</code><span class="sig-paren">(</span><em>exclude_from_norm=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/tokenizer.html#Tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.tokenizer.Tokenizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mindmeld.tokenizer.</code><code class="descname">Tokenizer</code><span class="sig-paren">(</span><em>app_path=None</em>, <em>exclude_from_norm=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/tokenizer.html#Tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.tokenizer.Tokenizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Tokenizer class encapsulates all the functionality for normalizing and tokenizing a
 given piece of text.</p>
 <dl class="staticmethod">
 <dt id="mindmeld.tokenizer.Tokenizer.create_tokenizer">
-<em class="property">static </em><code class="descname">create_tokenizer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/tokenizer.html#Tokenizer.create_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.tokenizer.Tokenizer.create_tokenizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the tokenizer for the app
-:returns: a tokenizer
-:rtype: Tokenizer</p>
+<em class="property">static </em><code class="descname">create_tokenizer</code><span class="sig-paren">(</span><em>app_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/tokenizer.html#Tokenizer.create_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.tokenizer.Tokenizer.create_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the tokenizer for the app</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>app_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) -- MindMeld Application Path</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tokenizer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Tokenizer</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">

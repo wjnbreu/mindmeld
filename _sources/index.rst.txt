@@ -351,6 +351,8 @@ User Guide
 
    Save models for future use
 
+   Tracking classifier progress
+
  Working with the Domain Classifier
 
    Access the domain classifier
@@ -519,6 +521,10 @@ User Guide
 
    Calling Individual Custom Actions inside a MindMeld application
 
+ Working with the Tokenizer
+
+   Anatomy of the tokenizer configuration
+
  Internationalization support
 
    Setting up language configuration
@@ -559,6 +565,8 @@ Versions
 
  Recent Changes
 
+   MindMeld 4.3
+
    MindMeld 4.2
 
    MindMeld 4.1
@@ -574,6 +582,8 @@ Versions
    MindMeld 3.1
 
  Package History
+
+   4.3.1 (2020-06-17)
 
    4.2.0 (2019-09-16)
 

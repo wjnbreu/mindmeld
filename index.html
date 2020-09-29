@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>About This Playbook &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>About This Playbook &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'./',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -85,7 +85,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -158,6 +158,7 @@
 <li class="toctree-l1"><a class="reference internal" href="userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -469,6 +470,7 @@
 <li class="toctree-l2"><a class="reference internal" href="userguide/nlp.html#optimize-the-nlp-models">Optimize the NLP models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="userguide/nlp.html#select-data-for-experiments">Select data for experiments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="userguide/nlp.html#save-models-for-future-use">Save models for future use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userguide/nlp.html#tracking-classifier-progress">Tracking classifier progress</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/domain_classifier.html">Working with the Domain Classifier</a><ul>
@@ -577,6 +579,10 @@
 <li class="toctree-l2"><a class="reference internal" href="userguide/custom_action.html#calling-individual-custom-actions-inside-a-mindmeld-application">Calling Individual Custom Actions inside a MindMeld application</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/tokenizer.html">Working with the Tokenizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userguide/tokenizer.html#anatomy-of-the-tokenizer-configuration">Anatomy of the tokenizer configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/internationalization.html">Internationalization support</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="userguide/internationalization.html#setting-up-language-configuration">Setting up language configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="userguide/internationalization.html#language-stemming">Language stemming</a></li>
@@ -619,6 +625,7 @@
 <p class="caption"><span class="caption-text">Versions</span><a class="headerlink" href="#versions" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="versions/changes.html">Recent Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versions/changes.html#mindmeld-4-3">MindMeld 4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versions/changes.html#mindmeld-4-2">MindMeld 4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versions/changes.html#mindmeld-4-1">MindMeld 4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versions/changes.html#mindmeld-4-0">MindMeld 4.0</a></li>
@@ -629,14 +636,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="versions/history.html">Package History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id1">4.2.0 (2019-09-16)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id2">4.1.0 (2019-04-22)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id4">4.0.0 (2019-02-25)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id8">3.4.0 (2018-08-20)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id9">3.3.0 (2018-05-10)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id11">3.2.0 (2017-10-23)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id13">3.1.0 (2017-09-20)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id17">3.0.0 (2017-08-14)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id1">4.3.1 (2020-06-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id2">4.2.0 (2019-09-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id4">4.1.0 (2019-04-22)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id6">4.0.0 (2019-02-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id10">3.4.0 (2018-08-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id11">3.3.0 (2018-05-10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id14">3.2.0 (2017-10-23)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id16">3.1.0 (2017-09-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions/history.html#id20">3.0.0 (2017-08-14)</a></li>
 </ul>
 </li>
 </ul>

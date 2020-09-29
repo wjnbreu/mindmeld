@@ -18,7 +18,7 @@
     gtag('config', 'UA-138982267-1');
   </script>
 
-  <title>mindmeld.models.model &mdash; The Conversational AI Playbook 4.3.1rc2 documentation</title>
+  <title>mindmeld.models.model &mdash; The Conversational AI Playbook 4.3.1 documentation</title>
   
 
 
@@ -36,7 +36,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../../../',
-              VERSION:'4.3.1rc2',
+              VERSION:'4.3.1',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -84,7 +84,7 @@
             
             
               <div class="version">
-                4.3.1rc2
+                4.3.1
               </div>
             
           
@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
@@ -278,6 +279,7 @@
     <span class="n">ENABLE_STEMMING</span><span class="p">,</span>
     <span class="n">ENTITIES_LABEL_TYPE</span><span class="p">,</span>
     <span class="n">WORD_NGRAM_FREQ_RSC</span><span class="p">,</span>
+    <span class="n">SENTIMENT_ANALYZER</span><span class="p">,</span>
     <span class="n">entity_seqs_equal</span><span class="p">,</span>
     <span class="n">get_feature_extractor</span><span class="p">,</span>
     <span class="n">get_label_encoder</span><span class="p">,</span>
@@ -999,8 +1001,7 @@
 
 
 <div class="viewcode-block" id="EntityModelEvaluation"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.model.html#mindmeld.models.EntityModelEvaluation">[docs]</a><span class="k">class</span> <span class="nc">EntityModelEvaluation</span><span class="p">(</span><span class="n">SequenceModelEvaluation</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generates some statistics specific to entity recognition</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Generates some statistics specific to entity recognition&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_get_entity_boundary_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1193,8 +1194,10 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected_params</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unexpected param `</span><span class="si">{param}</span><span class="s2">`, dropping it from model config.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">param</span><span class="o">=</span><span class="n">param</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Unexpected param `</span><span class="si">{param}</span><span class="s2">`, dropping it from model config.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">param</span><span class="o">=</span><span class="n">param</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -1429,6 +1432,8 @@
         <span class="k">for</span> <span class="n">rname</span> <span class="ow">in</span> <span class="n">required_resources</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">rname</span> <span class="o">==</span> <span class="n">ENABLE_STEMMING</span><span class="p">:</span>
                 <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">rname</span> <span class="o">==</span> <span class="n">SENTIMENT_ANALYZER</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_resources</span><span class="p">[</span><span class="n">rname</span><span class="p">]</span> <span class="o">=</span> <span class="n">resource_loader</span><span class="o">.</span><span class="n">get_sentiment_analyzer</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">rname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resources</span><span class="p">:</span>
                 <span class="n">lengths</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_ngram_lengths_and_thresholds</span><span class="p">(</span>
                     <span class="n">rname</span>
@@ -1503,7 +1508,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tag_scheme&quot;</span><span class="p">,</span> <span class="s2">&quot;IOB&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
 <div class="viewcode-block" id="EntityLabelEncoder.encode"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.model.html#mindmeld.models.EntityLabelEncoder.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;&quot;Gets a list of joint app and system IOB tags from each query&#39;s entities.</span>
+        <span class="sd">&quot;&quot;&quot;Gets a list of joint app and system IOB tags from each query&#39;s entities.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            labels (list): A list of labels associated with each query</span>
@@ -1534,6 +1539,10 @@
 <span class="sd">            list: A list of decoded labels per query</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: support decoding multiple queries at once</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;system_entity_recognizer&quot;</span><span class="p">):</span>
+            <span class="c1"># app built with older version of MM (&lt; 4.3) does not save label encoder with system</span>
+            <span class="c1"># entity recognizer</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span> <span class="o">=</span> <span class="n">SystemEntityRecognizer</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
         <span class="n">examples</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;examples&quot;</span><span class="p">]</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">get_entities_from_tags</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_entity_recognizer</span><span class="p">)</span>
