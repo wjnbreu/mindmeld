@@ -165,10 +165,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -361,7 +363,7 @@ python
 <span id="id1"></span><h2>Domain Classification<a class="headerlink" href="#domain-classification" title="Permalink to this headline">¶</a></h2>
 <p>The domain classifier (also called the domain model) is a text classification model that is trained using the labeled queries across all domains. Our simple app only has one domain and hence does not need a domain classifier. However, complex conversational apps such as the popular virtual assistants on smartphones and smart speakers today have to handle queries from varied domains such as weather, navigation, sports, finance, and music, among others. Such apps use domain classification as the first step to narrow down the focus of the subsequent classifiers in the NLP pipeline.</p>
 <p>To see the domain classifier in action, you can download and try out the <code class="docutils literal notranslate"><span class="pre">home_assistant</span></code> blueprint application.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">()</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="s1">&#39;home_assistant&#39;</span><span class="p">)</span>
 </pre></div>
@@ -521,7 +523,7 @@ Springfield Mall
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recognizer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s1">&#39;When does the store on Elm Street close?&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(&lt;QueryEntity &#39;Elm Street&#39; (&#39;store_name&#39;)</span> <span class="go">char: [23-32], tok: [5-6]&gt;,)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(&lt;QueryEntity &#39;Elm Street&#39; (&#39;store_name&#39;) char: [23-32], tok: [5-6]&gt;,)</span>
 </pre></div>
 </div>
 <p>See the <a class="reference internal" href="../userguide/entity_recognizer.html"><span class="doc">User Guide</span></a> for more about entity recognizer training and evaluation options.</p>

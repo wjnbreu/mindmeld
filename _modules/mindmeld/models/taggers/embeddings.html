@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -254,13 +256,13 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
-<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlretrieve</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
 
-<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">EmbeddingDownloadError</span>
-<span class="kn">from</span> <span class="nn">...path</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="k">import</span> <span class="n">EmbeddingDownloadError</span>
+<span class="kn">from</span> <span class="nn">...path</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">EMBEDDINGS_FILE_PATH</span><span class="p">,</span>
     <span class="n">EMBEDDINGS_FOLDER_PATH</span><span class="p">,</span>
     <span class="n">PREVIOUSLY_USED_CHAR_EMBEDDINGS_FILE_PATH</span><span class="p">,</span>
@@ -294,7 +296,7 @@
     <span class="sd">&quot;&quot;&quot;This class is responsible for the downloading, extraction and storing of</span>
 <span class="sd">    word embeddings based on the GloVe format.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_dimension</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">token_pretrained_embedding_filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_dimension</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">token_pretrained_embedding_filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">token_pretrained_embedding_filepath</span> <span class="o">=</span> <span class="n">token_pretrained_embedding_filepath</span>
 
@@ -427,7 +429,7 @@
 <span class="sd">    dimension real-numbered vectors by mapping each word as a vector.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">sequence_padding_length</span><span class="p">,</span>
         <span class="n">token_embedding_dimension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -519,7 +521,7 @@
 <span class="sd">    dimension real-numbered vectors by mapping each character in the words as vectors.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">sequence_padding_length</span><span class="p">,</span>
         <span class="n">token_embedding_dimension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

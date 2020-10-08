@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -269,7 +271,7 @@
 <dl class="class">
 <dt id="mindmeld.components.question_answerer.FieldInfo">
 <em class="property">class </em><code class="descclassname">mindmeld.components.question_answerer.</code><code class="descname">FieldInfo</code><span class="sig-paren">(</span><em>name</em>, <em>field_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/question_answerer.html#FieldInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.question_answerer.FieldInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class models an information source of a knowledge base field metadata</p>
 <dl class="method">
 <dt id="mindmeld.components.question_answerer.FieldInfo.get_name">
@@ -325,12 +327,12 @@
 
 <dl class="attribute">
 <dt id="mindmeld.components.question_answerer.FieldInfo.NUMBER_TYPES">
-<code class="descname">NUMBER_TYPES</code><em class="property"> = {'double', 'float', 'long', 'scaled_float', 'half_float', 'short', 'integer', 'byte'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.FieldInfo.NUMBER_TYPES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMBER_TYPES</code><em class="property"> = {'short', 'half_float', 'byte', 'float', 'long', 'double', 'scaled_float', 'integer'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.FieldInfo.NUMBER_TYPES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mindmeld.components.question_answerer.FieldInfo.TEXT_TYPES">
-<code class="descname">TEXT_TYPES</code><em class="property"> = {'keyword', 'text'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.FieldInfo.TEXT_TYPES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">TEXT_TYPES</code><em class="property"> = {'text', 'keyword'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.FieldInfo.TEXT_TYPES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -343,7 +345,7 @@
 <dl class="class">
 <dt id="mindmeld.components.question_answerer.QuestionAnswerer">
 <em class="property">class </em><code class="descclassname">mindmeld.components.question_answerer.</code><code class="descname">QuestionAnswerer</code><span class="sig-paren">(</span><em>app_path</em>, <em>resource_loader=None</em>, <em>es_host=None</em>, <em>config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/question_answerer.html#QuestionAnswerer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.question_answerer.QuestionAnswerer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The question answerer is primarily an information retrieval system that provides all the
 necessary functionality for interacting with the application's knowledge base.</p>
 <dl class="method">
@@ -355,8 +357,8 @@ necessary functionality for interacting with the application's knowledge base.</
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- index name of knowledge base object.</li>
-<li><strong>ranking_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- overriding ranking configuration parameters.</li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- index name of knowledge base object.</li>
+<li><strong>ranking_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- overriding ranking configuration parameters.</li>
 </ul>
 </td>
 </tr>
@@ -408,22 +410,22 @@ developers choose to use when building the knowledge base.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The name of an index.</li>
-<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- The maximum number of records, default to 10.</li>
-<li><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- Whether the search is over structured, unstructured and whether to use
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The name of an index.</li>
+<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- The maximum number of records, default to 10.</li>
+<li><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Whether the search is over structured, unstructured and whether to use
 text signals for ranking, embedder signals, or both.</li>
-<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The id of a particular document to retrieve.</li>
-<li><strong>_sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- Specify the knowledge base field for custom sort.</li>
-<li><strong>_sort_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- Specify custom sort type. Valid values are 'asc', 'desc' and
+<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The id of a particular document to retrieve.</li>
+<li><strong>_sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Specify the knowledge base field for custom sort.</li>
+<li><strong>_sort_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Specify custom sort type. Valid values are 'asc', 'desc' and
 'distance'.</li>
-<li><strong>_sort_location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- The origin location to be used when sorting by distance.</li>
+<li><strong>_sort_location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- The origin location to be used when sorting by distance.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of matching documents.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </td>
 </tr>
 </tbody>
@@ -441,21 +443,21 @@ with that name will be created in the knowledge base.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>app_namespace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The namespace of the app. Used to prevent
+<li><strong>app_namespace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The namespace of the app. Used to prevent
 collisions between the indices of this app and those of other
 apps.</li>
-<li><strong>index_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The name of the new index to be created.</li>
-<li><strong>data_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The path to the data file containing the documents
+<li><strong>index_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The name of the new index to be created.</li>
+<li><strong>data_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The path to the data file containing the documents
 to be imported into the knowledge base index. It could be
 either json or jsonl file.</li>
-<li><strong>es_host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The Elasticsearch host server.</li>
+<li><strong>es_host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The Elasticsearch host server.</li>
 <li><strong>es_client</strong> (<em>Elasticsearch</em>) -- The Elasticsearch client.</li>
-<li><strong>connect_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) -- The amount of time for a
+<li><strong>connect_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>optional</em>) -- The amount of time for a
 connection to the Elasticsearch host.</li>
-<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) -- Set to true if you want to delete an existing index
+<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- Set to true if you want to delete an existing index
 and reindex it</li>
-<li><strong>app_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The path to the directory containing the app's data</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- The QA config if passed directly rather than loaded from the app config</li>
+<li><strong>app_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The path to the directory containing the app's data</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- The QA config if passed directly rather than loaded from the app config</li>
 </ul>
 </td>
 </tr>
@@ -473,13 +475,13 @@ and reindex it</li>
 <dl class="class">
 <dt id="mindmeld.components.question_answerer.Search">
 <em class="property">class </em><code class="descclassname">mindmeld.components.question_answerer.</code><code class="descname">Search</code><span class="sig-paren">(</span><em>client</em>, <em>index</em>, <em>ranking_config=None</em>, <em>field_info=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/question_answerer.html#Search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.question_answerer.Search" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class models a generic filtered search in knowledge base. It allows developers to
 construct more complex knowledge base search criteria based on the application requirements.</p>
 <dl class="class">
 <dt id="mindmeld.components.question_answerer.Search.Clause">
 <em class="property">class </em><code class="descname">Clause</code><a class="reference internal" href="../_modules/mindmeld/components/question_answerer.html#Search.Clause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.question_answerer.Search.Clause" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
 <p>This class models an abstract knowledge base clause.</p>
 <dl class="method">
 <dt id="mindmeld.components.question_answerer.Search.Clause.build_query">
@@ -583,7 +585,7 @@ construct more complex knowledge base search criteria based on the application r
 
 <dl class="attribute">
 <dt id="mindmeld.components.question_answerer.Search.SortClause.SORT_TYPES">
-<code class="descname">SORT_TYPES</code><em class="property"> = {'desc', 'asc', 'distance'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.Search.SortClause.SORT_TYPES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SORT_TYPES</code><em class="property"> = {'asc', 'desc', 'distance'}</em><a class="headerlink" href="#mindmeld.components.question_answerer.Search.SortClause.SORT_TYPES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -596,7 +598,7 @@ construct more complex knowledge base search criteria based on the application r
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- The maximum number of records to fetch, default to 10.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- The maximum number of records to fetch, default to 10.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of matching documents.</td>
 </tr>
@@ -640,13 +642,13 @@ date fields. Example use cases include price range filters and date range filter
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- Whether the filter is over structured or unstructured text.</li>
+<li><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Whether the filter is over structured or unstructured text.</li>
 <li><strong>kwargs</strong> -- A keyword argument to specify the filter text and the knowledge base text field.</li>
-<li><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- knowledge base field name for range filter.</li>
-<li><strong>gt</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- range filter operator for greater than.</li>
-<li><strong>gte</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- range filter operator for greater than or equal to.</li>
-<li><strong>lt</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- range filter operator for less than.</li>
-<li><strong>lte</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- range filter operator for less or equal to.</li>
+<li><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- knowledge base field name for range filter.</li>
+<li><strong>gt</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- range filter operator for greater than.</li>
+<li><strong>gte</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- range filter operator for greater than or equal to.</li>
+<li><strong>lt</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- range filter operator for less than.</li>
+<li><strong>lte</strong> (<em>number</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- range filter operator for less or equal to.</li>
 </ul>
 </td>
 </tr>
@@ -703,12 +705,12 @@ matches.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- knowledge base field for sort.</li>
-<li><strong>sort_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- sorting type. valid values are 'asc', 'desc' and 'distance'. 'asc' and
+<li><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- knowledge base field for sort.</li>
+<li><strong>sort_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- sorting type. valid values are 'asc', 'desc' and 'distance'. 'asc' and
 'desc' can be used to sort numeric or date fields and 'distance' can
 be used to sort by distance on geo_point fields. Default sort type
 is 'desc' if not specified.</li>
-<li><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- location (lat, lon) in geo_point format to be used as origin when
+<li><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- location (lat, lon) in geo_point format to be used as origin when
 sorting by 'distance'</li>
 </ul>
 </td>

@@ -203,10 +203,12 @@
 <li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -596,7 +598,7 @@ Here you can enter your own input and get an immediate response back. Try &quot;
 <div class="section" id="using-the-python-shell">
 <h4>Using the Python shell<a class="headerlink" href="#using-the-python-shell" title="Permalink to this headline">¶</a></h4>
 <p>To try out the <a class="reference internal" href="../blueprints/home_assistant.html"><span class="doc">Home Assistant blueprint</span></a>, run these commands in your Python shell:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">()</span>
 <span class="n">blueprint</span> <span class="o">=</span> <span class="s1">&#39;home_assistant&#39;</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
@@ -625,7 +627,7 @@ conversational applications. See <a class="reference internal" href="../blueprin
 </div>
 <div class="section" id="id5">
 <h4>Using the Python shell<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">()</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="s1">&#39;template&#39;</span><span class="p">,</span> <span class="s1">&#39;my_app&#39;</span><span class="p">)</span>
 </pre></div>
@@ -653,7 +655,7 @@ conversational applications. See <a class="reference internal" href="../blueprin
 <li><code class="docutils literal notranslate"><span class="pre">mindmeld</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">&lt;app_name&gt;</span></code></li>
 </ol>
-<p>Built-in help is available with the standard <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#cmdoption-h" title="(in Python v3.8)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-h</span></code></a> flag.</p>
+<p>Built-in help is available with the standard <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#cmdoption-h" title="(in Python v3.9)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-h</span></code></a> flag.</p>
 <div class="section" id="mindmeld">
 <h3>mindmeld<a class="headerlink" href="#mindmeld" title="Permalink to this headline">¶</a></h3>
 <p>The command-line interface (CLI) for MindMeld can be accessed with the <code class="docutils literal notranslate"><span class="pre">mindmeld</span></code> command.
@@ -694,7 +696,7 @@ The <code class="docutils literal notranslate"><span class="pre">INFO</span></co
 <li><code class="xref py py-data docutils literal notranslate"><span class="pre">level</span></code>: The <a class="reference external" href="https://docs.python.org/3/howto/logging.html#logging-levels">logging level</a>.</li>
 </ol>
 <p>Here's an example usage:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">()</span>
 </pre></div>
 </div>

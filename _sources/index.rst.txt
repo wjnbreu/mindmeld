@@ -507,6 +507,16 @@ User Guide
 
    Next Steps
 
+ Working with the Auto Annotator
+
+   Default Auto Annotator: Spacy Annotator
+
+   Auto Annotator Configuration
+
+   Using the Auto Annotator
+
+   Creating a Custom Annotator
+
  Working with Custom Actions
 
    Why Custom Actions?
@@ -525,6 +535,8 @@ User Guide
 
    Anatomy of the tokenizer configuration
 
+   Default Tokenizer Configuration
+
  Internationalization support
 
    Setting up language configuration
@@ -542,6 +554,12 @@ User Guide
    Phonetic matching in entity resolution
 
    Leveraging ASR n-best lists
+
+ DVC for Model Tracking
+
+   Available Options in Mindmeld
+
+   Example: Home Assistant Blueprint
 
  Webex Teams Integration
 

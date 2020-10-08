@@ -157,10 +157,12 @@
 <li class="toctree-l1"><a class="reference internal" href="userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -336,11 +338,19 @@
         <li><a href="apidoc/mindmeld.components.request.html#mindmeld.components.request.Params.allowed_intents">(mindmeld.components.request.Params attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/mindmeld.exceptions.html#mindmeld.exceptions.AllowedNlpClassesKeyError">AllowedNlpClassesKeyError</a>
 </li>
       <li><a href="apidoc/mindmeld.system_entity_recognizer.html#mindmeld.system_entity_recognizer.DucklingDimension.AMOUNT_OF_MONEY">AMOUNT_OF_MONEY (mindmeld.system_entity_recognizer.DucklingDimension attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.AnnotatorAction.ANNOTATE">ANNOTATE (mindmeld.auto_annotator.AnnotatorAction attribute)</a>
+</li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.Annotator.annotate">annotate() (mindmeld.auto_annotator.Annotator method)</a>
+</li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.Annotator">Annotator (class in mindmeld.auto_annotator)</a>
+</li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.AnnotatorAction">AnnotatorAction (class in mindmeld.auto_annotator)</a>
 </li>
       <li><a href="intro/key_concepts.html#term-app"><strong>app</strong></a>
 
@@ -369,6 +379,8 @@
       <li><a href="apidoc/mindmeld.app_manager.html#mindmeld.app_manager.ApplicationManager">ApplicationManager (class in mindmeld.app_manager)</a>
 </li>
       <li><a href="apidoc/mindmeld.components.dialogue.html#mindmeld.components.dialogue.DialogueStateRule.apply">apply() (mindmeld.components.dialogue.DialogueStateRule method)</a>
+</li>
+      <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.apply_convolution">apply_convolution() (mindmeld.models.taggers.lstm.LstmModel method)</a>
 </li>
       <li><a href="apidoc/mindmeld.components.dialogue.html#mindmeld.components.dialogue.DialogueManager.apply_handler">apply_handler() (mindmeld.components.dialogue.DialogueManager method)</a>
 
@@ -544,6 +556,10 @@
       </ul></li>
       <li><a href="apidoc/mindmeld.html#mindmeld.configure_logs">configure_logs() (in module mindmeld)</a>
 </li>
+      <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.construct_feed_dictionary">construct_feed_dictionary() (mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
+      <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.construct_tf_variables">construct_tf_variables() (mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
       <li><a href="apidoc/mindmeld.components.client.html#mindmeld.components.client.ConversationClient.context">context (mindmeld.components.client.ConversationClient attribute)</a>
 
       <ul>
@@ -587,6 +603,8 @@
       <li><a href="apidoc/mindmeld.converter.converter.html#mindmeld.converter.converter.Converter">Converter (class in mindmeld.converter.converter)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.model.html#mindmeld.models.model.ModelEvaluation.correct_results">correct_results() (mindmeld.models.model.ModelEvaluation method)</a>
+</li>
+      <li><a href="apidoc/mindmeld.models.helpers.html#mindmeld.models.helpers.create_annotator">create_annotator() (in module mindmeld.models.helpers)</a>
 </li>
       <li><a href="apidoc/mindmeld.converter.rasa.html#mindmeld.converter.rasa.RasaConverter.create_custom_features">create_custom_features() (mindmeld.converter.rasa.RasaConverter static method)</a>
 
@@ -899,6 +917,8 @@
 </li>
         <li><a href="apidoc/mindmeld.models.tagger_models.html#mindmeld.models.tagger_models.TaggerModel.dump">(mindmeld.models.tagger_models.TaggerModel method)</a>
 </li>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.dump">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.dump">(mindmeld.models.taggers.taggers.Tagger static method)</a>
 </li>
         <li><a href="apidoc/mindmeld.query_cache.html#mindmeld.query_cache.QueryCache.dump">(mindmeld.query_cache.QueryCache method)</a>
@@ -1109,6 +1129,8 @@
       <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.extract_features">extract_features() (mindmeld.models.taggers.crf.ConditionalRandomFields method)</a>
 
       <ul>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.extract_features">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.extract_features">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.extract_features">(mindmeld.models.taggers.taggers.Tagger method)</a>
@@ -1172,6 +1194,8 @@
 </li>
       <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.Search.filter">filter() (mindmeld.components.question_answerer.Search method)</a>
 </li>
+      <li><a href="apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.filter_file_paths">filter_file_paths() (mindmeld.resource_loader.ResourceLoader method)</a>
+</li>
       <li><a href="apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.find_ngrams">find_ngrams() (in module mindmeld.models.query_features)</a>
 </li>
       <li><a href="apidoc/mindmeld.components.classifier.html#mindmeld.components.classifier.Classifier.fit">fit() (mindmeld.components.classifier.Classifier method)</a>
@@ -1198,6 +1222,8 @@
         <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.FeatureBinner.fit">(mindmeld.models.taggers.crf.FeatureBinner method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.FeatureMapper.fit">(mindmeld.models.taggers.crf.FeatureMapper method)</a>
+</li>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.fit">(mindmeld.models.taggers.lstm.LstmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.fit">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
@@ -1288,6 +1314,8 @@
       </ul></li>
       <li><a href="apidoc/mindmeld.models.model.html#mindmeld.models.model.ModelEvaluation.get_accuracy">get_accuracy() (mindmeld.models.model.ModelEvaluation method)</a>
 </li>
+      <li><a href="apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_all_file_paths">get_all_file_paths() (mindmeld.resource_loader.ResourceLoader method)</a>
+</li>
       <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_app">get_app() (in module mindmeld.path)</a>
 </li>
       <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_app_module_path">get_app_module_path() (in module mindmeld.path)</a>
@@ -1330,6 +1358,8 @@
 </li>
       <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_domains">get_domains() (in module mindmeld.path)</a>
 </li>
+      <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_dvc_local_remote_path">get_dvc_local_remote_path() (in module mindmeld.path)</a>
+</li>
       <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_embedder_cache_file_path">get_embedder_cache_file_path() (in module mindmeld.path)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.html#mindmeld.models.Embedder.get_encodings">get_encodings() (mindmeld.models.Embedder method)</a>
@@ -1362,10 +1392,10 @@
         <li><a href="apidoc/mindmeld.models.text_models.html#mindmeld.models.text_models.TextModel.get_feature_matrix">(mindmeld.models.text_models.TextModel method)</a>
 </li>
       </ul></li>
-      <li><a href="apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_gazetteer">get_gazetteer() (mindmeld.resource_loader.ResourceLoader method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_gazetteer">get_gazetteer() (mindmeld.resource_loader.ResourceLoader method)</a>
+</li>
       <li><a href="apidoc/mindmeld.path.html#mindmeld.path.get_gazetteer_data_path">get_gazetteer_data_path() (in module mindmeld.path)</a>
 </li>
       <li><a href="apidoc/mindmeld.resource_loader.html#mindmeld.resource_loader.ResourceLoader.get_gazetteer_hash">get_gazetteer_hash() (mindmeld.resource_loader.ResourceLoader method)</a>
@@ -1419,6 +1449,8 @@
       <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.get_params">get_params() (mindmeld.models.taggers.crf.ConditionalRandomFields method)</a>
 
       <ul>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.get_params">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.get_params">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.get_params">(mindmeld.models.taggers.taggers.Tagger method)</a>
@@ -1795,6 +1827,8 @@
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.load">(mindmeld.models.taggers.crf.ConditionalRandomFields static method)</a>
 </li>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.load">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.load">(mindmeld.models.taggers.memm.MemmModel static method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.load">(mindmeld.models.taggers.taggers.Tagger static method)</a>
@@ -1850,6 +1884,8 @@
         <li><a href="apidoc/mindmeld.components.dialogue.html#mindmeld.components.dialogue.DialogueStateRule.logger">(mindmeld.components.dialogue.DialogueStateRule attribute)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel">LstmModel (class in mindmeld.models.taggers.lstm)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1888,7 +1924,11 @@
 </li>
       <li><a href="apidoc/mindmeld.app_manager.html#module-mindmeld.app_manager">mindmeld.app_manager (module)</a>
 </li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#module-mindmeld.auto_annotator">mindmeld.auto_annotator (module)</a>
+</li>
       <li><a href="apidoc/mindmeld.bot.html#module-mindmeld.bot">mindmeld.bot (module)</a>
+</li>
+      <li><a href="apidoc/mindmeld.bot.webex_bot_server.html#module-mindmeld.bot.webex_bot_server">mindmeld.bot.webex_bot_server (module)</a>
 </li>
       <li><a href="apidoc/mindmeld.components.html#module-mindmeld.components">mindmeld.components (module)</a>
 </li>
@@ -1936,10 +1976,10 @@
 </li>
       <li><a href="apidoc/mindmeld.gazetteer.html#module-mindmeld.gazetteer">mindmeld.gazetteer (module)</a>
 </li>
-      <li><a href="apidoc/mindmeld.markup.html#module-mindmeld.markup">mindmeld.markup (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.markup.html#module-mindmeld.markup">mindmeld.markup (module)</a>
+</li>
       <li><a href="apidoc/mindmeld.models.html#module-mindmeld.models">mindmeld.models (module)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.embedder_models.html#module-mindmeld.models.embedder_models">mindmeld.models.embedder_models (module)</a>
@@ -1959,6 +1999,8 @@
       <li><a href="apidoc/mindmeld.models.taggers.crf.html#module-mindmeld.models.taggers.crf">mindmeld.models.taggers.crf (module)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.taggers.embeddings.html#module-mindmeld.models.taggers.embeddings">mindmeld.models.taggers.embeddings (module)</a>
+</li>
+      <li><a href="apidoc/mindmeld.models.taggers.lstm.html#module-mindmeld.models.taggers.lstm">mindmeld.models.taggers.lstm (module)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.taggers.memm.html#module-mindmeld.models.taggers.memm">mindmeld.models.taggers.memm (module)</a>
 </li>
@@ -2165,6 +2207,10 @@
       <li><a href="apidoc/mindmeld.app_manager.html#mindmeld.app_manager.ApplicationManager.parse">parse() (mindmeld.app_manager.ApplicationManager method)</a>
 
       <ul>
+        <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.Annotator.parse">(mindmeld.auto_annotator.Annotator method)</a>
+</li>
+        <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.SpacyAnnotator.parse">(mindmeld.auto_annotator.SpacyAnnotator method)</a>
+</li>
         <li><a href="apidoc/mindmeld.system_entity_recognizer.html#mindmeld.system_entity_recognizer.DucklingRecognizer.parse">(mindmeld.system_entity_recognizer.DucklingRecognizer method)</a>
 </li>
         <li><a href="apidoc/mindmeld.system_entity_recognizer.html#mindmeld.system_entity_recognizer.NoOpSystemEntityRecognizer.parse">(mindmeld.system_entity_recognizer.NoOpSystemEntityRecognizer method)</a>
@@ -2212,6 +2258,8 @@
         <li><a href="apidoc/mindmeld.models.tagger_models.html#mindmeld.models.tagger_models.TaggerModel.predict">(mindmeld.models.tagger_models.TaggerModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.predict">(mindmeld.models.taggers.crf.ConditionalRandomFields method)</a>
+</li>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.predict">(mindmeld.models.taggers.lstm.LstmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.predict">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
@@ -2438,6 +2486,8 @@
         <li><a href="apidoc/mindmeld.components.nlp.html#mindmeld.components.nlp.Processor.ready">(mindmeld.components.nlp.Processor attribute)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/mindmeld.models.helpers.html#mindmeld.models.helpers.register_annotator">register_annotator() (in module mindmeld.models.helpers)</a>
+</li>
       <li><a href="apidoc/mindmeld.models.html#mindmeld.models.register_embedder">register_embedder() (in module mindmeld.models)</a>
 
       <ul>
@@ -2601,6 +2651,10 @@
       <ul>
         <li><a href="apidoc/mindmeld.html#mindmeld.Application.run">(mindmeld.Application method)</a>
 </li>
+        <li><a href="apidoc/mindmeld.bot.html#mindmeld.bot.WebexBotServer.run">(mindmeld.bot.WebexBotServer method)</a>
+</li>
+        <li><a href="apidoc/mindmeld.bot.webex_bot_server.html#mindmeld.bot.webex_bot_server.WebexBotServer.run">(mindmeld.bot.webex_bot_server.WebexBotServer method)</a>
+</li>
         <li><a href="apidoc/mindmeld.server.html#mindmeld.server.MindMeldServer.run">(mindmeld.server.MindMeldServer method)</a>
 </li>
       </ul></li>
@@ -2663,6 +2717,8 @@
       <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.set_params">set_params() (mindmeld.models.taggers.crf.ConditionalRandomFields method)</a>
 
       <ul>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.set_params">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.set_params">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.set_params">(mindmeld.models.taggers.taggers.Tagger method)</a>
@@ -2675,6 +2731,8 @@
       <li><a href="apidoc/mindmeld.models.taggers.crf.html#mindmeld.models.taggers.crf.ConditionalRandomFields.setup_model">setup_model() (mindmeld.models.taggers.crf.ConditionalRandomFields method)</a>
 
       <ul>
+        <li><a href="apidoc/mindmeld.models.taggers.lstm.html#mindmeld.models.taggers.lstm.LstmModel.setup_model">(mindmeld.models.taggers.lstm.LstmModel method)</a>
+</li>
         <li><a href="apidoc/mindmeld.models.taggers.memm.html#mindmeld.models.taggers.memm.MemmModel.setup_model">(mindmeld.models.taggers.memm.MemmModel method)</a>
 </li>
         <li><a href="apidoc/mindmeld.models.taggers.taggers.html#mindmeld.models.taggers.taggers.Tagger.setup_model">(mindmeld.models.taggers.taggers.Tagger method)</a>
@@ -2712,10 +2770,12 @@
 </li>
       <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.Search.SortClause.SORT_ORDER_DESC">SORT_ORDER_DESC (mindmeld.components.question_answerer.Search.SortClause attribute)</a>
 </li>
-      <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.Search.SortClause.SORT_TYPES">SORT_TYPES (mindmeld.components.question_answerer.Search.SortClause attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.Search.SortClause.SORT_TYPES">SORT_TYPES (mindmeld.components.question_answerer.Search.SortClause attribute)</a>
+</li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.SpacyAnnotator">SpacyAnnotator (class in mindmeld.auto_annotator)</a>
+</li>
       <li><a href="apidoc/mindmeld.core.html#mindmeld.core.Span">Span (class in mindmeld.core)</a>
 </li>
       <li><a href="apidoc/mindmeld.core.html#mindmeld.core.NestedEntity.span">span (mindmeld.core.NestedEntity attribute)</a>
@@ -2984,14 +3044,18 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.AnnotatorAction.UNANNOTATE">UNANNOTATE (mindmeld.auto_annotator.AnnotatorAction attribute)</a>
+</li>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.Annotator.unannotate">unannotate() (mindmeld.auto_annotator.Annotator method)</a>
+</li>
       <li><a href="apidoc/mindmeld.models.query_features.html#mindmeld.models.query_features.update_features_sequence">update_features_sequence() (in module mindmeld.models.query_features)</a>
 </li>
       <li><a href="apidoc/mindmeld.models.taggers.embeddings.html#mindmeld.models.taggers.embeddings.TqdmUpTo.update_to">update_to() (mindmeld.models.taggers.embeddings.TqdmUpTo method)</a>
 </li>
-      <li><a href="apidoc/mindmeld.gazetteer.html#mindmeld.gazetteer.Gazetteer.update_with_entity_data_file">update_with_entity_data_file() (mindmeld.gazetteer.Gazetteer method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.gazetteer.html#mindmeld.gazetteer.Gazetteer.update_with_entity_data_file">update_with_entity_data_file() (mindmeld.gazetteer.Gazetteer method)</a>
+</li>
       <li><a href="apidoc/mindmeld.gazetteer.html#mindmeld.gazetteer.Gazetteer.update_with_entity_map">update_with_entity_map() (mindmeld.gazetteer.Gazetteer method)</a>
 </li>
       <li><a href="apidoc/mindmeld.system_entity_recognizer.html#mindmeld.system_entity_recognizer.DucklingDimension.URL">URL (mindmeld.system_entity_recognizer.DucklingDimension attribute)</a>
@@ -3004,6 +3068,12 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.Annotator.valid_entity_check">valid_entity_check() (mindmeld.auto_annotator.Annotator method)</a>
+
+      <ul>
+        <li><a href="apidoc/mindmeld.auto_annotator.html#mindmeld.auto_annotator.SpacyAnnotator.valid_entity_check">(mindmeld.auto_annotator.SpacyAnnotator method)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.Search.Clause.validate">validate() (mindmeld.components.question_answerer.Search.Clause method)</a>
 
       <ul>
@@ -3032,10 +3102,10 @@
         <li><a href="apidoc/mindmeld.core.html#mindmeld.core.FormEntity.value">(mindmeld.core.FormEntity attribute)</a>
 </li>
       </ul></li>
-      <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.FieldInfo.VECTOR_TYPES">VECTOR_TYPES (mindmeld.components.question_answerer.FieldInfo attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.components.question_answerer.html#mindmeld.components.question_answerer.FieldInfo.VECTOR_TYPES">VECTOR_TYPES (mindmeld.components.question_answerer.FieldInfo attribute)</a>
+</li>
       <li><a href="apidoc/mindmeld.components.html#mindmeld.components.Conversation.verbose">verbose (mindmeld.components.Conversation attribute)</a>
 
       <ul>
@@ -3076,10 +3146,18 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/mindmeld.core.html#mindmeld.core.NestedEntity.with_children">with_children() (mindmeld.core.NestedEntity method)</a>
+      <li><a href="apidoc/mindmeld.bot.html#mindmeld.bot.WebexBotServer">WebexBotServer (class in mindmeld.bot)</a>
+
+      <ul>
+        <li><a href="apidoc/mindmeld.bot.webex_bot_server.html#mindmeld.bot.webex_bot_server.WebexBotServer">(class in mindmeld.bot.webex_bot_server)</a>
+</li>
+      </ul></li>
+      <li><a href="apidoc/mindmeld.bot.webex_bot_server.html#mindmeld.bot.webex_bot_server.WebexBotServerException">WebexBotServerException</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/mindmeld.core.html#mindmeld.core.NestedEntity.with_children">with_children() (mindmeld.core.NestedEntity method)</a>
+</li>
       <li><a href="apidoc/mindmeld.models.taggers.embeddings.html#mindmeld.models.taggers.embeddings.WordSequenceEmbedding">WordSequenceEmbedding (class in mindmeld.models.taggers.embeddings)</a>
 </li>
       <li><a href="apidoc/mindmeld.converter.code_generator.html#mindmeld.converter.code_generator.CodeGenerator.write">write() (mindmeld.converter.code_generator.CodeGenerator method)</a>

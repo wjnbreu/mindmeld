@@ -177,10 +177,12 @@
 <li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -628,7 +630,7 @@ Study the blueprint's application file (<code class="docutils literal notranslat
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'left'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></td>
 <td><p class="first">Whether to allow attachment in the left direction. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, a dependent entity of this type is
 permitted to attach to an instance of the head entity type on its left (as determined by their
 relative positions in the query text). If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the parser disallows any candidate parses where
@@ -637,13 +639,13 @@ this dependent type is grouped with the head entity to its left.</p>
 </td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'right'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></td>
 <td><p class="first">Whether to allow attachment in the right direction (analogous to the <code class="docutils literal notranslate"><span class="pre">'left'</span></code> setting above).</p>
 <p class="last">Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'min_instances'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></td>
 <td><p class="first">The minimum number of dependent entities of this type that must be grouped with the head entity for
 a successful parse. The parser will not create an entity group unless it can link the required
 number of dependents to the head.</p>
@@ -651,7 +653,7 @@ number of dependents to the head.</p>
 </td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'max_instances'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>
+<td><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>
 or <code class="docutils literal notranslate"><span class="pre">NoneType</span></code></td>
 <td><p class="first">The maximum number of dependent entities of this type that can be grouped with the head entity. If
 the value is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the parser does not impose any limits on the number of dependents of this
@@ -660,7 +662,7 @@ type that can link with the head entity.</p>
 </td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'precedence'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></td>
 <td><p class="first">The preferred direction of attachment for dependent entities of this type. The preferred direction
 determines the head to attach to, if there are <strong>equidistant</strong> compatible head entities in the query
 on either side of the dependent . Accepted values are <code class="docutils literal notranslate"><span class="pre">'left'</span></code>, to prefer the head to the left
@@ -669,7 +671,7 @@ of the dependent entity, or <code class="docutils literal notranslate"><span cla
 </td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'linking_words'</span></code></td>
-<td><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a></td>
+<td><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a></td>
 <td><p class="first">A set of words, whose occurence between two entities increases the chance of the entities being
 in the specified head-dependent relationship. These linking words provide hints to the parser to
 prefer candidate parses where one of these words is present in the query text between a dependent
@@ -694,10 +696,10 @@ entity of this type and the head entity.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PARSER_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;dish&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;linking_words&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;with&#39;</span><span class="p">}},</span>
-        <span class="s1">&#39;sys_number&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_instances&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+        <span class="s1">&#39;sys_number&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_instances&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="p">},</span>
     <span class="s1">&#39;option&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;sys_number&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_instances&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+        <span class="s1">&#39;sys_number&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_instances&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

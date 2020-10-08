@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -282,14 +284,14 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>example</strong> (<a class="reference internal" href="mindmeld.core.html#mindmeld.core.Query" title="mindmeld.core.Query"><em>mindmeld.core.Query</em></a>) -- A query.</li>
 <li><strong>config</strong> (<em>ModelConfig</em>) -- The ModelConfig which may contain information used for feature                                   extraction.</li>
-<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction.</li>
+<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Features.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -308,7 +310,7 @@
 <li><strong>examples</strong> (<em>list of mindmeld.core.Query</em>) -- a list of queries</li>
 <li><strong>config</strong> (<em>ModelConfig</em>) -- The ModelConfig which may contain information used for feature
 extraction</li>
-<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction</li>
+<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction</li>
 </ul>
 </td>
 </tr>
@@ -334,8 +336,8 @@ encoded by the label_encoder</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) -- Generally a list of feature vectors, one for each training example</li>
-<li><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) -- A list of classification labels (encoded by the label_encoder, NOT MindMeld
+<li><strong>X</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- Generally a list of feature vectors, one for each training example</li>
+<li><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- A list of classification labels (encoded by the label_encoder, NOT MindMeld
 entity objects)</li>
 </ul>
 </td>
@@ -355,11 +357,11 @@ entity objects)</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) -- Not used, needed for sklearn compatibility</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- Not used, needed for sklearn compatibility</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of the model parameter names as keys and their set values</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -375,7 +377,7 @@ for SKLearn.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The path to dump the model to</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The path to dump the model to</td>
 </tr>
 </tbody>
 </table>
@@ -390,7 +392,7 @@ extract_features.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) -- A list of feature vectors, one for each example</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>X</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- A list of feature vectors, one for each example</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of predicted labels (in an encoded format)</td>
 </tr>
@@ -411,7 +413,7 @@ extract_features.</p>
 <li><strong>examples</strong> (<em>list of mindmeld.core.Query</em>) -- a list of queries to predict on</li>
 <li><strong>config</strong> (<em>ModelConfig</em>) -- The ModelConfig which may contain information used for feature
 extraction</li>
-<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction</li>
+<li><strong>resources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- Resources which may be used for this model's feature extraction</li>
 </ul>
 </td>
 </tr>
@@ -454,7 +456,7 @@ values are what they should be set to</td>
 <dl class="class">
 <dt id="mindmeld.models.taggers.crf.FeatureBinner">
 <em class="property">class </em><code class="descclassname">mindmeld.models.taggers.crf.</code><code class="descname">FeatureBinner</code><a class="reference internal" href="../_modules/mindmeld/models/taggers/crf.html#FeatureBinner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.models.taggers.crf.FeatureBinner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class to convert features with numerical values to categorical values.</p>
 <dl class="method">
 <dt id="mindmeld.models.taggers.crf.FeatureBinner.fit">
@@ -503,7 +505,7 @@ values are what they should be set to</td>
 <dl class="class">
 <dt id="mindmeld.models.taggers.crf.FeatureMapper">
 <em class="property">class </em><code class="descclassname">mindmeld.models.taggers.crf.</code><code class="descname">FeatureMapper</code><span class="sig-paren">(</span><em>num_std=2</em>, <em>size_std=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/models/taggers/crf.html#FeatureMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.models.taggers.crf.FeatureMapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Mapper for one feature to map numerical values to corresponding bins which are generated
 by the mean and standard deviation of this feature.</p>
 <p>The size and number of bins are decided by num_std and size_std. For example, say
@@ -556,7 +558,7 @@ num_std = 2 and size_std = 0.5, then the bins would look like:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) -- numerical value of this feature</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) -- numerical value of this feature</td>
 </tr>
 </tbody>
 </table>

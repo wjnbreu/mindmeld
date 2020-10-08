@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -268,7 +270,7 @@
 <dl class="class">
 <dt id="mindmeld.models.taggers.embeddings.CharacterSequenceEmbedding">
 <em class="property">class </em><code class="descclassname">mindmeld.models.taggers.embeddings.</code><code class="descname">CharacterSequenceEmbedding</code><span class="sig-paren">(</span><em>sequence_padding_length</em>, <em>token_embedding_dimension=None</em>, <em>max_char_per_word=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/models/taggers/embeddings.html#CharacterSequenceEmbedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.models.taggers.embeddings.CharacterSequenceEmbedding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>CharacterSequenceEmbedding encodes a sequence of words into a sequence of fixed
 dimension real-numbered vectors by mapping each character in the words as vectors.</p>
 <dl class="method">
@@ -279,11 +281,11 @@ dimension real-numbered vectors by mapping each character in the words as vector
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_sequence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) -- A sequence of tokens.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_sequence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- A sequence of tokens.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Encoded sequence of tokens.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -300,7 +302,7 @@ dimension real-numbered vectors by mapping each character in the words as vector
 <dl class="class">
 <dt id="mindmeld.models.taggers.embeddings.GloVeEmbeddingsContainer">
 <em class="property">class </em><code class="descclassname">mindmeld.models.taggers.embeddings.</code><code class="descname">GloVeEmbeddingsContainer</code><span class="sig-paren">(</span><em>token_dimension=300</em>, <em>token_pretrained_embedding_filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/models/taggers/embeddings.html#GloVeEmbeddingsContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.models.taggers.embeddings.GloVeEmbeddingsContainer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class is responsible for the downloading, extraction and storing of
 word embeddings based on the GloVe format.</p>
 <dl class="method">
@@ -313,7 +315,7 @@ word embeddings based on the GloVe format.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">word to embedding mapping.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>)</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -335,9 +337,9 @@ word embeddings based on the GloVe format.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- Number of blocks transferred so far [default: 1].</li>
-<li><strong>bsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- Size of each block (in tqdm units) [default: 1].</li>
-<li><strong>tsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- Total size (in tqdm units). If [default: None] remains unchanged.</li>
+<li><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- Number of blocks transferred so far [default: 1].</li>
+<li><strong>bsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- Size of each block (in tqdm units) [default: 1].</li>
+<li><strong>tsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- Total size (in tqdm units). If [default: None] remains unchanged.</li>
 </ul>
 </td>
 </tr>
@@ -350,7 +352,7 @@ word embeddings based on the GloVe format.</p>
 <dl class="class">
 <dt id="mindmeld.models.taggers.embeddings.WordSequenceEmbedding">
 <em class="property">class </em><code class="descclassname">mindmeld.models.taggers.embeddings.</code><code class="descname">WordSequenceEmbedding</code><span class="sig-paren">(</span><em>sequence_padding_length</em>, <em>token_embedding_dimension=None</em>, <em>token_pretrained_embedding_filepath=None</em>, <em>use_padding=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/models/taggers/embeddings.html#WordSequenceEmbedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.models.taggers.embeddings.WordSequenceEmbedding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>WordSequenceEmbedding encodes a sequence of words into a sequence of fixed
 dimension real-numbered vectors by mapping each word as a vector.</p>
 <dl class="method">
@@ -361,11 +363,11 @@ dimension real-numbered vectors by mapping each word as a vector.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_sequence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) -- A sequence of tokens.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_sequence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- A sequence of tokens.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Encoded sequence of tokens.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>)</td>
 </tr>
 </tbody>
 </table>

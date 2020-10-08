@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -259,18 +261,18 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">elasticsearch.exceptions</span> <span class="kn">import</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">EsConnectionError</span>
-<span class="kn">from</span> <span class="nn">elasticsearch.exceptions</span> <span class="kn">import</span> <span class="n">ElasticsearchException</span><span class="p">,</span> <span class="n">TransportError</span>
+<span class="kn">from</span> <span class="nn">elasticsearch.exceptions</span> <span class="k">import</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">EsConnectionError</span>
+<span class="kn">from</span> <span class="nn">elasticsearch.exceptions</span> <span class="k">import</span> <span class="n">ElasticsearchException</span><span class="p">,</span> <span class="n">TransportError</span>
 
-<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Entity</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">EntityResolverConnectionError</span><span class="p">,</span> <span class="n">EntityResolverError</span>
-<span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">EntityResolverConnectionError</span><span class="p">,</span> <span class="n">EntityResolverError</span>
+<span class="kn">from</span> <span class="nn">._config</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">DEFAULT_ES_SYNONYM_MAPPING</span><span class="p">,</span>
     <span class="n">PHONETIC_ES_SYNONYM_MAPPING</span><span class="p">,</span>
     <span class="n">get_app_namespace</span><span class="p">,</span>
     <span class="n">get_classifier_config</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._elasticsearch_helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">._elasticsearch_helpers</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">INDEX_TYPE_KB</span><span class="p">,</span>
     <span class="n">INDEX_TYPE_SYNONYM</span><span class="p">,</span>
     <span class="n">DOC_TYPE</span><span class="p">,</span>
@@ -295,7 +297,7 @@
     <span class="n">ES_SYNONYM_INDEX_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;synonym&quot;</span>
     <span class="sd">&quot;&quot;&quot;The prefix of the ES index.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">es_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">es_client</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes an entity resolver</span>

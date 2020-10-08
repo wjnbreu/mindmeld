@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -269,7 +271,7 @@
 <dl class="class">
 <dt id="mindmeld.core.Bunch">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">Bunch</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#Bunch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.Bunch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>Dictionary-like object that exposes its keys as attributes.</p>
 <p>Inspired by scikit learn's Bunches</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Bunch</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -290,7 +292,7 @@
 <dl class="class">
 <dt id="mindmeld.core.Entity">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">Entity</code><span class="sig-paren">(</span><em>text</em>, <em>entity_type</em>, <em>role=None</em>, <em>value=None</em>, <em>display_text=None</em>, <em>confidence=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#Entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.Entity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An Entity is any important piece of text that provides more information about the user
 intent.</p>
 <dl class="attribute">
@@ -345,11 +347,11 @@ recognizer was for the given class label.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- An entity type</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- An entity type</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the entity is a system entity type, else False</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -366,7 +368,7 @@ recognizer was for the given class label.</p>
 <dl class="class">
 <dt id="mindmeld.core.FormEntity">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">FormEntity</code><span class="sig-paren">(</span><em>entity=None</em>, <em>role=None</em>, <em>responses=None</em>, <em>retry_response=None</em>, <em>value=None</em>, <em>default_eval=True</em>, <em>hints=None</em>, <em>custom_eval=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#FormEntity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.FormEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A form entity is used for defining custom objects for the entity form used in
 AutoEntityFilling (slot-filling).</p>
 <dl class="attribute">
@@ -442,7 +444,7 @@ AutoEntityFilling (slot-filling).</p>
 <dl class="class">
 <dt id="mindmeld.core.NestedEntity">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">NestedEntity</code><span class="sig-paren">(</span><em>texts</em>, <em>spans</em>, <em>token_spans</em>, <em>entity</em>, <em>children=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#NestedEntity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.NestedEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An entity with the context of the query it came from, along with         information like the entity's parent and children.</p>
 <dl class="attribute">
 <dt id="mindmeld.core.NestedEntity.texts">
@@ -491,15 +493,15 @@ AutoEntityFilling (slot-filling).</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>query</strong> (<em>Query</em>) -- Description</li>
 <li><strong>span</strong> (<em>Span</em>) -- The span of the entity in the query's raw text</li>
-<li><strong>normalized_span</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>optional</em>) -- The span of the entity in the
+<li><strong>normalized_span</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>optional</em>) -- The span of the entity in the
 query's normalized text</li>
-<li><strong>entity_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) -- The entity type. One of this and entity
+<li><strong>entity_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) -- The entity type. One of this and entity
 must be provided</li>
-<li><strong>role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) -- The entity role. Ignored if entity is provided.</li>
+<li><strong>role</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) -- The entity role. Ignored if entity is provided.</li>
 <li><strong>entity</strong> (<em>Entity</em><em>, </em><em>optional</em>) -- The entity. One of this and entity must
 be provided</li>
-<li><strong>parent_offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- The offset of the parent in the query</li>
-<li><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>optional</em>) -- Description</li>
+<li><strong>parent_offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- The offset of the parent in the query</li>
+<li><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em>, </em><em>optional</em>) -- Description</li>
 </ul>
 </td>
 </tr>
@@ -581,7 +583,7 @@ be provided</li>
 <dl class="class">
 <dt id="mindmeld.core.ProcessedQuery">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">ProcessedQuery</code><span class="sig-paren">(</span><em>query</em>, <em>domain=None</em>, <em>intent=None</em>, <em>entities=None</em>, <em>is_gold=False</em>, <em>nbest_transcripts_queries=None</em>, <em>nbest_transcripts_entities=None</em>, <em>nbest_aligned_entities=None</em>, <em>confidence=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#ProcessedQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.ProcessedQuery" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A processed query contains a query and the additional metadata that has been labeled or
 predicted.</p>
 <dl class="attribute">
@@ -649,7 +651,7 @@ predicted.</p>
 <dl class="class">
 <dt id="mindmeld.core.Query">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">Query</code><span class="sig-paren">(</span><em>raw_text</em>, <em>processed_text</em>, <em>normalized_tokens</em>, <em>char_maps</em>, <em>locale=None</em>, <em>language=None</em>, <em>time_zone=None</em>, <em>timestamp=None</em>, <em>stemmed_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.Query" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The query object is responsible for processing and normalizing raw user text input so that
 classifiers can deal with it. A query stores three forms of text: raw text, processed text, and
 normalized text. The query object is also responsible for translating text ranges across these
@@ -723,7 +725,7 @@ is not also specified, this parameter is ignored</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns candidate system entities of the types specified</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -737,12 +739,12 @@ is not also specified, this parameter is ignored</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>form</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- A valid text form (TEXT_FORM_RAW, TEXT_FORM_PROCESSED, or
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>form</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- A valid text form (TEXT_FORM_RAW, TEXT_FORM_PROCESSED, or
 TEXT_FORM_NORMALIZED)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The requested text</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -757,16 +759,16 @@ TEXT_FORM_NORMALIZED)</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- the index being transformed</li>
-<li><strong>form_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- the input form. should be one of TEXT_FORM_RAW</li>
-<li><strong>form_out</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- the output form</li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- the index being transformed</li>
+<li><strong>form_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- the input form. should be one of TEXT_FORM_RAW</li>
+<li><strong>form_out</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- the output form</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the equivalent index of text in the output form</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </td>
 </tr>
 </tbody>
@@ -783,9 +785,9 @@ TEXT_FORM_NORMALIZED)</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>text_span</strong> (<em>Span</em>) -- the text span being transformed</li>
-<li><strong>form_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- the input text form. Should be one of TEXT_FORM_RAW, TEXT_FORM_PROCESSED
+<li><strong>form_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- the input text form. Should be one of TEXT_FORM_RAW, TEXT_FORM_PROCESSED
 or TEXT_FORM_NORMALIZED</li>
-<li><strong>form_out</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- the output text form. Should be one of TEXT_FORM_RAW,
+<li><strong>form_out</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- the output text form. Should be one of TEXT_FORM_RAW,
 TEXT_FORM_PROCESSED or TEXT_FORM_NORMALIZED</li>
 </ul>
 </td>
@@ -793,7 +795,7 @@ TEXT_FORM_PROCESSED or TEXT_FORM_NORMALIZED</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the equivalent range of text in the output form</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </td>
 </tr>
 </tbody>
@@ -924,7 +926,7 @@ entity. This index is based on the normalized text of the query passed in.</p>
 <dl class="class">
 <dt id="mindmeld.core.Span">
 <em class="property">class </em><code class="descclassname">mindmeld.core.</code><code class="descname">Span</code><span class="sig-paren">(</span><em>start</em>, <em>end</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/core.html#Span"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.core.Span" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Object representing a text span with start and end indices</p>
 <dl class="attribute">
 <dt id="mindmeld.core.Span.start">
@@ -946,7 +948,7 @@ entity. This index is based on the normalized text of the query passed in.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) -- The number to change start and end by</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) -- The number to change start and end by</td>
 </tr>
 </tbody>
 </table>

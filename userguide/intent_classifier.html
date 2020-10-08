@@ -175,10 +175,12 @@
 <li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -411,13 +413,13 @@
 <li><strong>Model Settings</strong></li>
 </ol>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">'model_type'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'model_type'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
 <p class="last">Always <code class="docutils literal notranslate"><span class="pre">'text'</span></code>, since an intent classifier is a <a class="reference external" href="https://en.wikipedia.org/wiki/Text_classification">text classification</a> model.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'model_settings'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'model_settings'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
@@ -459,7 +461,7 @@
 <li><strong>Feature Extraction Settings</strong></li>
 </ol>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">'features'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'features'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
@@ -564,7 +566,7 @@ using the <code class="docutils literal notranslate"><span class="pre">'freq'</s
 <blockquote class="last">
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s1">&#39;bag-of-words&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lengths&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]},</span>
-    <span class="s1">&#39;enable-stemming&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="s1">&#39;enable-stemming&#39;</span><span class="p">:</span> <span class="bp">True</span>
  <span class="p">}</span>
 </pre></div>
 </div>
@@ -743,13 +745,13 @@ sentiment in the query.</p>
 <li><strong>Hyperparameter Settings</strong></li>
 </ol>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">'params'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'params'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
 <p class="last">A dictionary of values to be used for model hyperparameters during training. Examples include the <code class="docutils literal notranslate"><span class="pre">'kernel'</span></code> parameter for SVM, the <code class="docutils literal notranslate"><span class="pre">'penalty'</span></code> parameter for logistic regression, <code class="docutils literal notranslate"><span class="pre">'max_depth'</span></code> for decision tree, and so on. The list of allowable hyperparameters depends on the model selected. See the <a class="reference internal" href="#sklearn-intent-models"><span class="std std-ref">reference links</span></a> above for parameter lists.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'param_selection'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'param_selection'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
@@ -777,7 +779,7 @@ Here is an example for a <a class="reference external" href="http://scikit-learn
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s1">&#39;penalty&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;l2&#39;</span><span class="p">],</span>
   <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">],</span>
-   <span class="s1">&#39;fit_intercept&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+   <span class="s1">&#39;fit_intercept&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -808,13 +810,13 @@ Here is an example for a <a class="reference external" href="http://scikit-learn
 <li><strong>Custom Train/Test Settings</strong></li>
 </ol>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">'train_label_set'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'train_label_set'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
 <p class="last">A string representing a regex pattern that selects all training files for intent model training with filenames that match the pattern. The default regex when this key is not specified is <code class="docutils literal notranslate"><span class="pre">'train.*\.txt'</span></code>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'test_label_set'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">'test_label_set'</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>)</dt>
 <dd><div class="first line-block">
 <div class="line"><br /></div>
 </div>
@@ -1015,7 +1017,7 @@ Here is an example for a <a class="reference external" href="http://scikit-learn
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_param_settings</span><span class="p">[</span><span class="s1">&#39;grid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
  <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
  <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
- <span class="s1">&#39;warm_start&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+ <span class="s1">&#39;warm_start&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]</span>
 <span class="p">}</span>
 <span class="n">ic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model_settings</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;classifier_type&#39;</span><span class="p">:</span> <span class="s1">&#39;rforest&#39;</span><span class="p">},</span> <span class="n">param_selection</span><span class="o">=</span><span class="n">my_param_settings</span><span class="p">)</span>
 </pre></div>
@@ -1221,7 +1223,7 @@ Here is an example for a <a class="reference external" href="http://scikit-learn
 </dd>
 </dl>
 <p>Now we have a wealth of information about the performance of our classifier. Let’s go further and inspect the classifier’s predictions at the level of individual queries, to better understand error patterns.</p>
-<p>View the classifier predictions for the entire test set using the <code class="xref py py-attr docutils literal notranslate"><span class="pre">results</span></code> attribute of the returned <a class="reference external" href="https://docs.python.org/3/library/functions.html#eval" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval</span></code></a> object. Each result is an instance of the <code class="xref py py-class docutils literal notranslate"><span class="pre">EvaluatedExample</span></code> class which contains information about the original input query, the expected ground truth label, the predicted label, and the predicted probability distribution over all the class labels.</p>
+<p>View the classifier predictions for the entire test set using the <code class="xref py py-attr docutils literal notranslate"><span class="pre">results</span></code> attribute of the returned <a class="reference external" href="https://docs.python.org/3/library/functions.html#eval" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval</span></code></a> object. Each result is an instance of the <code class="xref py py-class docutils literal notranslate"><span class="pre">EvaluatedExample</span></code> class which contains information about the original input query, the expected ground truth label, the predicted label, and the predicted probability distribution over all the class labels.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="o">.</span><span class="n">results</span>
 </pre></div>
 </div>

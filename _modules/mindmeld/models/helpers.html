@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -254,15 +256,16 @@
 <span class="sd">&quot;&quot;&quot;This module contains some helper functions for the models package&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">make_scorer</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">make_scorer</span>
 
-<span class="kn">from</span> <span class="nn">..gazetteer</span> <span class="kn">import</span> <span class="n">Gazetteer</span>
-<span class="kn">from</span> <span class="nn">..tokenizer</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
+<span class="kn">from</span> <span class="nn">..gazetteer</span> <span class="k">import</span> <span class="n">Gazetteer</span>
+<span class="kn">from</span> <span class="nn">..tokenizer</span> <span class="k">import</span> <span class="n">Tokenizer</span>
 
 <span class="n">FEATURE_MAP</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">MODEL_MAP</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">LABEL_MAP</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">EMBEDDER_MAP</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ANNOTATOR_MAP</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="c1"># Example types</span>
 <span class="n">QUERY_EXAMPLE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
@@ -314,6 +317,31 @@
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid model configuration: Unknown model type </span><span class="si">{!r}</span><span class="s2">&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">model_type</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="create_annotator"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.helpers.html#mindmeld.models.create_annotator">[docs]</a><span class="k">def</span> <span class="nf">create_annotator</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates an annotator instance using the provided configuration</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config (dict): A model configuration</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Annotator: An Annotator class</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: When model configuration is invalid or required key is missing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;annotator_class&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="s2">&quot;Missing required argument in AUTO_ANNOTATOR_CONFIG: &#39;annotator_class&#39;&quot;</span>
+        <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ANNOTATOR_MAP</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;annotator_class&quot;</span><span class="p">]](</span>
+            <span class="n">app_path</span><span class="o">=</span><span class="n">app_path</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid model configuration: Unknown model type </span><span class="si">{!r}</span><span class="s2">&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;annotator_class&quot;</span><span class="p">]))</span></div>
 
 
 <div class="viewcode-block" id="get_feature_extractor"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.helpers.html#mindmeld.models.get_feature_extractor">[docs]</a><span class="k">def</span> <span class="nf">get_feature_extractor</span><span class="p">(</span><span class="n">example_type</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -392,6 +420,16 @@
 <span class="sd">        (func): the feature extractor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">register_feature</span><span class="p">(</span><span class="n">ENTITY_EXAMPLE_TYPE</span><span class="p">,</span> <span class="n">feature_name</span><span class="o">=</span><span class="n">feature_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="register_annotator"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.helpers.html#mindmeld.models.register_annotator">[docs]</a><span class="k">def</span> <span class="nf">register_annotator</span><span class="p">(</span><span class="n">annotator_class_name</span><span class="p">,</span> <span class="n">annotator_class</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Registers an Annotator class for use with `create_annotator()`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        annotator_class_name (str): The annotator class name as specified in the config</span>
+<span class="sd">        model_class (class): The annotator class to register</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ANNOTATOR_MAP</span><span class="p">[</span><span class="n">annotator_class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">annotator_class</span></div>
 
 
 <div class="viewcode-block" id="register_feature"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.helpers.html#mindmeld.models.register_feature">[docs]</a><span class="k">def</span> <span class="nf">register_feature</span><span class="p">(</span><span class="n">feature_type</span><span class="p">,</span> <span class="n">feature_name</span><span class="p">):</span>

@@ -23,6 +23,7 @@ Submodules
 
    mindmeld.app
    mindmeld.app_manager
+   mindmeld.auto_annotator
    mindmeld.core
    mindmeld.exceptions
    mindmeld.gazetteer

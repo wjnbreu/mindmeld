@@ -181,10 +181,12 @@
 <li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -538,7 +540,7 @@
 <div class="section" id="building-models-incrementally">
 <span id="incremental-builds"></span><h3>Building models incrementally<a class="headerlink" href="#building-models-incrementally" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">NaturalLanguageProcessor.build()</span></code> method by default retrains all NLP models from scratch. In most cases, however, you may just be modifying the configuration, training data, or resources (like gazetteers) of certain specific models within the NLP pipeline. In such cases, MindMeld can intelligently retrain only those models whose dependencies have changed and simply reuse the previous models for the ones that haven't. To do so, set the <code class="xref py py-data docutils literal notranslate"><span class="pre">incremental</span></code> parameter of the <code class="xref py py-meth docutils literal notranslate"><span class="pre">build()</span></code> method to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">incremental</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">incremental</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Loading queries from file smart_home/check_door/custom_test.txt</span>
@@ -831,7 +833,7 @@ children (dependents), etc.</td>
 </pre></div>
 </div>
 <p>To get more detailed statistics on each of the classification models in addition to the accuracy, you can use the flag <code class="docutils literal notranslate"><span class="pre">print_stats=True</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">print_stats</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">print_stats</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Intent classification accuracy for the &#39;store_info&#39; domain: 0.9830508474576272</span>

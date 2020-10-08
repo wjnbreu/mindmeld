@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -258,24 +260,24 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">EsConnectionError</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">ElasticsearchException</span><span class="p">,</span> <span class="n">TransportError</span>
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">EsConnectionError</span>
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">ElasticsearchException</span><span class="p">,</span> <span class="n">TransportError</span>
 
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">KnowledgeBaseConnectionError</span><span class="p">,</span>
     <span class="n">KnowledgeBaseError</span><span class="p">,</span>
     <span class="n">ElasticsearchVersionError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..resource_loader</span> <span class="kn">import</span> <span class="n">ResourceLoader</span>
-<span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..resource_loader</span> <span class="k">import</span> <span class="n">ResourceLoader</span>
+<span class="kn">from</span> <span class="nn">._config</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">DEFAULT_ES_QA_MAPPING</span><span class="p">,</span>
     <span class="n">DEFAULT_RANKING_CONFIG</span><span class="p">,</span>
     <span class="n">get_app_namespace</span><span class="p">,</span>
     <span class="n">get_classifier_config</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._elasticsearch_helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">._elasticsearch_helpers</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">DOC_TYPE</span><span class="p">,</span>
     <span class="n">create_es_client</span><span class="p">,</span>
     <span class="n">delete_index</span><span class="p">,</span>
@@ -286,7 +288,7 @@
     <span class="n">is_es_version_7</span><span class="p">,</span>
     <span class="n">resolve_es_config_for_version</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">create_embedder_model</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="k">import</span> <span class="n">create_embedder_model</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -301,7 +303,7 @@
 <span class="sd">    necessary functionality for interacting with the application&#39;s knowledge base.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">es_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">resource_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">es_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes a question answerer</span>
 
 <span class="sd">        Args:</span>
@@ -710,7 +712,7 @@
     <span class="n">GEO_TYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;geo_point&quot;</span><span class="p">}</span>
     <span class="n">VECTOR_TYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dense_vector&quot;</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">field_type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">field_type</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">field_type</span>
 
@@ -758,7 +760,7 @@
 
     <span class="n">SYN_FIELD_SUFFIX</span> <span class="o">=</span> <span class="s2">&quot;$whitelist&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">ranking_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">field_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">ranking_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">field_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a Search object.</span>
 
 <span class="sd">        Args:</span>
@@ -1102,7 +1104,7 @@
 <div class="viewcode-block" id="Search.Clause"><a class="viewcode-back" href="../../../apidoc/mindmeld.components.question_answerer.html#mindmeld.Search.Clause">[docs]</a>    <span class="k">class</span> <span class="nc">Clause</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This class models an abstract knowledge base clause.&quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;Initialize a knowledge base clause&quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clause_type</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -1125,7 +1127,7 @@
 
         <span class="n">DEFAULT_EXACT_MATCH_BOOSTING_WEIGHT</span> <span class="o">=</span> <span class="mi">100</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">field</span><span class="p">,</span>
             <span class="n">field_info</span><span class="p">,</span>
@@ -1292,7 +1294,7 @@
 <div class="viewcode-block" id="Search.FilterClause"><a class="viewcode-back" href="../../../apidoc/mindmeld.components.question_answerer.html#mindmeld.Search.FilterClause">[docs]</a>    <span class="k">class</span> <span class="nc">FilterClause</span><span class="p">(</span><span class="n">Clause</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This class models a knowledge base filter clause.&quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">field</span><span class="p">,</span>
             <span class="n">field_info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1403,7 +1405,7 @@
         <span class="c1"># combined with text relevance scores.</span>
         <span class="n">DEFAULT_SORT_WEIGHT</span> <span class="o">=</span> <span class="mi">30</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">field</span><span class="p">,</span>
             <span class="n">field_info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

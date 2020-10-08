@@ -158,13 +158,16 @@
 <li class="toctree-l1"><a class="reference internal" href="custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Working with the Tokenizer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#anatomy-of-the-tokenizer-configuration">Anatomy of the tokenizer configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-tokenizer-configuration">Default Tokenizer Configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -288,6 +291,17 @@
 </pre></div>
 </div>
 <p>allows the system to capture only tokens that end with either a question mark or a period.</p>
+</div>
+<div class="section" id="default-tokenizer-configuration">
+<h2>Default Tokenizer Configuration<a class="headerlink" href="#default-tokenizer-configuration" title="Permalink to this headline">¶</a></h2>
+<p>As a default in MindMeld, the Tokenizer retains the following special characters in addition to alphanumeric characters and spaces:</p>
+<ol class="arabic simple">
+<li>All currency symbols in UNICODE.</li>
+<li>Entity annotation symbols <code class="docutils literal notranslate"><span class="pre">{,</span> <span class="pre">},</span> <span class="pre">|</span></code>.</li>
+<li>Decimal point in numeric values (e.g. <code class="docutils literal notranslate"><span class="pre">124.45</span></code>).</li>
+<li>Apostrophe within tokens, such as <code class="docutils literal notranslate"><span class="pre">O'Reilly</span></code>. Apostrophes at the beginning/end of tokens are removed, say <code class="docutils literal notranslate"><span class="pre">Dennis'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Tis</span></code>.</li>
+</ol>
+<p>Setting argument <code class="docutils literal notranslate"><span class="pre">keep_special_chars=False</span></code> in the Tokenizer would remove all special characters.</p>
 </div>
 </div>
 

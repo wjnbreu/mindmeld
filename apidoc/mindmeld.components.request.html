@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -322,7 +324,7 @@ classifiers by adding resource data for the given turn.</p>
 <dl class="class">
 <dt id="mindmeld.components.request.Params">
 <em class="property">class </em><code class="descclassname">mindmeld.components.request.</code><code class="descname">Params</code><span class="sig-paren">(</span><em>*</em>, <em>allowed_intents=NOTHING</em>, <em>target_dialogue_state=None</em>, <em>time_zone=None</em>, <em>timestamp=0</em>, <em>language=None</em>, <em>locale=None</em>, <em>dynamic_resource=NOTHING</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/request.html#Params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.request.Params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class that contains parameters that modify how the user query is parsed.</p>
 <dl class="attribute">
 <dt id="mindmeld.components.request.Params.allowed_intents">
@@ -388,12 +390,12 @@ classifiers by adding resource data for the given turn.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>handler_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) -- Mapping from dialogue state to the function handler that gets
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>handler_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) -- Mapping from dialogue state to the function handler that gets
 called when in the state.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">single item dictionary with the parameter value if valid and None if not.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -412,7 +414,7 @@ called when in the state.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mapping from parameter name to bool depending on validation.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -426,7 +428,7 @@ called when in the state.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- Name of the parameter to be validated.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Name of the parameter to be validated.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
 <dt>True/False depending on success of the validation, None if the param name does</dt>
@@ -434,7 +436,7 @@ called when in the state.</td>
 </dl>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -445,7 +447,7 @@ called when in the state.</td>
 <dl class="class">
 <dt id="mindmeld.components.request.Request">
 <em class="property">class </em><code class="descclassname">mindmeld.components.request.</code><code class="descname">Request</code><span class="sig-paren">(</span><em>*</em>, <em>domain=None</em>, <em>intent=None</em>, <em>entities=NOTHING</em>, <em>history=NOTHING</em>, <em>text=None</em>, <em>frame=&lt;immutables.Map({})&gt;</em>, <em>params=FrozenParams(allowed_intents=()</em>, <em>target_dialogue_state=None</em>, <em>time_zone=None</em>, <em>timestamp=0</em>, <em>language=None</em>, <em>locale=None</em>, <em>dynamic_resource=&lt;immutables.Map({})&gt;)</em>, <em>context=&lt;immutables.Map({})&gt;</em>, <em>confidences=&lt;immutables.Map({})&gt;</em>, <em>nbest_transcripts_text=NOTHING</em>, <em>nbest_transcripts_entities=NOTHING</em>, <em>nbest_aligned_entities=NOTHING</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/request.html#Request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.request.Request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Request is an object passed in through the Dialogue Manager and contains all the
 information provided by the application client for the dialogue handler to act on. Note: the
 Request object is read-only since it represents the client state, which should not be mutated.</p>
@@ -552,7 +554,7 @@ objects.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A validated language code or None if unvalidated</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -570,7 +572,7 @@ objects.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A validated locale code or None if unvalidated</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></td>
 </tr>
 </tbody>
 </table>

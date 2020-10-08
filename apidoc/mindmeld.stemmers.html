@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -277,11 +279,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The word to stem</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The word to stem</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A stemmed version of the word</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -301,11 +303,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The word to stem</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The word to stem</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A stemmed version of the word</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -325,11 +327,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The word to stem</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The word to stem</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A stemmed version of the word</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -340,7 +342,7 @@
 <dl class="class">
 <dt id="mindmeld.stemmers.Stemmer">
 <em class="property">class </em><code class="descclassname">mindmeld.stemmers.</code><code class="descname">Stemmer</code><span class="sig-paren">(</span><em>language=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/stemmers.html#Stemmer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.stemmers.Stemmer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
 <dl class="method">
 <dt id="mindmeld.stemmers.Stemmer.stem_word">
 <code class="descname">stem_word</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/stemmers.html#Stemmer.stem_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.stemmers.Stemmer.stem_word" title="Permalink to this definition">¶</a></dt>
@@ -349,11 +351,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) -- The word to stem</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The word to stem</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A stemmed version of the word</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">stemmed word (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>)</td>
 </tr>
 </tbody>
 </table>

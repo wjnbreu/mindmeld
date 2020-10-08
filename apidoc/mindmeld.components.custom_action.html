@@ -156,10 +156,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_features.html">Working with User-Defined Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kb.html">Working with the Knowledge Base and Question Answerer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/dm.html">Working with the Dialogue Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/auto_annotator.html">Working with the Auto Annotator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/custom_action.html">Working with Custom Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/tokenizer.html">Working with the Tokenizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/internationalization.html">Internationalization support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/voice.html">Dealing with Voice Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/dvc.html">DVC for Model Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/webex_teams.html">Webex Teams Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integrations/whatsapp.html">WhatsApp Integration</a></li>
 </ul>
@@ -268,13 +270,13 @@
 <dl class="exception">
 <dt id="mindmeld.components.custom_action.CustomActionException">
 <em class="property">exception </em><code class="descclassname">mindmeld.components.custom_action.</code><code class="descname">CustomActionException</code><a class="reference internal" href="../_modules/mindmeld/components/custom_action.html#CustomActionException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.custom_action.CustomActionException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="mindmeld.components.custom_action.CustomAction">
 <em class="property">class </em><code class="descclassname">mindmeld.components.custom_action.</code><code class="descname">CustomAction</code><span class="sig-paren">(</span><em>name: str</em>, <em>config: dict</em>, <em>merge: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/custom_action.html#CustomAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.custom_action.CustomAction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="docutils">
 <dt>This class allows the client to send Request and Responder to another server and return the</dt>
 <dd>the directives and frame in the response.</dd>
@@ -297,7 +299,7 @@ and Directives of the Responder object.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>request</strong> (<em>Request</em>) -- </li>
 <li><strong>responder</strong> (<em>DialogueResponder</em>) -- </li>
-<li><strong>async_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) -- </li>
+<li><strong>async_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- </li>
 </ul>
 </td>
 </tr>
@@ -346,7 +348,7 @@ the Frame and Directives of the Responder object.</p>
 <dl class="class">
 <dt id="mindmeld.components.custom_action.CustomActionSequence">
 <em class="property">class </em><code class="descclassname">mindmeld.components.custom_action.</code><code class="descname">CustomActionSequence</code><span class="sig-paren">(</span><em>actions</em>, <em>config</em>, <em>merge=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/components/custom_action.html#CustomActionSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.components.custom_action.CustomActionSequence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class implements a sequence of custom actions</p>
 <dl class="method">
 <dt id="mindmeld.components.custom_action.CustomActionSequence.invoke">
