@@ -256,9 +256,9 @@
 <span class="sd">&quot;&quot;&quot;This module contains feature extractors for queries&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CHAR_NGRAM_FREQ_RSC</span><span class="p">,</span>
     <span class="n">DEFAULT_SYS_ENTITIES</span><span class="p">,</span>
     <span class="n">ENABLE_STEMMING</span><span class="p">,</span>
@@ -771,7 +771,7 @@
         <span class="n">feat_seq</span> <span class="o">=</span> <span class="p">[{}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">normalized_tokens</span><span class="p">]</span>
         <span class="n">system_entities</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">get_system_entity_candidates</span><span class="p">(</span><span class="n">resources</span><span class="p">[</span><span class="n">SYS_TYPES_RSC</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">system_entities</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">token_span</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">normalized_token_span</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">start_positions</span><span class="p">:</span>
                     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">feat_seq</span><span class="p">):</span>
                         <span class="n">feat_name</span> <span class="o">=</span> <span class="p">(</span>

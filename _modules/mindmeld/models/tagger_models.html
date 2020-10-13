@@ -258,22 +258,22 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="kn">import</span> <span class="n">joblib</span>
 
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">MindMeldError</span>
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">MindMeldError</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_label_encoder</span><span class="p">,</span>
     <span class="n">get_seq_accuracy_scorer</span><span class="p">,</span>
     <span class="n">get_seq_tag_accuracy_scorer</span><span class="p">,</span>
     <span class="n">ingest_dynamic_gazetteer</span><span class="p">,</span>
     <span class="n">register_model</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.model</span> <span class="k">import</span> <span class="n">EntityModelEvaluation</span><span class="p">,</span> <span class="n">EvaluatedExample</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">ModelConfig</span>
-<span class="kn">from</span> <span class="nn">.taggers.crf</span> <span class="k">import</span> <span class="n">ConditionalRandomFields</span>
-<span class="kn">from</span> <span class="nn">.taggers.memm</span> <span class="k">import</span> <span class="n">MemmModel</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">EntityModelEvaluation</span><span class="p">,</span> <span class="n">EvaluatedExample</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<span class="kn">from</span> <span class="nn">.taggers.crf</span> <span class="kn">import</span> <span class="n">ConditionalRandomFields</span>
+<span class="kn">from</span> <span class="nn">.taggers.memm</span> <span class="kn">import</span> <span class="n">MemmModel</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">.taggers.lstm</span> <span class="k">import</span> <span class="n">LstmModel</span>
+    <span class="kn">from</span> <span class="nn">.taggers.lstm</span> <span class="kn">import</span> <span class="n">LstmModel</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">LstmModel</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -329,7 +329,7 @@
 <span class="sd">            &quot;k-folds&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
             <span class="n">config_dict</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
             <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_FEATURES</span>

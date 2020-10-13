@@ -261,7 +261,7 @@
 
 
 <div class="viewcode-block" id="MindMeldError"><a class="viewcode-back" href="../../apidoc/mindmeld.exceptions.html#mindmeld.exceptions.MindMeldError">[docs]</a><span class="k">class</span> <span class="nc">MindMeldError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></div>
 
@@ -269,7 +269,7 @@
 <div class="viewcode-block" id="BadMindMeldRequestError"><a class="viewcode-back" href="../../apidoc/mindmeld.exceptions.html#mindmeld.exceptions.BadMindMeldRequestError">[docs]</a><span class="k">class</span> <span class="nc">BadMindMeldRequestError</span><span class="p">(</span><span class="n">MindMeldError</span><span class="p">):</span>
     <span class="n">status_code</span> <span class="o">=</span> <span class="mi">400</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="k">if</span> <span class="n">status_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -336,7 +336,7 @@
 <div class="viewcode-block" id="KnowledgeBaseConnectionError"><a class="viewcode-back" href="../../apidoc/mindmeld.exceptions.html#mindmeld.exceptions.KnowledgeBaseConnectionError">[docs]</a><span class="k">class</span> <span class="nc">KnowledgeBaseConnectionError</span><span class="p">(</span><span class="n">KnowledgeBaseError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An exception for problem connecting to knowledge base.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es_host</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es_host</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">es_host</span> <span class="o">=</span> <span class="n">es_host</span>
         <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">es_host</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">es_host</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -362,7 +362,7 @@
 <div class="viewcode-block" id="EntityResolverConnectionError"><a class="viewcode-back" href="../../apidoc/mindmeld.exceptions.html#mindmeld.exceptions.EntityResolverConnectionError">[docs]</a><span class="k">class</span> <span class="nc">EntityResolverConnectionError</span><span class="p">(</span><span class="n">EntityResolverError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An exception for connection error to Elasticsearch for entity resolver&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es_host</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es_host</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">es_host</span> <span class="o">=</span> <span class="n">es_host</span>
         <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">es_host</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">es_host</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>

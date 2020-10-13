@@ -254,14 +254,14 @@
 <span class="c1"># limitations under the License.</span>
 
 <span class="sd">&quot;&quot;&quot;This module contains the query factory class.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">.core</span> <span class="k">import</span> <span class="n">TEXT_FORM_NORMALIZED</span><span class="p">,</span> <span class="n">TEXT_FORM_PROCESSED</span><span class="p">,</span> <span class="n">TEXT_FORM_RAW</span><span class="p">,</span> <span class="n">Query</span>
-<span class="kn">from</span> <span class="nn">.stemmers</span> <span class="k">import</span> <span class="n">get_language_stemmer</span>
-<span class="kn">from</span> <span class="nn">.tokenizer</span> <span class="k">import</span> <span class="n">Tokenizer</span>
-<span class="kn">from</span> <span class="nn">.components._config</span> <span class="k">import</span> <span class="n">get_language_config</span>
-<span class="kn">from</span> <span class="nn">.system_entity_recognizer</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">TEXT_FORM_NORMALIZED</span><span class="p">,</span> <span class="n">TEXT_FORM_PROCESSED</span><span class="p">,</span> <span class="n">TEXT_FORM_RAW</span><span class="p">,</span> <span class="n">Query</span>
+<span class="kn">from</span> <span class="nn">.stemmers</span> <span class="kn">import</span> <span class="n">get_language_stemmer</span>
+<span class="kn">from</span> <span class="nn">.tokenizer</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
+<span class="kn">from</span> <span class="nn">.components._config</span> <span class="kn">import</span> <span class="n">get_language_config</span>
+<span class="kn">from</span> <span class="nn">.system_entity_recognizer</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">NoOpSystemEntityRecognizer</span><span class="p">,</span>
     <span class="n">SystemEntityRecognizer</span><span class="p">,</span>
     <span class="n">DucklingRecognizer</span><span class="p">,</span>
@@ -285,7 +285,7 @@
 <span class="sd">            initialize a new Duckling recognizer instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tokenizer</span><span class="p">,</span>
         <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -387,7 +387,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{}</span><span class="s2"> id: </span><span class="si">{!r}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 <div class="viewcode-block" id="QueryFactory.create_query_factory"><a class="viewcode-back" href="../../apidoc/mindmeld.query_factory.html#mindmeld.query_factory.QueryFactory.create_query_factory">[docs]</a>    <span class="nd">@staticmethod</span>

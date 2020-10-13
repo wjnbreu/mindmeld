@@ -269,13 +269,21 @@
 <span id="mindmeld-auto-annotator-module"></span><h1>mindmeld.auto_annotator module<a class="headerlink" href="#module-mindmeld.auto_annotator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mindmeld.auto_annotator.Annotator">
-<em class="property">class </em><code class="descclassname">mindmeld.auto_annotator.</code><code class="descname">Annotator</code><span class="sig-paren">(</span><em>app_path</em>, <em>config=None</em>, <em>resource_loader=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">mindmeld.auto_annotator.</code><code class="descname">Annotator</code><span class="sig-paren">(</span><em>app_path</em>, <em>config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
 <p>Abstract Annotator class that can be used to build a custom Annotation class.</p>
 <dl class="method">
 <dt id="mindmeld.auto_annotator.Annotator.annotate">
-<code class="descname">annotate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator.annotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator.annotate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">annotate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator.annotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator.annotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotate data based on configurations in the config.py file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>optional</em>) -- Configuration overrides can be passed in as arguments.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -300,8 +308,20 @@ represented as dictionaries with the following keys: &quot;body&quot;, &quot;sta
 
 <dl class="method">
 <dt id="mindmeld.auto_annotator.Annotator.unannotate">
-<code class="descname">unannotate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator.unannotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator.unannotate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">unannotate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#Annotator.unannotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.Annotator.unannotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unannotate data based on configurations in the config.py file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>optional</em>) -- Configuration overrides can be passed in as arguments.</li>
+<li><strong>unannotate_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- Unannotate all entities.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -320,6 +340,12 @@ represented as dictionaries with the following keys: &quot;body&quot;, &quot;sta
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mindmeld.auto_annotator.Annotator.supported_entity_types">
+<code class="descname">supported_entity_types</code><a class="headerlink" href="#mindmeld.auto_annotator.Annotator.supported_entity_types" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id1"><span class="problematic" id="id2">**</span></a>Returns* -- supported_entity_types (list)* -- List of supported entity types.</p>
 </dd></dl>
 
 </dd></dl>
@@ -345,7 +371,12 @@ represented as dictionaries with the following keys: &quot;body&quot;, &quot;sta
 <dt id="mindmeld.auto_annotator.SpacyAnnotator">
 <em class="property">class </em><code class="descclassname">mindmeld.auto_annotator.</code><code class="descname">SpacyAnnotator</code><span class="sig-paren">(</span><em>app_path</em>, <em>config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#SpacyAnnotator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.SpacyAnnotator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mindmeld.auto_annotator.Annotator" title="mindmeld.auto_annotator.Annotator"><code class="xref py py-class docutils literal notranslate"><span class="pre">mindmeld.auto_annotator.Annotator</span></code></a></p>
-<p>(English) Annotator class that uses spacy to generate annotations.</p>
+<p>(English) Annotator class that uses spacy to generate annotations.
+Supported entities include: &quot;sys_time&quot;, &quot;sys_interval&quot;, &quot;sys_duration&quot;, &quot;sys_number&quot;,
+&quot;sys_amount-of-money&quot;, &quot;sys_distance&quot;, &quot;sys_weight&quot;, &quot;sys_ordinal&quot;, &quot;sys_quantity&quot;,
+&quot;sys_percent&quot;, &quot;sys_org&quot;, &quot;sys_loc&quot;, &quot;sys_person&quot;, &quot;sys_gpe&quot;, &quot;sys_norp&quot;, &quot;sys_fac&quot;,
+&quot;sys_product&quot;, &quot;sys_event&quot;, &quot;sys_law&quot;, &quot;sys_langauge&quot;, &quot;sys_work-of-art&quot;, &quot;sys_other-quantity&quot;,
+For more information on the supported entities for the Spacy Annotator check the MindMeld docs.</p>
 <dl class="method">
 <dt id="mindmeld.auto_annotator.SpacyAnnotator.parse">
 <code class="descname">parse</code><span class="sig-paren">(</span><em>sentence</em>, <em>entity_types=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#SpacyAnnotator.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.SpacyAnnotator.parse" title="Permalink to this definition">¶</a></dt>
@@ -358,8 +389,8 @@ represented as dictionaries with the following keys: &quot;body&quot;, &quot;sta
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>sentence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Sentence to detect entities.</li>
-<li><strong>entity_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- List of entity types to parse. If None, all
-possible entity types will be parsed.</li>
+<li><strong>entity_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) -- List of entity types to annotate. If None, all
+possible entity types will be annotated.</li>
 </ul>
 </td>
 </tr>
@@ -373,22 +404,10 @@ possible entity types will be parsed.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="mindmeld.auto_annotator.SpacyAnnotator.valid_entity_check">
-<code class="descname">valid_entity_check</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mindmeld/auto_annotator.html#SpacyAnnotator.valid_entity_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mindmeld.auto_annotator.SpacyAnnotator.valid_entity_check" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine if an entity type is valid.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- Name of entity to annotate.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether entity is valid.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="attribute">
+<dt id="mindmeld.auto_annotator.SpacyAnnotator.supported_entity_types">
+<code class="descname">supported_entity_types</code><a class="headerlink" href="#mindmeld.auto_annotator.SpacyAnnotator.supported_entity_types" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id3"><span class="problematic" id="id4">**</span></a>Returns* -- supported_entity_types (list)* -- List of supported entity types.</p>
 </dd></dl>
 
 </dd></dl>

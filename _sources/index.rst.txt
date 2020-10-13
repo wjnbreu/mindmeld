@@ -509,11 +509,13 @@ User Guide
 
  Working with the Auto Annotator
 
+   Quick Start
+
+   Using the Auto Annotator
+
    Default Auto Annotator: Spacy Annotator
 
    Auto Annotator Configuration
-
-   Using the Auto Annotator
 
    Creating a Custom Annotator
 

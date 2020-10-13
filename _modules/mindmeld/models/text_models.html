@@ -262,23 +262,23 @@
 <span class="kn">import</span> <span class="nn">random</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="k">import</span> <span class="n">DictVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">SelectFromModel</span><span class="p">,</span> <span class="n">SelectPercentile</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span> <span class="k">as</span> <span class="n">SKLabelEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">MaxAbsScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVC</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">DictVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectFromModel</span><span class="p">,</span> <span class="n">SelectPercentile</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span> <span class="k">as</span> <span class="n">SKLabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MaxAbsScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CHAR_NGRAM_FREQ_RSC</span><span class="p">,</span>
     <span class="n">QUERY_FREQ_RSC</span><span class="p">,</span>
     <span class="n">WORD_FREQ_RSC</span><span class="p">,</span>
     <span class="n">WORD_NGRAM_FREQ_RSC</span><span class="p">,</span>
     <span class="n">register_model</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.model</span> <span class="k">import</span> <span class="n">EvaluatedExample</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">StandardModelEvaluation</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">EvaluatedExample</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">StandardModelEvaluation</span>
 
 <span class="n">_NEG_INF</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
 
@@ -298,7 +298,7 @@
 
 
 <div class="viewcode-block" id="TextModel"><a class="viewcode-back" href="../../../apidoc/mindmeld.models.text_models.html#mindmeld.models.text_models.TextModel">[docs]</a><span class="k">class</span> <span class="nc">TextModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_class_encoder</span> <span class="o">=</span> <span class="n">SKLabelEncoder</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_feat_vectorizer</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">()</span>

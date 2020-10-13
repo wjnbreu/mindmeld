@@ -503,7 +503,7 @@ or movie names like <code class="docutils literal notranslate"><span class="pre"
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>For this tutorial, we will be using the <code class="docutils literal notranslate"><span class="pre">food_ordering</span></code> blueprint application. You can download this application by running these commands:</p>
-<div class="last highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
+<div class="last highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">configure_logs</span><span class="p">()</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="s1">&#39;food_ordering&#39;</span><span class="p">)</span>
 </pre></div>
@@ -572,7 +572,7 @@ or movie names like <code class="docutils literal notranslate"><span class="pre"
 <p id="import-kb">To fully recreate an existing index from scratch, you can run a clean load as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindmeld.components</span> <span class="kn">import</span> <span class="n">QuestionAnswerer</span>
 <span class="n">qa</span> <span class="o">=</span> <span class="n">QuestionAnswerer</span><span class="p">(</span><span class="n">app_path</span><span class="o">=</span><span class="s1">&#39;food_ordering&#39;</span><span class="p">)</span>
-<span class="n">qa</span><span class="o">.</span><span class="n">load_kb</span><span class="p">(</span><span class="n">app_namespace</span><span class="o">=</span><span class="s1">&#39;food_ordering&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;restaurants&#39;</span><span class="p">,</span> <span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;food_ordering/data/restaurants.json&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">qa</span><span class="o">.</span><span class="n">load_kb</span><span class="p">(</span><span class="n">app_namespace</span><span class="o">=</span><span class="s1">&#39;food_ordering&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;restaurants&#39;</span><span class="p">,</span> <span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;food_ordering/data/restaurants.json&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will internally delete the existing index, create a new index and load the specified objects.</p>
@@ -1009,7 +1009,7 @@ or movie names like <code class="docutils literal notranslate"><span class="pre"
 <p>In this section we describe how to use the question answerer on knowledge bases with long, free-form text or <cite>unstructured data</cite>. For example, a company's Human Resources (HR) team could have documents about general policies of the company. We can use this data to develop an HR assistant that automatically answers any policy-related questions.</p>
 <p>To use the question answerer on unstructured text, we would follow the same steps mentioned before to prepare, index and load the knowledge base.</p>
 <p>Here is an example of what the knowledge base can look like for the HR assistant use case. It consists of frequently asked question and answer pairs.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="kn">as</span> <span class="nn">mm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mindmeld</span> <span class="k">as</span> <span class="nn">mm</span>
 <span class="kn">from</span> <span class="nn">mm.components</span> <span class="kn">import</span> <span class="n">QuestionAnswerer</span>
 
 <span class="c1"># Download hr assistant blueprint</span>

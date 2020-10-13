@@ -240,7 +240,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for logging</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright 2001-2016 by Vinay Sajip. All Rights Reserved.</span>
+<span></span><span class="c1"># Copyright 2001-2017 by Vinay Sajip. All Rights Reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># Permission to use, copy, modify, and distribute this software and its</span>
 <span class="c1"># documentation for any purpose and without fee is hereby granted,</span>
@@ -260,14 +260,14 @@
 <span class="sd">Logging package for Python. Based on PEP 282 and comments thereto in</span>
 <span class="sd">comp.lang.python.</span>
 
-<span class="sd">Copyright (C) 2001-2016 Vinay Sajip. All Rights Reserved.</span>
+<span class="sd">Copyright (C) 2001-2017 Vinay Sajip. All Rights Reserved.</span>
 
 <span class="sd">To use, simply &#39;import logging&#39; and log away!</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">traceback</span><span class="o">,</span> <span class="nn">warnings</span><span class="o">,</span> <span class="nn">weakref</span><span class="o">,</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">traceback</span><span class="o">,</span> <span class="nn">warnings</span><span class="o">,</span> <span class="nn">weakref</span><span class="o">,</span> <span class="nn">collections.abc</span>
 
-<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Template</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BASIC_FORMAT&#39;</span><span class="p">,</span> <span class="s1">&#39;BufferingFormatter&#39;</span><span class="p">,</span> <span class="s1">&#39;CRITICAL&#39;</span><span class="p">,</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
            <span class="s1">&#39;FATAL&#39;</span><span class="p">,</span> <span class="s1">&#39;FileHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;Filter&#39;</span><span class="p">,</span> <span class="s1">&#39;Formatter&#39;</span><span class="p">,</span> <span class="s1">&#39;Handler&#39;</span><span class="p">,</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
@@ -279,10 +279,7 @@
            <span class="s1">&#39;warn&#39;</span><span class="p">,</span> <span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="s1">&#39;getLogRecordFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;setLogRecordFactory&#39;</span><span class="p">,</span>
            <span class="s1">&#39;lastResort&#39;</span><span class="p">,</span> <span class="s1">&#39;raiseExceptions&#39;</span><span class="p">]</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">threading</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span> <span class="c1">#pragma: no cover</span>
-    <span class="n">threading</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="kn">import</span> <span class="nn">threading</span>
 
 <span class="n">__author__</span>  <span class="o">=</span> <span class="s2">&quot;Vinay Sajip &lt;vinay_sajip@red-dove.com&gt;&quot;</span>
 <span class="n">__status__</span>  <span class="o">=</span> <span class="s2">&quot;production&quot;</span>
@@ -373,9 +370,14 @@
 
 <span class="sd">    Otherwise, the string &quot;Level %s&quot; % level is returned.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># See Issues #22386 and #27937 for why it&#39;s this way</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">_levelToName</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_nameToLevel</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="ow">or</span>
-            <span class="s2">&quot;Level </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">level</span><span class="p">)</span>
+    <span class="c1"># See Issues #22386, #27937 and #29220 for why it&#39;s this way</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_levelToName</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_nameToLevel</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="s2">&quot;Level </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">level</span>
 
 <span class="k">def</span> <span class="nf">addLevelName</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">levelName</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -447,11 +449,7 @@
 <span class="c1">#the lock would already have been acquired - so we need an RLock.</span>
 <span class="c1">#The same argument applies to Loggers and Manager.loggerDict.</span>
 <span class="c1">#</span>
-<span class="k">if</span> <span class="n">threading</span><span class="p">:</span>
-    <span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
-<span class="k">else</span><span class="p">:</span> <span class="c1">#pragma: no cover</span>
-    <span class="n">_lock</span> <span class="o">=</span> <span class="kc">None</span>
-
+<span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">_acquireLock</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -469,6 +467,44 @@
     <span class="k">if</span> <span class="n">_lock</span><span class="p">:</span>
         <span class="n">_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
+
+<span class="c1"># Prevent a held logging lock from blocking a child from logging.</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s1">&#39;register_at_fork&#39;</span><span class="p">):</span>  <span class="c1"># Windows and friends.</span>
+    <span class="k">def</span> <span class="nf">_register_at_fork_reinit_lock</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># no-op when os.register_at_fork does not exist.</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># A collection of instances with a createLock method (logging.Handler)</span>
+    <span class="c1"># to be called in the child after forking.  The weakref avoids us keeping</span>
+    <span class="c1"># discarded Handler instances alive.  A set is used to avoid accumulating</span>
+    <span class="c1"># duplicate registrations as createLock() is responsible for registering</span>
+    <span class="c1"># a new Handler instance with this set in the first place.</span>
+    <span class="n">_at_fork_reinit_lock_weakset</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakSet</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_register_at_fork_reinit_lock</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+        <span class="n">_acquireLock</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_at_fork_reinit_lock_weakset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">_releaseLock</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_after_at_fork_child_reinit_locks</span><span class="p">():</span>
+        <span class="c1"># _acquireLock() was called in the parent before forking.</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">_at_fork_reinit_lock_weakset</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">handler</span><span class="o">.</span><span class="n">createLock</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="c1"># Similar to what PyErr_WriteUnraisable does.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ignoring exception from logging atfork&quot;</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span>
+                      <span class="s2">&quot;._reinit_lock() method:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">_releaseLock</span><span class="p">()</span>  <span class="c1"># Acquired by os.register_at_fork(before=.</span>
+
+
+    <span class="n">os</span><span class="o">.</span><span class="n">register_at_fork</span><span class="p">(</span><span class="n">before</span><span class="o">=</span><span class="n">_acquireLock</span><span class="p">,</span>
+                        <span class="n">after_in_child</span><span class="o">=</span><span class="n">_after_at_fork_child_reinit_locks</span><span class="p">,</span>
+                        <span class="n">after_in_parent</span><span class="o">=</span><span class="n">_releaseLock</span><span class="p">)</span>
+
+
 <span class="c1">#---------------------------------------------------------------------------</span>
 <span class="c1">#   The logging record</span>
 <span class="c1">#---------------------------------------------------------------------------</span>
@@ -485,7 +521,7 @@
 <span class="sd">    the source line where the logging call was made, and any exception</span>
 <span class="sd">    information to be logged.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span>
                  <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a logging record with interesting information.</span>
@@ -510,8 +546,8 @@
         <span class="c1"># to hasattr(args[0], &#39;__getitem__&#39;). However, the docs on string</span>
         <span class="c1"># formatting still seem to suggest a mapping object is required.</span>
         <span class="c1"># Thus, while not removing the isinstance check, it does now look</span>
-        <span class="c1"># for collections.Mapping rather than, as before, dict.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Mapping</span><span class="p">)</span>
+        <span class="c1"># for collections.abc.Mapping rather than, as before, dict.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">)</span>
             <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
@@ -532,7 +568,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">=</span> <span class="n">ct</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">msecs</span> <span class="o">=</span> <span class="p">(</span><span class="n">ct</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">ct</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relativeCreated</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">-</span> <span class="n">_startTime</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
-        <span class="k">if</span> <span class="n">logThreads</span> <span class="ow">and</span> <span class="n">threading</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logThreads</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">get_ident</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">threadName</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
         <span class="k">else</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
@@ -557,7 +593,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;LogRecord: </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, &quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">levelno</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pathname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
 
@@ -618,7 +654,7 @@
     <span class="n">asctime_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1">&#39;</span>
     <span class="n">asctime_search</span> <span class="o">=</span> <span class="s1">&#39;%(asctime)&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_format</span>
 
     <span class="k">def</span> <span class="nf">usesTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -641,7 +677,7 @@
     <span class="n">asctime_format</span> <span class="o">=</span> <span class="s1">&#39;$</span><span class="si">{asctime}</span><span class="s1">&#39;</span>
     <span class="n">asctime_search</span> <span class="o">=</span> <span class="s1">&#39;$</span><span class="si">{asctime}</span><span class="s1">&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_format</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tpl</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span><span class="p">)</span>
 
@@ -668,7 +704,8 @@
 <span class="sd">    responsible for converting a LogRecord to (usually) a string which can</span>
 <span class="sd">    be interpreted by either a human or an external system. The base Formatter</span>
 <span class="sd">    allows a formatting string to be specified. If none is supplied, the</span>
-<span class="sd">    default value of &quot;%s(message)&quot; is used.</span>
+<span class="sd">    the style-dependent default value, &quot;%(message)s&quot;, &quot;{message}&quot;, or</span>
+<span class="sd">    &quot;${message}&quot;, is used.</span>
 
 <span class="sd">    The Formatter can be initialized with a format string which makes use of</span>
 <span class="sd">    knowledge of the LogRecord attributes - e.g. the default value mentioned</span>
@@ -704,13 +741,14 @@
 
     <span class="n">converter</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the formatter with specified format strings.</span>
 
 <span class="sd">        Initialize the formatter either with the specified format string, or a</span>
 <span class="sd">        default as described above. Allow for specialized date formatting with</span>
-<span class="sd">        the optional datefmt argument (if omitted, you get the ISO8601 format).</span>
+<span class="sd">        the optional datefmt argument. If datefmt is omitted, you get an</span>
+<span class="sd">        ISO8601-like (or RFC 3339-like) format.</span>
 
 <span class="sd">        Use a style parameter of &#39;%&#39;, &#39;{&#39; or &#39;$&#39; to specify that you want to</span>
 <span class="sd">        use one of %-formatting, :meth:`str.format` (``{}``) formatting or</span>
@@ -738,13 +776,13 @@
 <span class="sd">        in formatters to provide for any specific requirement, but the</span>
 <span class="sd">        basic behaviour is as follows: if datefmt (a string) is specified,</span>
 <span class="sd">        it is used with time.strftime() to format the creation time of the</span>
-<span class="sd">        record. Otherwise, the ISO8601 format is used. The resulting</span>
-<span class="sd">        string is returned. This function uses a user-configurable function</span>
-<span class="sd">        to convert the creation time to a tuple. By default, time.localtime()</span>
-<span class="sd">        is used; to change this for a particular formatter instance, set the</span>
-<span class="sd">        &#39;converter&#39; attribute to a function with the same signature as</span>
-<span class="sd">        time.localtime() or time.gmtime(). To change it for all formatters,</span>
-<span class="sd">        for example if you want all logging times to be shown in GMT,</span>
+<span class="sd">        record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.</span>
+<span class="sd">        The resulting string is returned. This function uses a user-configurable</span>
+<span class="sd">        function to convert the creation time to a tuple. By default,</span>
+<span class="sd">        time.localtime() is used; to change this for a particular formatter</span>
+<span class="sd">        instance, set the &#39;converter&#39; attribute to a function with the same</span>
+<span class="sd">        signature as time.localtime() or time.gmtime(). To change it for all</span>
+<span class="sd">        formatters, for example if you want all logging times to be shown in GMT,</span>
 <span class="sd">        set the &#39;converter&#39; attribute in the Formatter class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">)</span>
@@ -837,7 +875,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A formatter suitable for formatting a number of records.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Optionally specify a formatter which will be used to format each</span>
 <span class="sd">        individual record.</span>
@@ -886,7 +924,7 @@
 <span class="sd">    &quot;A.B.C&quot;, &quot;A.B.C.D&quot;, &quot;A.B.D&quot; etc. but not &quot;A.BB&quot;, &quot;B.A.B&quot; etc. If</span>
 <span class="sd">    initialized with the empty string, all events are passed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a filter.</span>
 
@@ -917,7 +955,7 @@
 <span class="sd">    A base class for loggers and handlers which allows them to share</span>
 <span class="sd">    common code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the list of filters to be an empty list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1003,7 +1041,7 @@
 <span class="sd">    records as desired. By default, no formatter is specified; in this case,</span>
 <span class="sd">    the &#39;raw&#39; message as determined by record.message is logged.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the instance - basically setting the formatter to None</span>
 <span class="sd">        and the filter list to empty.</span>
@@ -1036,10 +1074,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Acquire a thread lock for serializing access to the underlying I/O.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">threading</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1">#pragma: no cover</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+        <span class="n">_register_at_fork_reinit_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">acquire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1169,6 +1205,8 @@
                     <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Message: </span><span class="si">%r</span><span class="se">\n</span><span class="s1">&#39;</span>
                                      <span class="s1">&#39;Arguments: </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span>
                                                           <span class="n">record</span><span class="o">.</span><span class="n">args</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>  <span class="c1"># See issue 36272</span>
+                    <span class="k">raise</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Unable to print the message and arguments&#39;</span>
                                      <span class="s1">&#39; - possible formatting error.</span><span class="se">\n</span><span class="s1">Use the&#39;</span>
@@ -1179,7 +1217,7 @@
             <span class="k">finally</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">t</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">tb</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">getLevelName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
 
@@ -1192,7 +1230,7 @@
 
     <span class="n">terminator</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the handler.</span>
 
@@ -1228,15 +1266,39 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
             <span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span>
-            <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminator</span><span class="p">)</span>
+            <span class="c1"># issue 35046: merged two stream.writes into one.</span>
+            <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">terminator</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>  <span class="c1"># See issue 36272</span>
+            <span class="k">raise</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handleError</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setStream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the StreamHandler&#39;s stream to the specified value,</span>
+<span class="sd">        if it is different.</span>
+
+<span class="sd">        Returns the old stream, if the stream was changed, or None</span>
+<span class="sd">        if it wasn&#39;t.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">getLevelName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
         <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1">#  bpo-36015: name can be an int</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
@@ -1246,7 +1308,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A handler class which writes formatted logging records to disk files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open the specified file and use it as the stream for logging.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1306,7 +1368,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">()</span>
         <span class="n">StreamHandler</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">getLevelName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseFilename</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
 
@@ -1317,7 +1379,7 @@
 <span class="sd">    whatever sys.stderr is currently set to rather than the value of</span>
 <span class="sd">    sys.stderr at handler construction time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the handler.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1341,7 +1403,7 @@
 <span class="sd">    the place of nodes for which no loggers have been defined. This class is</span>
 <span class="sd">    intended for internal use only and not as part of the public API.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alogger</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alogger</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize with the specified logger being a child of this placeholder.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1382,7 +1444,7 @@
 <span class="sd">    There is [under normal circumstances] just one Manager instance, which</span>
 <span class="sd">    holds the hierarchy of loggers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rootnode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rootnode</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the manager with the root node of the logger hierarchy.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1481,6 +1543,19 @@
                 <span class="n">alogger</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">parent</span>
                 <span class="n">c</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">alogger</span>
 
+    <span class="k">def</span> <span class="nf">_clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the cache for all loggers in loggerDict</span>
+<span class="sd">        Called when level changes are made</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">_acquireLock</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">logger</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggerDict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_releaseLock</span><span class="p">()</span>
+
 <span class="c1">#---------------------------------------------------------------------------</span>
 <span class="c1">#   Logger classes and functions</span>
 <span class="c1">#---------------------------------------------------------------------------</span>
@@ -1500,7 +1575,7 @@
 <span class="sd">    level, and &quot;input.csv&quot;, &quot;input.xls&quot; and &quot;input.gnu&quot; for the sub-levels.</span>
 <span class="sd">    There is no arbitrary limit to the depth of nesting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">NOTSET</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the logger with a name and an optional level.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1511,12 +1586,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="nf">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the logging level of this logger.  level must be an int or a str.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">_checkLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">_clear_cache</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1780,9 +1857,17 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Is this logger enabled for level &#39;level&#39;?</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">disable</span> <span class="o">&gt;=</span> <span class="n">level</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="n">level</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">_acquireLock</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">disable</span> <span class="o">&gt;=</span> <span class="n">level</span><span class="p">:</span>
+                <span class="n">is_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">level</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">is_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">level</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
+            <span class="n">_releaseLock</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">is_enabled</span>
 
     <span class="k">def</span> <span class="nf">getChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1803,9 +1888,17 @@
             <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">suffix</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">getLevelName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">())</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># In general, only the root logger will not be accessible via its name.</span>
+        <span class="c1"># However, the root logger&#39;s class has its own __reduce__ method.</span>
+        <span class="k">if</span> <span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pickle</span>
+            <span class="k">raise</span> <span class="n">pickle</span><span class="o">.</span><span class="n">PicklingError</span><span class="p">(</span><span class="s1">&#39;logger cannot be pickled&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">getLogger</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,)</span>
 
 
 <span class="k">class</span> <span class="nc">RootLogger</span><span class="p">(</span><span class="n">Logger</span><span class="p">):</span>
@@ -1814,11 +1907,14 @@
 <span class="sd">    it must have a logging level and there is only one instance of it in</span>
 <span class="sd">    the hierarchy.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the logger with the name &quot;root&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">getLogger</span><span class="p">,</span> <span class="p">()</span>
 
 <span class="n">_loggerClass</span> <span class="o">=</span> <span class="n">Logger</span>
 
@@ -1828,7 +1924,7 @@
 <span class="sd">    information in logging output.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">extra</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">extra</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the adapter with a logger and a dict-like object which</span>
 <span class="sd">        provides contextual information. This constructor signature allows</span>
@@ -1906,15 +2002,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
             <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">isEnabledFor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Is this logger enabled for level &#39;level&#39;?</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">disable</span> <span class="o">&gt;=</span> <span class="n">level</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="n">level</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1934,7 +2028,32 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level log implementation, proxied to allow nested logger adapters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span>
+            <span class="n">level</span><span class="p">,</span>
+            <span class="n">msg</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">exc_info</span><span class="o">=</span><span class="n">exc_info</span><span class="p">,</span>
+            <span class="n">extra</span><span class="o">=</span><span class="n">extra</span><span class="p">,</span>
+            <span class="n">stack_info</span><span class="o">=</span><span class="n">stack_info</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">manager</span>
+
+    <span class="nd">@manager</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">manager</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">getLevelName</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">())</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
@@ -2131,11 +2250,12 @@
         <span class="n">basicConfig</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">CRITICAL</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Disable all logging calls of severity &#39;level&#39; and below.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">root</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">disable</span> <span class="o">=</span> <span class="n">level</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">_clear_cache</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="n">handlerList</span><span class="o">=</span><span class="n">_handlerList</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

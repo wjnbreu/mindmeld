@@ -257,11 +257,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">..constants</span> <span class="k">import</span> <span class="n">DEFAULT_TRAIN_SET_REGEX</span>
-<span class="kn">from</span> <span class="nn">..markup</span> <span class="k">import</span> <span class="n">mark_down</span>
-<span class="kn">from</span> <span class="nn">..models</span> <span class="k">import</span> <span class="n">CLASS_LABEL_TYPE</span><span class="p">,</span> <span class="n">QUERY_EXAMPLE_TYPE</span>
-<span class="kn">from</span> <span class="nn">._config</span> <span class="k">import</span> <span class="n">get_classifier_config</span>
-<span class="kn">from</span> <span class="nn">.classifier</span> <span class="k">import</span> <span class="n">Classifier</span>
+<span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">DEFAULT_TRAIN_SET_REGEX</span>
+<span class="kn">from</span> <span class="nn">..markup</span> <span class="kn">import</span> <span class="n">mark_down</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">CLASS_LABEL_TYPE</span><span class="p">,</span> <span class="n">QUERY_EXAMPLE_TYPE</span>
+<span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="n">get_classifier_config</span>
+<span class="kn">from</span> <span class="nn">.classifier</span> <span class="kn">import</span> <span class="n">Classifier</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -278,7 +278,7 @@
     <span class="n">CLF_TYPE</span> <span class="o">=</span> <span class="s2">&quot;intent&quot;</span>
     <span class="sd">&quot;&quot;&quot;The classifier type.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_loader</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_loader</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes an intent classifier.</span>
 
 <span class="sd">        Args:</span>
